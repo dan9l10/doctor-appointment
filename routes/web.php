@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Hospital\UserController;
+use App\Http\Controllers\Hospital\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix'=>'hospital'],function (){
-   Route::resource('doctors',UserController::class);
+Route::group(['prefix'=>'hospital/admin'],function (){
+   Route::resource('users',UserController::class)->except('show')->names('users.admin');
 });
 
 Route::view('home', 'home')->middleware('auth');

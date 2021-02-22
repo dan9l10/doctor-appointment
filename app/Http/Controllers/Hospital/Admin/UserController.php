@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Hospital;
+namespace App\Http\Controllers\Hospital\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,9 +16,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
 
-        return view('hospital.doctors',compact('users'));
+        $users = DB::table('users')
+            ->join('members', 'users.id','=', 'members.user_id')
+            ->join('roles','members.id_role','=','roles.id')
+            ->select(['users.id','users.name','users.email','roles.name as role'])->orderBy('id')->paginate(10);
+        return view('hospital.admin.users.index',compact('users'));
     }
 
     /**
