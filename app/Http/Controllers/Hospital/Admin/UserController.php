@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hospital\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,12 +17,14 @@ class UserController extends Controller
      */
     public function index()
     {
+        //SELECT users.name,roles.name,model_has_roles.model_id FROM users INNER JOIN model_has_roles on model_has_
+        //roles.c=users.id INNER JOIN roles on roles.id=model_has_roles.model_id
 
         $users = DB::table('users')
-            ->join('members', 'users.id','=', 'members.user_id')
-            ->join('roles','members.id_role','=','roles.id')
+            ->join('model_has_roles','model_has_roles.model_id','=','users.id')
+            ->join('roles','roles.id','=','model_has_roles.role_id')
             ->select(['users.id','users.name','users.email','roles.name as role'])->orderBy('id')->paginate(10);
-        return view('hospital.admin.users.index',compact('users'));
+        return view('hospital.admin.users.index',compact('users'));//
     }
 
     /**

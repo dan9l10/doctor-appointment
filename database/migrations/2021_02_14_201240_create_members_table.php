@@ -18,9 +18,9 @@ class CreateMembersTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->integer('id_role')->unsigned();
+            /*$table->integer('id_role')->unsigned();
 
-            $table->foreign('id_role')->references('id')->on('roles');
+            $table->foreign('id_role')->references('id')->on('roles');*/
 
             $table->integer('id_card')->unsigned()->nullable();
 

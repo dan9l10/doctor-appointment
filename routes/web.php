@@ -18,8 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix'=>'hospital/admin'],function (){
-   Route::resource('users',UserController::class)->except('show')->names('users.admin');
+Route::prefix('hospital/admin')->group(function () {
+    Route::group(['middleware'=>['role:admin']],function (){
+        Route::resource('users',UserController::class)->except('show')->names('users.admin');
+    });
 });
+
 
 Route::view('home', 'home')->middleware('auth');
