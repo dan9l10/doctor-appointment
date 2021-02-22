@@ -24,7 +24,7 @@ class MemberFactory extends Factory
     {
         return [
             'user_id'=>rand(1,10),
-            'id_role'=>rand(1,4),
+            //'id_role'=>rand(1,4),
         	'id_spec'=>rand(1,14),
             'created_at'=>now(),
             'updated_at'=>now(),

@@ -19,8 +19,10 @@ class RoleTableSeeder extends Seeder
         foreach ($roles as $role) {
             $data[] = [
                 'name' => $role,
+                'guard_name' =>'web',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
+
             ];
         }
         DB::table('roles')->insert($data);
