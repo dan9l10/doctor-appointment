@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('hospital.admin.layouts.admin_app')
 
 @section('content')
-    <a class="btn btn-primary" href="{{ route('users.admin.create') }}">Добавить</a>
+    <a class="btn btn-primary mt-4" href="{{ route('users.admin.create') }}">Добавить</a>
 
     <table class="table table-hover mt-2">
     <tbody>
