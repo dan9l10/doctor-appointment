@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -25,6 +26,7 @@ class UserController extends Controller
             ->join('roles','roles.id','=','model_has_roles.role_id')
             ->select(['users.id','users.name','users.email','roles.name as role'])->orderBy('id')->paginate(10);
         return view('hospital.admin.users.index',compact('users'));//
+
     }
 
     /**
@@ -63,11 +65,12 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        $roles = DB::table('roles')->select('name as role')->orderBy('id')->get();
+        return view('hospital.admin.users.edit_user',compact('roles'));
     }
 
     /**

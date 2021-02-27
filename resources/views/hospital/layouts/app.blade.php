@@ -53,8 +53,8 @@
                 <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Fri)</span>
                 <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">info@company.com</a></span>
                 @guest
-                    <span class="login-icon"><i class="fa"></i> <a href="#">Login</a></span>
-                    <span class="register-icon"><i class="fa"></i> <a href="#">Register</a></span>
+                    <span class="login-icon"><i class="fa"></i> <a href="{{route('login')}}">Login</a></span>
+                    <span class="register-icon"><i class="fa"></i> <a href="{{route('register')}}">Register</a></span>
                 @else
 
                 @endguest
@@ -108,6 +108,7 @@
                                document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
+
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
