@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('hospital.index');
+})->name('root');
+
 
 Route::prefix('hospital/admin')->group(function () {
     Route::group(['middleware'=>['role:admin']],function (){
@@ -27,5 +28,5 @@ Route::prefix('hospital/admin')->group(function () {
     });
 });
 
-
+Route::view('/appointment','hospital.appointment.index')->middleware('auth')->name('patient.appointment');
 Route::view('home', 'home')->middleware('auth');
