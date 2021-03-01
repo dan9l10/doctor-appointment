@@ -45,16 +45,16 @@
         <div class="row">
 
             <div class="col-md-4 col-sm-5">
-                <p>Welcome to a Professional Health Care</p>
+                <p>Добро пожаловать</p>
             </div>
 
             <div class="col-md-8 col-sm-7 text-align-right">
-                <span class="phone-icon"><i class="fa fa-phone"></i> 010-060-0160</span>
-                <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Fri)</span>
+                <span class="phone-icon"><i class="fa fa-phone"></i> +380-67-111-333</span>
+                <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 9:00 - 18:00 (Пн-Сб)</span>
                 <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">info@company.com</a></span>
                 @guest
-                    <span class="login-icon"><i class="fa"></i> <a href="{{route('login')}}">Login</a></span>
-                    <span class="register-icon"><i class="fa"></i> <a href="{{route('register')}}">Register</a></span>
+                    <span class="login-icon"><i class="fa"></i> <a href="{{route('login')}}">Войти</a></span>
+                    <span class="register-icon"><i class="fa"></i> <a href="{{route('register')}}">Зарегестрироваться</a></span>
                 @else
 
                 @endguest
@@ -82,12 +82,12 @@
         <!-- MENU LINKS -->
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#top" class="smoothScroll">Home</a></li>
-                <li><a href="#about" class="smoothScroll">About Us</a></li>
-                <li><a href="#team" class="smoothScroll">Doctors</a></li>
-                <li><a href="#news" class="smoothScroll">News</a></li>
-                <li><a href="#google-map" class="smoothScroll">Contact</a></li>
-                <li class="appointment-btn"><a href="{{route('patient.appointment')}}">Make an appointment</a></li>
+                <li><a href="#top" class="smoothScroll">Домашняя страница</a></li>
+                <li><a href="#about" class="smoothScroll">Про нас</a></li>
+                <li><a href="#team" class="smoothScroll">Врачи</a></li>
+                <li><a href="#news" class="smoothScroll">Новости</a></li>
+                <li><a href="#google-map" class="smoothScroll">Контакты</a></li>
+                <li class="appointment-btn"><a href="">Запись на прием</a></li>
                 @guest
 
                 @else
@@ -95,12 +95,12 @@
 
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
+                           Здравствуйте, {{ Auth::user()->name }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                            <a class="dropdown-item" href="{{ route('logout') }}">
+                            <a class="dropdown-item" href="{{ route('user.profile',Auth::user()->id) }}">
                                 {{ __('Profile') }}
                             </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
@@ -115,12 +115,9 @@
                             </form>
                         </div>
                     </li>
-
                 @endguest
-
             </ul>
         </div>
-
     </div>
 </section>
 
@@ -155,7 +152,7 @@
                         <a href="#">Laboratory Tests</a>
                         <a href="#">Departments</a>
                         <a href="#">Insurance Policy</a>
-                        <a href="#">Careers</a>
+                        <a href="#">Вакансии</a>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 text-align-center">
