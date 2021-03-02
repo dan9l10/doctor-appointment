@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Hospital\Admin;
 
+use App\Actions\Fortify\UpdateUserPassword;
+use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
@@ -112,6 +114,7 @@ class UserController extends Controller
     {
 
         $user = User::find($id);
+        $pass = $user->password;
 
         if(empty($user)) {
             return back()->withErrors(['msg' => "Record with id[$id] not found"])->withInput();
@@ -126,7 +129,10 @@ class UserController extends Controller
         $user->email=$request->get('email');
         if(!empty($request->get('password'))){
             $user->password=Hash::make($request->get('password'));
+        }else{
+            $user->password=$pass;
         }
+
 
         $user->assignRole("{$request->get('role')}");
 

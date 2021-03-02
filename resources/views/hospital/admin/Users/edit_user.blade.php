@@ -2,14 +2,9 @@
 
 @section('content')
     <div class="container">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <strong>Error!</strong>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li></li>
-                    @endforeach
-                </ul>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p></p>
             </div>
         @endif
     <form class="ml-2" method="post" action="{{route('users.admin.update',$userEdit->id)}}">
