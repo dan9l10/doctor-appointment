@@ -93,6 +93,7 @@
                 @else
 
 
+
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                            Здравствуйте, {{ Auth::user()->name }}
@@ -101,12 +102,12 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                             <a class="dropdown-item" href="{{ route('user.profile',Auth::user()->id) }}">
-                                {{ __('Profile') }}
+                                Профиль
                             </a>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            <a class="dropdown-item font-weight-bold" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                Выход
                             </a>
 
 
@@ -115,6 +116,7 @@
                             </form>
                         </div>
                     </li>
+
                 @endguest
             </ul>
         </div>

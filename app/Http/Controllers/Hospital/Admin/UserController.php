@@ -119,21 +119,18 @@ class UserController extends Controller
         if(empty($user)) {
             return back()->withErrors(['msg' => "Record with id[$id] not found"])->withInput();
         }
+        //dd(!empty($request->get('password')));
         $request->validate([
             'name'=>'required',
             'email'=>'required|email',
-            'password'=>'required',
         ]);
 
         $user->name=$request->get('name');
         $user->email=$request->get('email');
+
         if(!empty($request->get('password'))){
             $user->password=Hash::make($request->get('password'));
-        }else{
-            $user->password=$pass;
         }
-
-
         $user->assignRole("{$request->get('role')}");
 
         $result=$user->save();
