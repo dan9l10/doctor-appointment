@@ -1,44 +1,70 @@
 @extends('hospital.admin.layouts.admin_app')
 
 @section('content')
-    <form class="ml-2" method="post" action="#">
+    <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Error!</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li></li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    <form class="ml-2" method="post" action="{{route('users.admin.update',$userEdit->id)}}">
         @method('PATCH')
         @csrf
         <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Email</label>
+                <input name="email" type="email" class="form-control" id="inputEmail4" value="{{$userEdit->email}}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Password</label>
+                <input  name="password" type="password" class="form-control" id="inputPassword4" placeholder="Password">
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            <label for="inputPassword4">Password</label>
-            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputName">Name</label>
+                <input name="name" type="text" class="form-control" id="inputName" value="{{$userEdit->name}}">
+            </div>
         </div>
         <div class="form-group">
             <label for="inputAddress">Address</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+            <input name="address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity">
+                <input name="city" type="text" class="form-control" id="inputCity">
             </div>
             <div class="form-group col-md-4">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control">
+                <label for="inputRole">Role</label>
+                <select name="role" id="inputRole" class="form-control">
                     @foreach($roles as $role)
                     <option value="{{$role->role}}">{{$role->role}}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group col-md-2">
-                <label for="inputZip">Zip</label>
-                <input type="text" class="form-control" id="inputZip">
+                <label for="inputZip">DOB</label>
+                <input name="DOB" type="date" class="form-control ui-datepicker" id="inputZip">
             </div>
+            @if(($userEdit->role)=='doctor')
+            <div class="form-group col-md-2">
+                <label for="inputZip">Specials</label>
+                <select>
+                    <option>TERAPEVT</option>
+                </select>
+            </div>
+            @endif
         </div>
         <div class="form-group">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    </div>
 
 @endsection

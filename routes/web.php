@@ -22,7 +22,7 @@ Route::get('/', function () {
 })->name('root');
 
 
-Route::prefix('hospital/admin')->group(function () {
+Route::prefix('admin')->group(function () {
     Route::group(['middleware'=>['role:admin']],function (){
         Route::resource('users',UserController::class)->except('show')->names('users.admin');
         Route::get('/panel', [HomeController::class,'index'])->name('admin.panel');

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -32,22 +33,45 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        $specials = DB::table('specials')->select(['id','name'])->get();
+        $roles = DB::table('roles')->select('name')->get();
+        return view('hospital.admin.users.add_doctor',compact('specials','roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name'=>'required:50',
+            'email'=>'required|email',
+            'password'=>'required|min:8',
+            'role'=>'required'
+        ]);
+
+        $user = new User([
+            'password'=>Hash::make($request->get('password')),
+            'email'=>$request->get('email'),
+            'name'=>$request->get('name'),
+        ]
+        );
+        $user->assignRole("{$request->get('role')}");
+        $result = $user->save();
+
+        if($result){
+            return redirect()->route('users.admin.index')
+                ->with(['success'=>'Data added']);
+        }
+
     }
 
     /**
@@ -69,8 +93,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $roles = DB::table('roles')->select('name as role')->orderBy('id')->get();
-        return view('hospital.admin.users.edit_user',compact('roles'));
+        $userEdit = DB::table('users')
+            ->join('model_has_roles','model_has_roles.model_id','=','users.id')
+            ->join('roles','roles.id','=','model_has_roles.role_id')
+            ->select(['users.id as id','users.email as email','roles.name as role','users.name as name'])->where('users.id','=',$id)->orderBy('id')->get()->first();
+        $roles = DB::table('roles')->select(['name as role'])->orderBy('id')->get();
+        return view('hospital.admin.users.edit_user',compact('roles','userEdit'));
     }
 
     /**
@@ -78,21 +106,59 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $user = User::find($id);
+
+        if(empty($user)) {
+            return back()->withErrors(['msg' => "Record with id[$id] not found"])->withInput();
+        }
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required|email',
+            'password'=>'required',
+        ]);
+
+        $user->name=$request->get('name');
+        $user->email=$request->get('email');
+        if(!empty($request->get('password'))){
+            $user->password=Hash::make($request->get('password'));
+        }
+
+        $user->assignRole("{$request->get('role')}");
+
+        $result=$user->save();
+
+        if($result){
+            return redirect()->route('users.admin.edit',$id)
+                ->with(['success'=>'Data added']);
+        }else{
+            return back()->withErrors(['msg'=>'Error with add'])->withInput();
+        }
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $user = User::where('id',$id);
+        $result = $user->delete();
+
+
+        if($result){
+            return redirect()->route('users.admin.index')
+                ->with(['success'=>'User deleted']);
+        }else{
+            return back()->withErrors(['msg'=>'Error with delete'])->withInput();
+        }
+
     }
 }
