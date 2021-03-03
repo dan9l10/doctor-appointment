@@ -22,6 +22,8 @@ class CreateRecipesTable extends Migration
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('members');
 
+            $table->text('signature');
+            $table->text('drug');
             $table->text('description');
 
             $table->timestamps();

@@ -24,6 +24,11 @@ class CreateMeetsTable extends Migration
 
             $table->time('time');
             $table->date('date');
+
+            $table->string('complaint')->nullable();
+            $table->string('diagnosis')->nullable();
+
+
             $table->boolean('status')->default(0);
 
 
