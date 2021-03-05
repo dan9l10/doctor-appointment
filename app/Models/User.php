@@ -38,4 +38,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     * A profile belongs to a member.
+     *
+     * @return mixed
+     */
+    public function member()
+    {
+        return $this->hasOne(\App\Models\Member::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Hospital\Admin;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Http\Controllers\Controller;
+use App\Models\Member;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -55,7 +56,7 @@ class UserController extends Controller
 
         $request->validate([
             'name'=>'required:50',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:users',
             'password'=>'required|min:8',
             'role'=>'required'
         ]);
@@ -66,8 +67,14 @@ class UserController extends Controller
             'name'=>$request->get('name'),
         ]
         );
+        $member = new Member([
+            'id_spec'=>$request->get('special'),
+        ]);
+
         $user->assignRole("{$request->get('role')}");
         $result = $user->save();
+        $user->member()->save($member);
+
 
         if($result){
             return redirect()->route('users.admin.index')
