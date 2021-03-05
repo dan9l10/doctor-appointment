@@ -15,36 +15,15 @@
                     </div>
 
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-warning pull-right r-activity">9</span></a></li>
                         <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                        <li><a href="#"> <i class="fa fa-edit"></i> Appointment</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="profile-info col-md-9">
-                <div class="panel">
-                    <form>
-                        <textarea placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
-                    </form>
-                    <footer class="panel-footer">
-                        <button class="btn btn-warning pull-right">Post</button>
-                        <ul class="nav nav-pills">
-                            <li>
-                                <a href="#"><i class="fa fa-map-marker"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-camera"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class=" fa fa-film"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-microphone"></i></a>
-                            </li>
-                        </ul>
-                    </footer>
-                </div>
-                <div class="panel">
+
+                <div class="panel profile-info col-md-9">
                     <div class="bio-graph-heading">
                         Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
                     </div>
@@ -78,9 +57,9 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="col-md-9 panel">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 card">
                             <div class="panel">
                                 <div class="panel-body">
                                     <div class="bio-chart">
@@ -94,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 card">
                             <div class="panel">
                                 <div class="panel-body">
                                     <div class="bio-chart">
@@ -108,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 card">
                             <div class="panel">
                                 <div class="panel-body">
                                     <div class="bio-chart">
@@ -116,20 +95,6 @@
                                     </div>
                                     <div class="bio-desk">
                                         <h4 class="green">VectorLab Portfolio</h4>
-                                        <p>Started : 15 July</p>
-                                        <p>Deadline : 15 August</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="panel">
-                                <div class="panel-body">
-                                    <div class="bio-chart">
-                                        <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="50" data-fgcolor="#cba4db" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(203, 164, 219); padding: 0px; -webkit-appearance: none; background: none;"></div>
-                                    </div>
-                                    <div class="bio-desk">
-                                        <h4 class="purple">Adobe Muse Template</h4>
                                         <p>Started : 15 July</p>
                                         <p>Deadline : 15 August</p>
                                     </div>
