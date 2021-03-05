@@ -34,7 +34,7 @@ class CreateNewUser implements CreatesNewUsers
         $user->assignRole('patient');
 
         $member = new Member();
-        $user->member()->save($member);
+        $user->members()->save($member);
 
 
         return $user;

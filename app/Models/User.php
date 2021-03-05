@@ -43,8 +43,23 @@ class User extends Authenticatable
      *
      * @return mixed
      */
-    public function member()
+    public function members()
     {
-        return $this->hasOne(\App\Models\Member::class);
+        return $this->hasOne(Member::class);
     }
+    /**
+     * A profile belongs to a specials.
+     *
+     * @return mixed
+     */
+    public function specials(){
+        return $this->belongsToMany(Special::class,'members','user_id','id_spec');
+    }
+
+
+
+
+
+
+
 }

@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Hospital\Admin\HomeController;
 use App\Http\Controllers\Hospital\Admin\UserController;
+use App\Http\Controllers\Hospital\User\DoctorController;
 use App\Http\Controllers\Hospital\User\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,16 +23,23 @@ Route::get('/', function () {
 })->name('root');
 
 
-Route::prefix('admin')->group(function () {
+Route::prefix('/admin')->group(function () {
     Route::group(['middleware'=>['role:admin']],function (){
         Route::resource('users',UserController::class)->except('show')->names('users.admin');
         Route::get('/panel', [HomeController::class,'index'])->name('admin.panel');
     });
 });
 
-Route::get('/hospital/profile/{id}',[ProfileController::class,'index'])->name('user.profile')->middleware('auth');
+Route::group(['middleware'=>'auth'],function (){
+    Route::get('/hospital/profile/{id}',[ProfileController::class,'index'])->name('user.profile');//->middleware('auth');
+});
+Route::prefix('/hospital')->group(function () {
+    Route::get('/doctors',[DoctorController::class,'index'])->name('doctors');
+
+});
+
 //Route::get('/appointment/user/{id}',[ProfileController::class,'index'])->name('user.profile')->middleware('auth');
 
 //Route::view('/appointment','hospital.appointment.index')->middleware('auth')->name('patient.appointment');
 
-Route::view('home', 'home')->middleware('auth');
+
