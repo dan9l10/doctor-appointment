@@ -21,14 +21,18 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:60'],
+            'last_name' => ['required', 'string', 'max:60'],
+            'patronymic' => ['required', 'string', 'max:60'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
         ])->validate();
 
         $user = User::create([
             'name' => $input['name'],
+            'last_name' => $input['last_name'],
             'email' => $input['email'],
+            'patronymic'=>$input['patronymic'],
             'password' => Hash::make($input['password']),
         ]);
         $user->assignRole('patient');
