@@ -7,6 +7,7 @@ use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\Role;
+use App\Models\Special;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,7 +74,7 @@ class UserController extends Controller
 
         $user->assignRole("{$request->get('role')}");
         $result = $user->save();
-        $user->member()->save($member);
+        $user->members()->save($member);
 
 
         if($result){
@@ -81,17 +82,6 @@ class UserController extends Controller
                 ->with(['success'=>'Data added']);
         }
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -106,8 +96,9 @@ class UserController extends Controller
             ->join('model_has_roles','model_has_roles.model_id','=','users.id')
             ->join('roles','roles.id','=','model_has_roles.role_id')
             ->select(['users.id as id','users.email as email','roles.name as role','users.name as name'])->where('users.id','=',$id)->orderBy('id')->get()->first();
-        $roles = DB::table('roles')->select(['name as role'])->orderBy('id')->get();
-        return view('hospital.admin.users.edit_user',compact('roles','userEdit'));
+        $roles = Role::all(['id','name']);
+        $specials = Special::all(['id','name']);
+        return view('hospital.admin.users.edit_user',compact('roles','userEdit','specials'));
     }
 
     /**
@@ -121,12 +112,11 @@ class UserController extends Controller
     {
 
         $user = User::find($id);
-        $pass = $user->password;
 
         if(empty($user)) {
             return back()->withErrors(['msg' => "Record with id[$id] not found"])->withInput();
         }
-        //dd(!empty($request->get('password')));
+
         $request->validate([
             'name'=>'required',
             'email'=>'required|email',
@@ -138,10 +128,11 @@ class UserController extends Controller
         if(!empty($request->get('password'))){
             $user->password=Hash::make($request->get('password'));
         }
+
         $user->assignRole("{$request->get('role')}");
-
+        $user->members->id_spec=$request->get('special');
+        $user->members->save();
         $result=$user->save();
-
         if($result){
             return redirect()->route('users.admin.edit',$id)
                 ->with(['success'=>'Data added']);
@@ -159,9 +150,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::where('id',$id);
-        $result = $user->delete();
-
+        $user = User::findOrFail($id);
+        $result = $user->members()->delete();
+        $user->delete();
 
         if($result){
             return redirect()->route('users.admin.index')

@@ -16,8 +16,9 @@ class DoctorController extends Controller
      */
     public function index()
     {
+        $doctorInfo = User::role('doctor')->with('specials')->get();;
 
-        $doctorInfo = User::with('specials')->get();
+        //$doctorInfo = User::with('specials')->get();
         return view('hospital.doctors.index',compact('doctorInfo'));
 
     }

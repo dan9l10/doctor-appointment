@@ -39,7 +39,7 @@
                 <label for="inputRole">Role</label>
                 <select name="role" id="inputRole" class="form-control">
                     @foreach($roles as $role)
-                    <option value="{{$role->role}}">{{$role->role}}</option>
+                    <option value="{{$role->id}}">{{$role->name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -49,9 +49,11 @@
             </div>
             @if(($userEdit->role)=='doctor')
             <div class="form-group col-md-2">
-                <label for="inputZip">Specials</label>
-                <select>
-                    <option>TERAPEVT</option>
+                <label for="special">Specials</label>
+                <select name="special">
+                    @foreach($specials as $special)
+                        <option value="{{$special->id}}">{{$special->name}}</option>
+                    @endforeach
                 </select>
             </div>
             @endif
