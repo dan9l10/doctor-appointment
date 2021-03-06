@@ -56,7 +56,7 @@ class UserController extends Controller
     {
 
         $request->validate([
-            'name'=>'required:50',
+            'name'=>'required|max:60',
             'email'=>'required|email|unique:users',
             'password'=>'required|min:8',
             'role'=>'required'
@@ -66,6 +66,8 @@ class UserController extends Controller
             'password'=>Hash::make($request->get('password')),
             'email'=>$request->get('email'),
             'name'=>$request->get('name'),
+            'last_name' => $request->get('last_name'),
+            'patronymic' => $request->get('patronymic'),
         ]
         );
         $member = new Member([
@@ -95,7 +97,7 @@ class UserController extends Controller
         $userEdit = DB::table('users')
             ->join('model_has_roles','model_has_roles.model_id','=','users.id')
             ->join('roles','roles.id','=','model_has_roles.role_id')
-            ->select(['users.id as id','users.email as email','roles.name as role','users.name as name'])->where('users.id','=',$id)->orderBy('id')->get()->first();
+            ->select(['users.id as id','users.last_name','users.patronymic','users.email as email','roles.name as role','users.name as name'])->where('users.id','=',$id)->orderBy('id')->get()->first();
         $roles = Role::all(['id','name']);
         $specials = Special::all(['id','name']);
         return view('hospital.admin.users.edit_user',compact('roles','userEdit','specials'));
@@ -124,6 +126,8 @@ class UserController extends Controller
 
         $user->name=$request->get('name');
         $user->email=$request->get('email');
+        $user->last_name=$request->get('last_name');
+        $user->patronymic=$request->get('patronymic');
 
         if(!empty($request->get('password'))){
             $user->password=Hash::make($request->get('password'));

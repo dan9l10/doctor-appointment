@@ -21,13 +21,28 @@
                 <input name="email" type="email" class="form-control" id="inputEmail4" placeholder="Email">
             </div>
             <div class="form-group col-md-6">
-                <label for="inputPassword4">Password</label>
+                <label for="inputPassword4">Пароль</label>
                 <input name="password" type="password" class="form-control" id="inputPassword4" placeholder="Password">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputRole">Role</label>
+                <label for="inputName">Имя</label>
+                <input name="name" type="text" class="form-control" id="inputName" placeholder="Your name">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="last_name">Фамилия</label>
+                <input name="last_name" id="last_name" class="form-control" >
+            </div>
+            <div class="form-group col-md-6">
+                <label for="patronymic">Отчество</label>
+                <input name="patronymic" type="text" class="form-control" id="patronymic">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputRole">Роль</label>
                 <select name="role" id="inputRole" class="form-control" >
                     @foreach($roles as $role)
                         <option value="{{$role->name}}">{{$role->name}}</option>
@@ -35,21 +50,7 @@
                 </select>
             </div>
 
-        </div>
-        <div class="form-group">
-            <label for="inputName">Name</label>
-            <input name="name" type="text" class="form-control" id="inputName" placeholder="Your name">
-        </div>
-        <div class="form-group">
-            <label for="inputAddress2">Phone number</label>
-            <input name="phone_number" type="number" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-        </div>
-        <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputCity">City</label>
-                <input name="city" type="text" class="form-control" id="inputCity">
-            </div>
-            <div class="form-group col-md-4">
                 <label for="inputState">Special</label>
                 <select name="special" id="inputState" class="form-control">
                     @foreach($specials as $special)
@@ -57,6 +58,19 @@
                     @endforeach
                 </select>
             </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="inputAddress2">Номер телефона</label>
+            <input name="phone_number" type="number" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input name="city" type="text" class="form-control" id="inputCity">
+            </div>
+
             <div class="form-group col-md-2">
                 <label for="inputZip">Zip</label>
                 <input type="text" class="form-control" id="inputZip">
