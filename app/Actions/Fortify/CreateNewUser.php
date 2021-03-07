@@ -37,7 +37,15 @@ class CreateNewUser implements CreatesNewUsers
         ]);
         $user->assignRole('patient');
 
-        $member = new Member();
+        $member = new Member([
+            'phone'=>$input['phone'],
+            'male'=>$input['male'],
+            'address'=>$input['address'],
+            'city'=>$input['city'],
+            'DOB'=>$input['DOB'],
+            'weight'=>$input['weight'],
+            'rise'=>$input['rise'],
+        ]);
         $user->members()->save($member);
 
 

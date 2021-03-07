@@ -1,110 +1,82 @@
-@extends('hospital.layouts.app')
+<!-- MultiStep Form -->
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header ">{{ __('Register') }}</div>
+<link href="/auth/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/auth/auth.css">
+<div class="page-header text-center">
+    <h1 >Create your account</h1>
+</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Имя') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Фамилия') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
-
-                                @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="patronymic" class="col-md-4 col-form-label text-md-right">{{ __('Отчество') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="patronymic" type="text" class="form-control @error('patronymic') is-invalid @enderror" name="patronymic" value="{{ old('patronymic') }}" required autocomplete="patronymic" autofocus>
-
-                                @error('patronymic')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+<div class="container col-md-offset-3">
 
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail адрес') }}</label>
+    <div class="row">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+        <div class="col-md-9">
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+            <form id="msform" action="{{route('register')}}" method="POST">
+            @csrf
+            <!-- progressbar -->
+                <ul id="progressbar">
+                    <li class="active">Personal Details</li>
+                    <li>Parameters</li>
+                    <li>Account Setup</li>
+                </ul>
+                <!-- fieldsets -->
+                <fieldset>
+                    <h2 class="fs-title">Personal Details</h2>
+                    @foreach ($errors->all() as $message)
+                        <span class="invalid-feedback color text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @endforeach
+                    <input type="text" name="name" placeholder="First Name" value="{{ old('name') }}"/>
+                    <input type="text" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}"/>
+                    <input type="text" name="patronymic" placeholder="Patronymic "  value="{{ old('patronymic') }}"/>
+                    <input type="text" name="phone" placeholder="Phone"  value="{{ old('phone') }}"/>
+                    <input type="text" name="city" placeholder="City"  value="{{ old('city') }}"/>
+                    <input type="text" name="address" placeholder="Address"  value="{{ old('address') }}"/>
+                    <select name="male">
+                        <option value="">Select your male</option>
+                        <option value="Man">Man</option>
+                        <option value="Woman">Woman</option>
+                    </select>
+                    <input type="date" name="DOB" class="ui-datepicker" placeholder="Date of birth"  value="{{ old('DOB') }}">
+                    <input type="file" name="avatar" placeholder="Select photo"  value="{{ old('avatar') }}">
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Пароль') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Подтвердите пароль') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                                <a href="{{url()->previous()}}" class="btn">
-                                    {{ __('Назад') }}
-                                </a>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
+                    <input type="button" name="next" class="next action-button" value="Next"/>
+                </fieldset>
+                <fieldset>
+                    <h3 class="fs-subtitle">Fill in your credentials</h3>
+                    <input type="text" name="rise" placeholder="Rise" value="{{ old('rise') }}"/>
+                    <input type="text" name="weight" placeholder="Weight" value="{{ old('weight') }}"/>
+                    <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                    <input type="button" name="next" class="next action-button" value="Next"/>
+                </fieldset>
+                <fieldset>
+                    <h2 class="fs-title">Create your account</h2>
+                    <h3 class="fs-subtitle">Fill in your credentials</h3>
+                    <input type="text" name="email" placeholder="Email" value="{{ old('email') }}"/>
+                    <input type="password" name="password" placeholder="Password"/>
+                    <input type="password" id="password-confirm" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password"/>
+                    <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                    <button type="submit" class="btn">
+                        {{ __('Register') }}
+                    </button>
+                </fieldset>
+            </form>
+            <!-- link to designify.me code snippets -->
+            <div class="dme_link">
+                <p><a href="{{route('root')}}">Go Back</a></p>
             </div>
+
+            <!-- /.link to designify.me code snippets -->
         </div>
     </div>
+
 </div>
-@endsection
+<!-- /.MultiStep Form -->
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<script src="/auth/bootstrap/js/bootstrap.min.js"></script>
+<script src="/auth/auth.js"></script>
+
