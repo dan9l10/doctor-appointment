@@ -40,6 +40,17 @@ class Member extends Authenticatable
     {
         return $this->belongsTo(User::class);
     }
+    /**
+     * A profile belongs to a times.
+     *
+     * @return mixed
+     */
+    public function times()
+    {
+        return $this->hasOneThrough(Appointment::class, Time::class,'appointment_id','doc_id');
+    }
+
+
 
 
 
