@@ -3,13 +3,7 @@
 <head>
 
     <title>@yield('title')</title>
-    <!--
-    Health - Medical Website Template
-    Template 2098 Health
 
-    http://www.tooplate.com/view/2098-health
-
-    -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="description" content="">
@@ -87,7 +81,7 @@
                 <li><a href="#team" class="smoothScroll">Врачи</a></li>
                 <li><a href="#news" class="smoothScroll">Новости</a></li>
                 <li><a href="#google-map" class="smoothScroll">Контакты</a></li>
-                <li class="appointment-btn"><a href="">Запись на прием</a></li>
+                <li class="appointment-btn"><a href="{{route('doctors.show')}}">Запись на прием</a></li>
                 @guest
 
                 @else

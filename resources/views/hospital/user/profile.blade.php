@@ -18,7 +18,7 @@
                         <li><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-warning pull-right r-activity">9</span></a></li>
                         <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>
-                        <li><a href="#"> <i class="fa fa-edit"></i> Appointment</a></li>
+                        <li><a href="{{route('doctors.show')}}"> <i class="fa fa-edit"></i> Appointment</a></li>
                     </ul>
                 </div>
             </div>
@@ -34,25 +34,25 @@
                                 <p><span>First Name </span>: {{$userInfo->name}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Last Name </span>: Smith</p>
+                                <p><span>Last Name </span>: {{$userInfo->last_name}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Country </span>: </p>
+                                <p><span>Country </span>: {{$userInfo->members->city}} {{$userInfo->members->address}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Birthday</span>: {{$userInfo->DOB}}</p>
+                                <p><span>Birthday</span>: {{$userInfo->members->DOB}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Occupation </span>: </p>
+                                <p><span>Email </span>: {{$userInfo->email}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Email </span>: jsmith@flatlab.com</p>
+                                <p><span>Mobile </span>: {{$userInfo->members->phone}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Mobile </span>: (12) 03 4567890</p>
+                                <p><span>Rise </span>: {{$userInfo->members->rise}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Phone </span>: 88 (02) 123456</p>
+                                <p><span>Rise </span>: {{$userInfo->members->weight}}</p>
                             </div>
                         </div>
                     </div>

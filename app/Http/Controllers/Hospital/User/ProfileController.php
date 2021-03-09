@@ -16,7 +16,7 @@ class ProfileController extends Controller
      */
     public function index($id)
     {
-        $userInfo = User::findOrFail($id);
+        $userInfo = User::with('members')->findOrFail($id);
         //dd($userInfo);
         return view('hospital.user.profile',compact('userInfo'));
 
