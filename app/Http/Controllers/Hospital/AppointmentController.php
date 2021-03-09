@@ -16,7 +16,8 @@ class AppointmentController extends Controller
     public function index($id)
     {
 
-        $appointments=Member::with('appointments')->with('user')->with('times')->where('user_id',$id)->get();
+        $appointments=Member::with('appointments')->with('user')->with('times')->where('user_id',$id)
+            ->first();
 
         return view('hospital.appointment.index',compact('appointments'));
     }
