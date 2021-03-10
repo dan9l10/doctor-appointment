@@ -56,11 +56,4 @@ class User extends Authenticatable
         return $this->belongsToMany(Special::class,'members','user_id','id_spec');
     }
 
-
-
-
-
-
-
-
 }

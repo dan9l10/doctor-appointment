@@ -47,7 +47,7 @@ class Member extends Authenticatable
      */
     public function times()
     {
-        return $this->hasManyThrough(Time::class, Appointment::class,'doc_id','appointment_id')->where('times.status','=','0');;
+        return $this->hasManyThrough(Time::class, Appointment::class,'doc_id','appointment_id')->where('times.status','=','0');
     }
     /**
      * A profile belongs to a appointment.
@@ -65,9 +65,6 @@ class Member extends Authenticatable
     public function specials(){
         return $this->belongsTo(Special::class,'id_spec');
     }
-
-
-
 
 
 }

@@ -34,15 +34,11 @@ Route::prefix('/admin')->group(function () {
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/hospital/profile/{id}',[ProfileController::class,'index'])->name('user.profile');//->middleware('auth');
 });
+
 Route::prefix('/hospital')->group(function () {
     Route::get('/doctors',[DoctorController::class,'index'])->name('doctors.show');
     Route::get('/appointments/{id}',[AppointmentController::class,'index'])->name('appointment.index');
-
-
 });
 
-//Route::get('/appointment/user/{id}',[ProfileController::class,'index'])->name('user.profile')->middleware('auth');
-
-//Route::view('/appointment','hospital.appointment.index')->middleware('auth')->name('patient.appointment');
 
 
