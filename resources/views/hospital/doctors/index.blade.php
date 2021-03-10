@@ -21,18 +21,18 @@
             align-content: end;
         }
     </style>
-    <div style="margin: 10px" class="row justify-content-around">
-        <div class="row no-gutters mx-4">
+    <div class="container " style="margin-top: 60px;">
+        <div class="row no-gutters">
             <div class="col-md-4">
-                <div class="col-md-offset-6">
+                <div class="col-md-6">
                     col-sm-4
                 </div>
             </div>
             <div class="col-md-8">
                 @foreach($doctorInfo as $doctor)
-                    <div class="container-card col-lg-offset-4 rounded-circle">
+                    <div class="container-card col-lg-offset-2 rounded-circle">
                         <div class="card-doc">
-                            <img src="https://html5css.ru/howto/img_avatar2.png" alt="Avatar" style="width: 40%;">
+                            <img src="https://html5css.ru/howto/img_avatar2.png" alt="Avatar" style="width: 60%;">
                             <div class="container-card-info">
                                 <h4><b>{{$doctor->name}} {{$doctor->patronymic}} {{$doctor->last_name}}</b></h4>
                                 <p>{{$doctor->email}}</p>
@@ -40,7 +40,7 @@
 
                             </div>
                         </div>
-                        <a href="{{route('appointment.index',$doctor->id)}}" class="btn btn-info col-md-offset-10">Записаться</a>
+                        <a href="{{route('appointment.index',$doctor->id)}}" class="btn btn-info col-md-offset-9 p-1">Записаться</a>
                     </div>
                 @endforeach
             </div>
