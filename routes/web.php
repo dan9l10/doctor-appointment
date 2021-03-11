@@ -23,7 +23,7 @@ Route::get('/', function () {
     return view('hospital.index');
 })->name('root');
 
-
+//admin-panel
 Route::prefix('/admin')->group(function () {
     Route::group(['middleware'=>['role:admin']],function (){
         Route::resource('/users',UserController::class)->except('show')->names('users.admin');
@@ -31,14 +31,18 @@ Route::prefix('/admin')->group(function () {
     });
 });
 
+//show user profile
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/hospital/profile/{id}',[ProfileController::class,'index'])->name('user.profile');//->middleware('auth');
 });
 
+//for show doctors and appointments
 Route::prefix('/hospital')->group(function () {
     Route::get('/doctors',[DoctorController::class,'index'])->name('doctors.show');
-    Route::get('/appointments/{id}',[AppointmentController::class,'index'])->name('appointment.index');
+    Route::get('/appointments/{id}',[AppointmentController::class,'show'])->name('appointment.index');
 });
 
+//for ajax to get time
+Route::get('/time',[AppointmentController::class,'returnAppointmentsTime'])->name('time.update');
 
 

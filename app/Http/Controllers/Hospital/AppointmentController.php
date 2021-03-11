@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
@@ -13,15 +14,27 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function index($id)
+    public function index()
     {
 
-        $appointments=Member::with('appointments')->with('user')->with('times')->with('specials')
-            ->where('user_id',$id)->first();
-
-        return view('hospital.appointment.index',compact('appointments'));
     }
 
+
+    public function returnAppointmentsTime(Request $request)
+    {
+        $data= '';
+        if($request->ajax()) {
+
+            $query = $request->get('date');
+            if ($query != '') {
+                $data = Appointment::with('times')->where('date',$request->get('date'))->get();
+
+            } else {
+                $data = null;
+            }
+        }
+        return response()->json($data);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -51,7 +64,9 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $appointments=Member::with('appointments')->with('user')->with('times')->with('specials')
+            ->where('user_id',$id)->first();
+        return view('hospital.appointment.index',compact('appointments'));
     }
 
     /**

@@ -58,7 +58,7 @@ class Member extends Authenticatable
         return $this->hasMany(Appointment::class,'doc_id');
     }
     /**
-     * A profile belongs to a appointment.
+     * A profile belongs to a specials.
      *
      * @return mixed
      */
