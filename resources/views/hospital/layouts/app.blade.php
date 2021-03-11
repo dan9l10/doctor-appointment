@@ -1,5 +1,5 @@
 
-<html lang="en">
+
 <head>
 
     <title>@yield('title')</title>
@@ -173,4 +173,4 @@
 <script src="/home/js/custom.js"></script>
 
 </body>
-</html>
+

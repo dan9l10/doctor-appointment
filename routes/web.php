@@ -34,12 +34,13 @@ Route::prefix('/admin')->group(function () {
 //show user profile
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/hospital/profile/{id}',[ProfileController::class,'index'])->name('user.profile');//->middleware('auth');
+    Route::post('/appointments',[AppointmentController::class,'store'])->name('appointment.store');
+    Route::get('/appointments/{id}',[AppointmentController::class,'index'])->name('appointment.index');
 });
 
 //for show doctors and appointments
 Route::prefix('/hospital')->group(function () {
     Route::get('/doctors',[DoctorController::class,'index'])->name('doctors.show');
-    Route::get('/appointments/{id}',[AppointmentController::class,'index'])->name('appointment.index');
 });
 
 //for ajax to get time

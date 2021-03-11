@@ -59,8 +59,6 @@
                 </select>
             </div>
         </div>
-
-
         <div class="form-group">
             <label for="inputAddress2">Номер телефона</label>
             <input name="phone_number" type="number" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
