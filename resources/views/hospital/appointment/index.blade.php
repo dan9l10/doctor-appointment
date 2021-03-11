@@ -15,18 +15,24 @@
                     {{$appointments->user->name}} {{$appointments->user->last_name}} {{$appointments->user->patronymic}}
                 </b>
             </p>
-            <div class="container">
-
-                <form class="ml-2 mt-5" method="GET">
-                    <label for="date-appointment"></label>
-                    <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment">
-                </form>
-
-            </div>
-
-            <p class="col-md-6" id="times"></p>
         </div>
     </div>
+    <div class="row">
+        <form method="post" action="{{ route('users.admin.store') }}">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="date-appointment"> Выберите дату</label>
+                    <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment" value="Выберите дату">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="times">Выберите время</label>
+                    <div id="times">         </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
 </div>
 
 <script
@@ -35,7 +41,7 @@
     crossorigin="anonymous"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".ui-datepicker").change(function(e){
+        $(".ui-datepicker").on('change', function(e){
             var date = $(this).val();
             console.log(date);
             $.ajax({
@@ -49,9 +55,16 @@
                     $('#times').empty();
                     $.each(data, function(index, element) {
                         $.each(element.times,function (index,element){
-                            $('#times').prepend($('<div>', {
-                                text: element.time
-                            }));
+                            if (element.status === 1){
+                                $('#times').prepend($('<a class="btn btn-primary">'+element.time+'</a>', {
+                                    text: element.time,
+                                }));
+                            }else {
+                                $('#times').prepend($('<a class="btn btn-primary">'+element.time+'</a>', {
+                                    text: element.time,
+                                }));
+                            }
+
                         });
                     });
                 },

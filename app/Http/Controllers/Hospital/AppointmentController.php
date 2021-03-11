@@ -14,9 +14,11 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-
+        $appointments=Member::with('appointments')->with('user')->with('specials')
+            ->where('user_id',$id)->first();
+        return view('hospital.appointment.index',compact('appointments'));
     }
 
 
@@ -64,9 +66,7 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-        $appointments=Member::with('appointments')->with('user')->with('times')->with('specials')
-            ->where('user_id',$id)->first();
-        return view('hospital.appointment.index',compact('appointments'));
+
     }
 
     /**

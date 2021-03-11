@@ -39,7 +39,7 @@ Route::group(['middleware'=>'auth'],function (){
 //for show doctors and appointments
 Route::prefix('/hospital')->group(function () {
     Route::get('/doctors',[DoctorController::class,'index'])->name('doctors.show');
-    Route::get('/appointments/{id}',[AppointmentController::class,'show'])->name('appointment.index');
+    Route::get('/appointments/{id}',[AppointmentController::class,'index'])->name('appointment.index');
 });
 
 //for ajax to get time
