@@ -17,8 +17,11 @@ class Appointment extends Model
     protected $fillable = [
         'doc_id', 'date', 'created_at','updated_at',
     ];
-
-
+    /**
+     * Appointments has many times.
+     *
+     * @return mixed
+     */
     public function times(){
         return $this->hasMany(Time::class);
     }

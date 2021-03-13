@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','last_name','patronymic',
+        'name', 'email', 'password', 'last_name', 'patronymic',
     ];
 
     /**
@@ -39,7 +39,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     /**
-     * A profile belongs to a member.
+     * A user has one member.
      *
      * @return mixed
      */
@@ -48,7 +48,7 @@ class User extends Authenticatable
         return $this->hasOne(Member::class);
     }
     /**
-     * A profile belongs to a specials.
+     * A user belongs to many to a specials.
      *
      * @return mixed
      */

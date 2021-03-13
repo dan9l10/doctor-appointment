@@ -11,6 +11,7 @@ use App\Models\Time;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -22,13 +23,21 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleTableSeeder::class);
         $this->call(SpecialsTableSeeder::class);
-        MedicalCard::factory(10)->create();
-        User::factory(10)->create();
-        Member::factory(10)->create();
-
-        Meet::factory(10)->create();
-        Recipe::factory(10)->create();
-        Appointment::factory(10)->create();
-        Time::factory(10)->create();
+        //MedicalCard::factory(10)->create();
+        $user = User::factory(1)->create()->each(function ($user){
+            Member::factory()->create([
+                'user_id'=>$user->id,
+                'id_card'=>null,
+                'id_spec'=>null,
+            ]);
+        });
+        foreach ($user as $userWithoutRole){
+            $userWithoutRole->assignRole('admin');
+        }
+        //Member::factory(10)->create();
+        //Meet::factory(10)->create();
+        //Recipe::factory(10)->create();
+        //Appointment::factory(10)->create();
+        //Time::factory(10)->create();
     }
 }

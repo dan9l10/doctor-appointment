@@ -18,49 +18,28 @@
         </div>
     </div>
     <div class="row">
-        <form method="#" action="">
+        <form method="POST" action="{{route('appointment.store')}}">
+            @method('POST')
+            @csrf
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="date-appointment"> Выберите дату</label>
-                    <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment" value="Выберите дату">
+                    <label for="date-appointment">Выберите дату</label>
+                    <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment" value="2021-03-10" min="">
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="times">Выберите время</label>
-                    <div id="times">        </div>
+                <div class="form-group">
+                    <label for="inputLogType" class="col-md-6 control-label">Выберите время</label>
+                    <div>
+                        <div class="btn-group" data-toggle="buttons" id="times">
+
+                        </div>
+                    </div>
                 </div>
             </div>
-            {{----}}
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioDisabled" disabled>
-                <label class="form-check-label" for="flexRadioDisabled">
-                    Disabled radio
-                </label>
-            </div>
-
-            {{----}}
-
-            <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
-            <label class="btn btn-secondary" for="option1">Checked</label>
-
-            <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
-            <label class="btn btn-secondary" for="option2">Radio</label>
-
-            <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" disabled>
-            <label class="btn btn-secondary" for="option3">Disabled</label>
-
-            <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off">
-            <label class="btn btn-secondary" for="option4">Radio</label>
-            {{----}}
-
-            <div class=" col-md-9">
+            <div class="col-md-9">
                 <button type="submit" class="btn btn-primary" id="sendDataAppointment">Create</button>
             </div>
         </form>
-
-
-
     </div>
-
 </div>
 
 <script
@@ -69,46 +48,38 @@
     crossorigin="anonymous"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        refresh();
         $(".ui-datepicker").on('change', function(e){
-            var date = $(this).val();
-            console.log(date);
-            $.ajax({
-                url:"{{route('time.update')}}",
-                type:'GET',
-                data: {
-                    date:date
-                },
-                dataType: 'json',
-                success: function(data) {
-                    $('#times').empty();
-                    $.each(data, function(index, element) {
-                        $.each(element.times,function (index,element){
-                            if (element.status === 1){
-                                $('#times').append($('<a class="btn btn-danger disabled">'+element.time+'</a>', {
-                                    text: element.time,
-                                }));
-                            }else {
-                                $('#times').append($('<a class="btn btn-primary">'+element.time+'</a>', {
-                                    text: element.time,
-                                }));
-                            }
-
-                        });
-                    });
-                },
-                error: function (){
-                    console.log('error');
-                }
-            });
+            refresh();
         });
-        $("#sendDataAppointment").on('click', function(e){
-            var date = $("date-appointment").val();
-            var id_patient = {{auth()->user()->id}};
-
-            console.log(id_patient);
-        });
-
     });
+    function refresh() {
+        var date = $(".ui-datepicker").val();
+        $.ajax({
+            url: "{{route('time.update')}}",
+            type: 'GET',
+            data: {
+                date: date
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#times').empty();
+                $.each(data, function (index, element) {
+                    $.each(element.times, function (index, element) {
+                        if (element.status === 1) {
+                            $('#times').append($('<label class="btn btn-primary disabled"><input type="radio" name="time" id="time">' + element.time + '</label>'));
+                        } else {
+                            $('#times').append($('<label class="btn btn-primary"><input type="radio" name="time" id="time" value="' + element.time + '">' + element.time + '</label>'));
+                        }
+
+                    });
+                });
+            },
+            error: function () {
+                console.log('error');
+            }
+        });
+    }
 </script>
 
 

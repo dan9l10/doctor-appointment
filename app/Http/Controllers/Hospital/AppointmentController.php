@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class AppointmentController extends Controller
 {
@@ -16,9 +17,11 @@ class AppointmentController extends Controller
      */
     public function index($id)
     {
-        $appointments=Member::with('appointments')->with('user')->with('specials')
+        $test = Appointment::with('times')->where('doc_id',$id)->get();
+        dd($test);
+        /*$appointments=Member::with('appointments')->with('user')->with('specials')
             ->where('user_id',$id)->first();
-        return view('hospital.appointment.index',compact('appointments'));
+        return view('hospital.appointment.index',compact('appointments'));*/
     }
 
 
@@ -55,7 +58,7 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->get('time'));
     }
 
     /**
