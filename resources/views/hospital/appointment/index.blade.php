@@ -18,13 +18,13 @@
         </div>
     </div>
     <div class="row">
-        <form method="POST" action="{{route('appointment.store')}}">
+        <form method="POST" action="{{ route('meet.create',$appointments->user->id) }}">
             @method('POST')
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="date-appointment">Выберите дату</label>
-                    <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment" value="2021-03-10" min="">
+                    <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment" value="{{date('Y-m-d')}}" min="">
                 </div>
                 <div class="form-group">
                     <label for="inputLogType" class="col-md-6 control-label">Выберите время</label>

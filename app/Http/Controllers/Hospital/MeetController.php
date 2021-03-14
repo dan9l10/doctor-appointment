@@ -2,50 +2,21 @@
 
 namespace App\Http\Controllers\Hospital;
 
-use App\Exceptions\InvalidIdDoctorExeption;
 use App\Http\Controllers\Controller;
-use App\Models\Appointment;
-use App\Models\Member;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
-
-class AppointmentController extends Controller
+class MeetController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $member = Member::findOrFail($id);
-        $appointments=$member->with('appointments')->with('user')->with('specials')
-            ->where('user_id',$id)->first();
-
-        if(is_null($appointments->specials) ){
-            throw new InvalidIdDoctorExeption();
-        }
-        return view('hospital.appointment.index',compact('appointments'));
-
+        //
     }
 
-
-    public function returnAppointmentsTime(Request $request)
-    {
-        $data= '';
-        if($request->ajax()) {
-
-            $query = $request->get('date');
-            if ($query != '') {
-                $data = Appointment::with('times')->where('date',$request->get('date'))->get();
-
-            } else {
-                $data = null;
-            }
-        }
-        return response()->json($data);
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -62,9 +33,14 @@ class AppointmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $idDoc)
     {
-        //dd($request->get('time'));
+        $time = $request->get('time');
+        $date = $request->get('date-appointment');
+        $user_id = auth()->user()->id;
+
+
+        //dd((int)$idDoc);
     }
 
     /**
@@ -75,7 +51,7 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**
