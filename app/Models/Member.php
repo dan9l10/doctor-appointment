@@ -65,6 +65,22 @@ class Member extends Authenticatable
     public function specials(){
         return $this->belongsTo(Special::class,'id_spec');
     }
+    /**
+     * A member has many to a meet.
+     *
+     * @return mixed
+     */
+    public function getMeetsForDoctor(){
+        return $this->hasMany(Meet::class,'id_doc');
+    }
+    /**
+     * A member has many to a meet.
+     *
+     * @return mixed
+     */
+    public function getMeetsForPatient(){
+        return $this->hasMany(Meet::class,'id_user');
+    }
 
 
 }
