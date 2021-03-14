@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
 use App\Models\Meet;
+use App\Models\Member;
+use App\Models\Time;
 use Illuminate\Http\Request;
 
 class MeetController extends Controller
@@ -58,7 +60,10 @@ class MeetController extends Controller
             'created_at'=>now(),
         ]);
 
-        $resultOfSaveMeet = $meet->save();
+        $times = Time::find($time);
+        $times->status=1;
+        $resultOfSaveMeet = $times->meets()->save($meet);
+        $times->save();
 
         if($resultOfSaveMeet){
             return redirect()->route('appointment.index',$idDoc)

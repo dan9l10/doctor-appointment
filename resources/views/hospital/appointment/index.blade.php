@@ -89,9 +89,9 @@
                 $.each(data, function (index, element) {
                     $.each(element.times, function (index, element) {
                         if (element.status === 1) {
-                            $('#times').append($('<label class="btn btn-primary disabled"><input type="radio" name="time" id="time">' + element.time + '</label>'));
+                            $('#times').append($('<label class="btn btn-primary disabled"><input type="radio" name="time" id="time" disabled>' + element.time + '</label>'));
                         } else {
-                            $('#times').append($('<label class="btn btn-primary"><input type="radio" name="time" id="time" value="' + element.time + '">' + element.time + '</label>'));
+                            $('#times').append($('<label class="btn btn-primary"><input type="radio" name="time" id="time" value="' + element.id + '">' + element.time + '</label>'));
                         }
 
                     });
