@@ -19,6 +19,12 @@
                         <li><a href="#"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-warning pull-right r-activity">9</span></a></li>
                         <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>
                         <li><a href="{{route('doctors.show')}}"> <i class="fa fa-edit"></i> Appointment</a></li>
+                        @if(auth()->user()->hasRole('doctor'))
+                            <li><a href=""> <i class="fa fa-edit"></i>Приём пациентов</a></li>
+                        @endif
+                        @if(auth()->user()->hasRole('admin'))
+                            <li><a href="{{route('admin.panel')}}"> <i class="fa fa-edit"></i>Panel</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
