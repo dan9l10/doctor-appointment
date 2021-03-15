@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Hospital\User;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Meet;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -16,9 +18,10 @@ class ProfileController extends Controller
      */
     public function index($id)
     {
-        $userInfo = User::with('members')->findOrFail($id);
-        //dd($userInfo);
-        return view('hospital.user.profile',compact('userInfo'));
+        $userInfo = Member::with('user')->where('user_id',$id)->get()->first();
+        $meets = Meet::with('times')->where('id_user',$id)->with('doctor')->get();
+        //dd($meets);
+        return view('hospital.user.profile',compact('userInfo'),compact('meets'));
 
     }
 

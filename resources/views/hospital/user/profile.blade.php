@@ -31,76 +31,51 @@
                         <h1>Bio Graph</h1>
                         <div class="row">
                             <div class="bio-row">
-                                <p><span>First Name </span>: {{$userInfo->name}}</p>
+                                <p><span>First Name </span>: {{$userInfo->user->name}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Last Name </span>: {{$userInfo->last_name}}</p>
+                                <p><span>Last Name </span>: {{$userInfo->user->last_name}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Country </span>: {{$userInfo->members->city}} {{$userInfo->members->address}}</p>
+                                <p><span>Country </span>: {{$userInfo->city}} {{$userInfo->address}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Birthday</span>: {{$userInfo->members->DOB}}</p>
+                                <p><span>Birthday</span>: {{$userInfo->DOB}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Email </span>: {{$userInfo->email}}</p>
+                                <p><span>Email </span>: {{$userInfo->user->email}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Mobile </span>: {{$userInfo->members->phone}}</p>
+                                <p><span>Mobile </span>: {{$userInfo->phone}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Rise </span>: {{$userInfo->members->rise}}</p>
+                                <p><span>Rise </span>: {{$userInfo->rise}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Rise </span>: {{$userInfo->members->weight}}</p>
+                                <p><span>Rise </span>: {{$userInfo->weight}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-9 panel">
                     <div class="row">
+                        @foreach($meets as $meet)
                         <div class="col-md-6 card">
                             <div class="panel">
                                 <div class="panel-body">
                                     <div class="bio-chart">
-                                        <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="35" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                                        <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas> <a href="#" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;">Изменить</a></div>
                                     </div>
                                     <div class="bio-desk">
-                                        <h4 class="red">Envato Website</h4>
-                                        <p>Started : 15 July</p>
-                                        <p>Deadline : 15 August</p>
+                                        <h4 class="red">{{$meet->doctor->name}} {{$meet->doctor->patronymic}} {{$meet->doctor->last_name}}</h4>
+                                        <p>Дата : {{$meet->date}}</p>
+                                        <p>Время : {{$meet->times->time}}</p>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 card">
-                            <div class="panel">
-                                <div class="panel-body">
-                                    <div class="bio-chart">
-                                        <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="63" data-fgcolor="#4CC5CD" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(76, 197, 205); padding: 0px; -webkit-appearance: none; background: none;"></div>
-                                    </div>
-                                    <div class="bio-desk">
-                                        <h4 class="terques">ThemeForest CMS </h4>
-                                        <p>Started : 15 July</p>
-                                        <p>Deadline : 15 August</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 card">
-                            <div class="panel">
-                                <div class="panel-body">
-                                    <div class="bio-chart">
-                                        <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="75" data-fgcolor="#96be4b" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(150, 190, 75); padding: 0px; -webkit-appearance: none; background: none;"></div>
-                                    </div>
-                                    <div class="bio-desk">
-                                        <h4 class="green">VectorLab Portfolio</h4>
-                                        <p>Started : 15 July</p>
-                                        <p>Deadline : 15 August</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

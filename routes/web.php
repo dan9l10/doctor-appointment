@@ -34,7 +34,8 @@ Route::prefix('/admin')->group(function () {
 
 //show user profile
 Route::group(['middleware'=>'auth'],function (){
-    Route::get('/hospital/profile/{id}',[ProfileController::class,'index'])->name('user.profile');//->middleware('auth');
+    Route::get('/hospital/profile/{id}',[ProfileController::class,'index'])->name('user.profile');
+    Route::resource('/hospital/profile',ProfileController::class)->except(['index','show','create'])->names('user.profile');
     Route::post('/meet/{id_doc}',[MeetController::class,'store'])->name('meet.create');
     Route::get('/appointments/{id}',[AppointmentController::class,'index'])->name('appointment.index');
 });
