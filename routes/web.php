@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Hospital\Admin\MeetsManagementController;
 use App\Http\Controllers\Hospital\Admin\HomeController;
 use App\Http\Controllers\Hospital\Admin\UserController;
 use App\Http\Controllers\Hospital\AppointmentController;
@@ -28,6 +29,7 @@ Route::get('/', function () {
 Route::prefix('/admin')->group(function () {
     Route::group(['middleware'=>['role:admin']],function (){
         Route::resource('/users',UserController::class)->except('show')->names('users.admin');
+        Route::resource('/meets',MeetsManagementController::class)->except('show')->names('meets.admin');
         Route::get('/panel', [HomeController::class,'index'])->name('admin.panel');
     });
 });

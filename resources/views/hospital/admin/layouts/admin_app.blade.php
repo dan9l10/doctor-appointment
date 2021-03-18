@@ -413,10 +413,10 @@
                     </li>
                     <li class="nav-header">EXAMPLES</li>
                     <li class="nav-item">
-                        <a href="pages/calendar.html" class="nav-link">
+                        <a href="{{route('meets.admin.index')}}" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
-                                Calendar
+                                Изменить запись
                                 <span class="badge badge-info right">2</span>
                             </p>
                         </a>
@@ -430,10 +430,10 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                        <a href="" class="nav-link">
                             <i class="nav-icon far fa-envelope"></i>
                             <p>
-                                Mailbox
+                                Изменить запись
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>

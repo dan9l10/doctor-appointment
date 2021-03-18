@@ -31,4 +31,8 @@ class Meet extends Model
     {
         return $this->belongsTo(User::class,'id_doc','id');
     }
+    public function patient()
+    {
+        return $this->belongsTo(User::class,'id_user','id');
+    }
 }
