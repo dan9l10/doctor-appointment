@@ -3,8 +3,17 @@
 @section('content')
     <div class="container">
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success col-md-12 row">
                 <p>{{$message}}</p>
+            </div>
+        @elseif($errors->any())
+            <div class="alert alert-danger col-md-12 row">
+                <strong>Error!</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
         <form class="ml-2" method="post" action="{{route('meets.admin.update',$meets->id)}}">

@@ -2,8 +2,17 @@
 
 @section('content')
     @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p></p>
+        <div class="alert alert-success col-md-12 row">
+            <p>{{$message}}</p>
+        </div>
+    @elseif($errors->any())
+        <div class="alert alert-danger col-md-12 row">
+            <strong>Error!</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
     @if(!empty($meets))
@@ -27,7 +36,7 @@
                 <td>{{$meet->patient->name}} {{$meet->patient->last_name}}</td>
                 <td>{{$meet->doctor->name}} {{$meet->doctor->last_name}}</td>
                 <td><a class="btn btn-primary mr-2" href="{{route('meets.admin.edit',$meet->id)}}" role="button">Изменить</a>
-                    <form method="post" style="display: contents;" action="" class="form-contents">
+                    <form method="post" style="display: contents;" action="{{route('meets.admin.destroy',$meet->id)}}" class="form-contents">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger">Удалить</button>
@@ -41,7 +50,5 @@
         </tbody>
     </table>
     {{ $meets->links() }}
-
-
 
 @endsection

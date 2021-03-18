@@ -63,7 +63,6 @@ class MeetsManagementController extends Controller
      */
     public function edit($id)
     {
-
         $meets = Meet::with('doctor')->with('times')->with('patient')->where('id',$id)->get()->first();
         return view('hospital.admin.appointments.edit',compact('meets'));
     }
@@ -83,8 +82,8 @@ class MeetsManagementController extends Controller
             'time'=>'required',
         ]);
 
-        $meet = Meet::find($id);
-        $time = Time::find($request->get('time'));
+        $meet = Meet::findOrFail($id);
+        $time = Time::findOrFail($request->get('time'));
         $time->status = 1;
         $time->save();
 
@@ -112,6 +111,18 @@ class MeetsManagementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $meet = Meet::findOrFail($id);
+
+        $meet->times->status = 0;
+        $tmp = $meet->times->save();
+
+        $result = $meet->delete();
+
+        if($result){
+            return redirect()->route('meets.admin.index')
+                ->with(['success'=>'Meet deleted']);
+        }else{
+            return back()->withErrors(['msg'=>'Error with delete'])->withInput();
+        }
     }
 }
