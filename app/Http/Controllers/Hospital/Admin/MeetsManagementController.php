@@ -19,7 +19,7 @@ class MeetsManagementController extends Controller
     public function index()
     {
         $meets = Meet::with('doctor')->with('times')->with('patient')->paginate(5);
-        return view('hospital.admin.appointments.index',compact('meets'));
+        return view('hospital.admin.meet.index',compact('meets'));
 
     }
 
@@ -64,7 +64,7 @@ class MeetsManagementController extends Controller
     public function edit($id)
     {
         $meets = Meet::with('doctor')->with('times')->with('patient')->where('id',$id)->get()->first();
-        return view('hospital.admin.appointments.edit',compact('meets'));
+        return view('hospital.admin.meet.edit',compact('meets'));
     }
 
     /**

@@ -422,6 +422,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('meets.admin.index')}}" class="nav-link">
+                            <i class="nav-icon far fa-calendar-alt"></i>
+                            <p>
+                                Создать график работы
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('users.admin.index')}}" class="nav-link">
                             <i class="nav-icon far fa-image"></i>
                             <p>
