@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Hospital\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
+use App\Models\Time;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AppointmentManagementController extends Controller
@@ -14,7 +17,9 @@ class AppointmentManagementController extends Controller
      */
     public function index()
     {
-        return view('hospital.admin.appointment.index');
+        $doctors = User::role('doctor')->with('specials')->with('members')->get();
+
+        return view('hospital.admin.appointment.index',compact('doctors'));
     }
 
     /**
@@ -35,7 +40,34 @@ class AppointmentManagementController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+
+        $request->validate([
+            'doctor'=>'required',
+            'date'=>'required|date',
+            'time'=>'required',
+        ]);
+
+        $appointment = Appointment::create([
+            'doc_id'=>$request->get('doctor'),
+            'date'=>$request->get('date'),
+        ]);
+
+        foreach ($request->get('time') as $time){
+            $time = new Time([
+                'status'=>0,
+                'time'=>$time,
+            ]);
+            $appointment->times()->save($time);
+        }
+
+        $result = $appointment->save();
+
+        if($result){
+            return redirect()->route('appointments.admin.index')
+                ->with(['success'=>'User deleted']);
+        }else{
+            return back()->withErrors(['msg'=>'Error with delete'])->withInput();
+        }
     }
 
     /**

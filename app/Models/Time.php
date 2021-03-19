@@ -9,6 +9,10 @@ class Time extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'time','status'
+    ];
+
     /**
      * A time has many meets.
      *
