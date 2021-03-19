@@ -24,7 +24,7 @@
     @endif
     <div class="row justify-content-md-center">
         <div class="col-md-auto">
-            <img class="col-md-3" src="https://html5css.ru/howto/img_avatar2.png" alt="Avatar">
+            <img class="col-md-3" src="https://html5css.ru/howto/img_avatar2.png" alt="Avatar" >
             <p class="col-1"><small>{{$appointments->specials->name}}</small></p>
             <p class="col-md-9">
                 <b>
@@ -40,7 +40,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="date-appointment">Выберите дату*</label>
-                    <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment" value="{{date('Y-m-d')}}" min="">
+                    <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment" onchange="refresh({{$appointments->id}})">
                 </div>
                 <div class="form-group">
                     <label for="inputLogType" class="col-md-6 control-label">Выберите время*</label>
@@ -68,41 +68,36 @@
     src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        refresh();
-        $(".ui-datepicker").on('change', function(e){
-            refresh();
-        });
-    });
-    function refresh() {
-        var date = $(".ui-datepicker").val();
-        $.ajax({
-            url: "{{route('time.update')}}",
-            type: 'GET',
-            data: {
-                date: date
-            },
-            dataType: 'json',
-            success: function (data) {
-                $('#times').empty();
-                $.each(data, function (index, element) {
-                    $.each(element.times, function (index, element) {
-                        if (element.status === 1) {
-                            $('#times').append($('<label class="btn btn-primary disabled"><input type="radio" name="time" id="time" disabled>' + element.time + '</label>'));
-                        } else {
-                            $('#times').append($('<label class="btn btn-primary"><input type="radio" name="time" id="time" value="' + element.id + '">' + element.time + '</label>'));
-                        }
+    <script type="text/javascript">
+        function refresh(id) {
+            var date = $(".ui-datepicker").val();
+            $.ajax({
+                url: "{{route('time.update')}}",
+                type: 'GET',
+                data: {
+                    date: date,
+                    id: id
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('#times').empty();
+                    $.each(data, function (index, element) {
+                        $.each(element.times, function (index, element) {
+                            if (element.status === 1) {
+                                $('#times').append($('<label class="btn btn-primary disabled"><input type="radio" name="time" id="time" disabled>' + element.time + '</label>'));
+                            } else {
+                                $('#times').append($('<label class="btn btn-primary"><input type="radio" name="time" id="time" value="' + element.id + '">' + element.time + '</label>'));
+                            }
 
+                        });
                     });
-                });
-            },
-            error: function () {
-                console.log('error');
-            }
-        });
-    }
-</script>
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        }
+    </script>
 
 
 

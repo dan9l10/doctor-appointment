@@ -41,7 +41,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="date">Новая дата</label>
-                    <input name="date" type="date" class="form-control ui-datepicker" id="date" value="{{date('Y-m-d')}}" min="">
+                    <input name="date" type="date" class="form-control ui-datepicker" id="date" onchange="refresh({{$meets->doctor->id}})" value="{{date('Y-m-d')}}" min="">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="time">Выберите новое время</label>
@@ -66,19 +66,14 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            refresh();
-            $(".ui-datepicker").on('change', function(e){
-                refresh();
-            });
-        });
-        function refresh() {
+        function refresh(id) {
             var date = $(".ui-datepicker").val();
             $.ajax({
                 url: "{{route('time.update')}}",
                 type: 'GET',
                 data: {
-                    date: date
+                    date: date,
+                    id:id
                 },
                 dataType: 'json',
                 success: function (data) {

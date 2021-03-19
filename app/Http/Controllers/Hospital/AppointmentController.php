@@ -38,7 +38,7 @@ class AppointmentController extends Controller
 
             $query = $request->get('date');
             if ($query != '') {
-                $data = Appointment::with('times')->where('date',$request->get('date'))->get();
+                $data = Appointment::with('times')->where('date',$request->get('date'))->where('doc_id',$request->get('id'))->get();
 
             } else {
                 $data = null;
