@@ -25,15 +25,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //SELECT users.name,roles.name,model_has_roles.model_id FROM users INNER JOIN model_has_roles on model_has_
-        //roles.c=users.id INNER JOIN roles on roles.id=model_has_roles.model_id
-
         $users = DB::table('users')
             ->join('model_has_roles','model_has_roles.model_id','=','users.id')
             ->join('roles','roles.id','=','model_has_roles.role_id')
             ->select(['users.id','users.name','users.email','roles.name as role'])->orderBy('id')->paginate(10);
         return view('hospital.admin.users.index',compact('users'));//
-
     }
 
     /**
@@ -56,7 +52,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name'=>'required|max:60',
             'email'=>'required|email|unique:users',
@@ -70,8 +65,8 @@ class UserController extends Controller
             'name'=>$request->get('name'),
             'last_name' => $request->get('last_name'),
             'patronymic' => $request->get('patronymic'),
-        ]
-        );
+        ]);
+
         $member = new Member([
             'id_spec'=>$request->get('special'),
         ]);
@@ -80,12 +75,12 @@ class UserController extends Controller
         $result = $user->save();
         $user->members()->save($member);
 
-
         if($result){
             return redirect()->route('users.admin.index')
                 ->with(['success'=>'Data added']);
+        }else{
+            return back()->withErrors(['msg'=>'Error with add'])->withInput();
         }
-
     }
 
     /**
@@ -177,6 +172,5 @@ class UserController extends Controller
         }else{
             return back()->withErrors(['msg'=>'Error with delete'])->withInput();
         }
-
     }
 }

@@ -13,12 +13,11 @@ class AppointmentManagementController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
         $doctors = User::role('doctor')->with('specials')->with('members')->get();
-
         return view('hospital.admin.appointment.index',compact('doctors'));
     }
 
@@ -36,7 +35,7 @@ class AppointmentManagementController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
