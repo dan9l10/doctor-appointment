@@ -105,7 +105,32 @@ class MeetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        dd($id);
+        $request->validate([
+            'date'=>'required|date',
+            'time'=>'required'
+        ]);
+
+        $meet = Meet::findOrFail($id);
+        $time = Time::findOrFail($request->get('time'));
+        $time->status = 1;
+        $time->save();
+
+        $meet->times->status = 0;
+        $meet->times->save();
+        $meet->date = $request->get('date');
+        $meet->time = $request->get('time');
+
+        $result = $meet->save();
+
+        if($result){
+            return redirect()->route('user.profile',auth()->user()->id)
+                ->with(['success'=>'Data added']);
+        }else{
+            return back()->withErrors(['msg'=>'Error with add'])->withInput();
+        }
+        dd($request);
     }
 
     /**

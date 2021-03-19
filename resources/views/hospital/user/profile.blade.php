@@ -1,8 +1,23 @@
 @extends('hospital.layouts.app')
 
 @section('content')
+
     <link href="/user/profile/css/profile.css" rel="stylesheet">
     <div class="container bootstrap snippets bootdey">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success col-md-12 row">
+                <p>{{$message}}</p>
+            </div>
+        @elseif($errors->any())
+            <div class="alert alert-danger col-md-12 row">
+                <strong>Error!</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row">
             <div class="profile-nav col-md-3">
                 <div class="panel">
@@ -72,43 +87,13 @@
                                     <div class="bio-chart">
                                         <div style="display:inline;width:100px;height:100px;">
                                             <canvas width="100" height="100px"></canvas>
-                                            <a onclick="refresh({{$meet->doctor->id}})" href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;">
+                                            <a onclick="refresh({{$meet->doctor->id}})" href="" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;">
                                                 Изменить
                                             </a>
                                         </div>
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Выберите новые данные</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <form action="#" method="post">
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="date-picker" class="col-form-label">Date:</label>
-                                                            <input type="date" class="form-control" id="date-picker" value="{{date('Y-m-d')}}" onchange="refresh({{$meet->doctor->id}})">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="message-text" class="col-form-label">Time:</label>
-                                                            <div id="times">
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Send message</button>
-                                                    </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="bio-desk">
-                                        <h4 class="red">{{$meet->doctor->name}} {{$meet->doctor->patronymic}} {{$meet->doctor->last_name}}</h4>
+                                        <h4 class="red" onclick="send({{$meet->id}})">{{$meet->doctor->name}} {{$meet->doctor->patronymic}} {{$meet->doctor->last_name}}</h4>
                                         <p>Дата : {{$meet->date}}</p>
                                         <p>Время : {{$meet->times->time}}</p>
                                     </div>
@@ -153,6 +138,11 @@
                     console.log('error');
                 }
             });
+        }
+
+        function send(idMeet){
+
+            console.log(idMeet);
         }
     </script>
 @endsection
