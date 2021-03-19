@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Hospital\Admin;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
+use App\Models\Meet;
 use App\Models\Member;
 use App\Models\Role;
 use App\Models\Special;
@@ -155,9 +157,20 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        $appointmentCheck = Appointment::where('doc_id',$id)->exists();
+        $meetCheck = Meet::where('id_doc',$id)->orWhere('id_user', $id)->exists();
+        if($meetCheck){
+            return back()->withErrors(['msg'=>'Для пользователя существует встреча'])->withInput();
+        }
+        if($appointmentCheck){
+            $appointments = Appointment::where('doc_id',$id)->get();
+            foreach ($appointments as $appointment){
+                $appointment->times()->delete();
+                $appointment->delete();
+            }
+        }
         $result = $user->members()->delete();
         $user->delete();
-
         if($result){
             return redirect()->route('users.admin.index')
                 ->with(['success'=>'User deleted']);

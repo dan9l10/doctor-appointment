@@ -3,8 +3,17 @@
 @section('content')
     <a class="btn btn-primary m-2" href="{{ route('users.admin.create') }}">Добавить</a>
     @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p></p>
+        <div class="alert alert-success col-md-12 row">
+            <p>{{$message}}</p>
+        </div>
+    @elseif($errors->any())
+        <div class="alert alert-danger col-md-12 row">
+            <strong>Error!</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
     <table class="table table-striped ">
