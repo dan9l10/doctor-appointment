@@ -29,23 +29,23 @@
                 </div>
             </div>
             <div class="col-md-8">
-                @foreach($doctorInfo as $doctor)
-                    <div class="container-card col-lg-offset-2 rounded-circle">
-                        <div class="card-doc">
-                            <img src="https://html5css.ru/howto/img_avatar2.png" alt="Avatar" style="width: 60%;">
-                            <div class="container-card-info">
-                                <h4><b>{{$doctor->name}} {{$doctor->patronymic}} {{$doctor->last_name}}</b></h4>
-                                <p>{{$doctor->email}}</p>
-                                <p>Время работы: {{$doctor->email}}</p>
-
+                    @foreach($doctorInfo as $doctor)
+                    <div class="row">
+                        <div class="container-card col-md-10 col-md-offset-2">
+                            <div class="card-doc">
+                                <img src="https://html5css.ru/howto/img_avatar2.png" alt="Avatar" style="width: 65%; margin: 5px">
+                                <div class="container-card-info">
+                                    <h4><b>{{$doctor->name}} {{$doctor->patronymic}} {{$doctor->last_name}}</b></h4>
+                                    <p>{{$doctor->email}}</p>
+                                    <p>Время работы: {{$doctor->email}}</p>
+                                    <a href="{{route('appointment.index',$doctor->id)}}" class="btn btn-info">Записаться</a>
+                                </div>
                             </div>
                         </div>
-                        <a href="{{route('appointment.index',$doctor->id)}}" class="btn btn-info col-md-offset-9 p-1">Записаться</a>
                     </div>
-                @endforeach
+                    @endforeach
             </div>
         </div>
-
     </div>
 
 

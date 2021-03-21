@@ -1,6 +1,6 @@
 <div class="col-md-4 col-sm-4">
     <div class="footer-thumb">
-        <h4 class="wow fadeInUp" data-wow-delay="0.4s">Наши контакты</h4>
+        <h4 class="wow fadeInUp" data-wow-delay="0.4s">Наші контакти</h4>
         <p>ул. Пушкина д. Колотушкина</p>
 
         <div class="contact-info">
@@ -12,7 +12,7 @@
 
 <div class="col-md-4 col-sm-4">
     <div class="footer-thumb">
-        <h4 class="wow fadeInUp" data-wow-delay="0.4s">Служба поддержки</h4>
+        <h4 class="wow fadeInUp" data-wow-delay="0.4s">Служба підтримки</h4>
         <ul class="contact-info">
             <li>+380-67-111-333</li>
             <li>+380-67-111-333</li>
@@ -24,9 +24,9 @@
 <div class="col-md-4 col-sm-4">
     <div class="footer-thumb">
         <div class="opening-hours">
-            <h4 class="wow fadeInUp" data-wow-delay="0.4s">Время работы</h4>
-            <p>Понедельник - Субботу <span>09:00 - 18:00</span></p>
-            <p>Воскресенье <span>Закрыто</span></p>
+            <h4 class="wow fadeInUp" data-wow-delay="0.4s">Час роботи</h4>
+            <p>Понеділок - Субота <span>09:00 - 18:00</span></p>
+            <p>Неділя <span>Вихідний</span></p>
         </div>
 
         <ul class="social-icon">

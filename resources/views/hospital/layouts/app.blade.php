@@ -39,7 +39,7 @@
         <div class="row">
 
             <div class="col-md-4 col-sm-5">
-                <p>Добро пожаловать</p>
+                <p>Ласкаво просимо</p>
             </div>
 
             <div class="col-md-8 col-sm-7 text-align-right">
@@ -47,8 +47,8 @@
                 <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 9:00 - 18:00 (Пн-Сб)</span>
                 <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">info@company.com</a></span>
                 @guest
-                    <span class="login-icon"><i class="fa"></i> <a href="{{route('login')}}">Войти</a></span>
-                    <span class="register-icon"><i class="fa"></i> <a href="{{route('register')}}">Зарегестрироваться</a></span>
+                    <span class="login-icon"><i class="fa"></i> <a href="{{route('login')}}">Увійти</a></span>
+                    <span class="register-icon"><i class="fa"></i> <a href="{{route('register')}}">Зареєструватися</a></span>
                 @else
 
                 @endguest
@@ -76,41 +76,24 @@
         <!-- MENU LINKS -->
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#top" class="smoothScroll">Домашняя страница</a></li>
+                <li><a href="#top" class="smoothScroll">Домашня сторінка</a></li>
                 <li><a href="#about" class="smoothScroll">Про нас</a></li>
-                <li><a href="#team" class="smoothScroll">Врачи</a></li>
-                <li><a href="#news" class="smoothScroll">Новости</a></li>
-                <li><a href="#google-map" class="smoothScroll">Контакты</a></li>
-                <li class="appointment-btn"><a href="{{route('doctors.show')}}">Запись на прием</a></li>
+                <li><a href="#team" class="smoothScroll">Лікарі</a></li>
+                <li><a href="#news" class="smoothScroll">Новини</a></li>
+                <li><a href="#google-map" class="smoothScroll">Контакти</a></li>
+                <li class="appointment-btn"><a href="{{route('doctors.show')}}">Записатися на прийом</a></li>
                 @guest
 
                 @else
-
-
-
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                           Здравствуйте, {{ Auth::user()->name }}
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                            <a class="dropdown-item" href="{{ route('user.profile',Auth::user()->id) }}">
-                                Профиль
-                            </a>
-                            <a class="dropdown-item font-weight-bold" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
+                    <li><a class="smoothScroll" href="{{ route('user.profile',Auth::user()->id) }}"><b>МІЙ КАБІНЕТ</b></a></li>
+                    <li><a class="smoothScroll" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">
-                                Выход
-                            </a>
-
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-
+                            <b>ВИХІД</b>
+                    </a></li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 @endguest
             </ul>
         </div>
