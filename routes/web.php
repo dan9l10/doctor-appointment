@@ -6,6 +6,7 @@ use App\Http\Controllers\Hospital\Admin\MeetsManagementController;
 use App\Http\Controllers\Hospital\Admin\HomeController;
 use App\Http\Controllers\Hospital\Admin\UserController;
 use App\Http\Controllers\Hospital\AppointmentController;
+use App\Http\Controllers\Hospital\HomePageController;
 use App\Http\Controllers\Hospital\MeetController;
 use App\Http\Controllers\Hospital\User\DoctorController;
 use App\Http\Controllers\Hospital\User\ProfileController;
@@ -22,9 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('hospital.index');
-})->name('root');
+Route::get('/',[HomePageController::class,'index'])->name('root');
 
 //admin-panel
 Route::prefix('/admin')->group(function () {
