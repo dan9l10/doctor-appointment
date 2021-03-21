@@ -30,10 +30,10 @@
                     </div>
 
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
-                        <li><a href="#"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-warning pull-right r-activity">9</span></a></li>
+                        <li><a href="#"> <i class="fa fa-user"></i> Особиста інформація</a></li>
+                        <li><a href="#"> <i class="fa fa-calendar"></i> Візити <span class="label label-warning pull-right r-activity">9</span></a></li>
                         <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>
-                        <li><a href=" {{route('doctors.show')}} "> <i class="fa fa-edit"></i> Appointment</a></li>
+                        <li><a href=" {{route('doctors.show')}} "> <i class="fa fa-edit"></i> Записатися на візит</a></li>
                         @if(auth()->user()->hasRole('doctor'))
                             <li><a href=""> <i class="fa fa-edit"></i>Приём пациентов</a></li>
                         @endif
@@ -45,43 +45,41 @@
             </div>
 
                 <div class="panel profile-info col-md-9">
-                    <div class="bio-graph-heading">
-                        Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-                    </div>
                     <div class="panel-body bio-graph-info">
-                        <h1>Bio Graph</h1>
+                        <h1>Особиста інформація</h1>
                         <div class="row">
                             <div class="bio-row">
-                                <p><span>First Name </span>: {{$userInfo->user->name}}</p>
+                                <p><span>Ім"я </span>: {{$userInfo->user->name}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Last Name </span>: {{$userInfo->user->last_name}}</p>
+                                <p><span>Прізвище </span>: {{$userInfo->user->last_name}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Country </span>: {{$userInfo->city}} {{$userInfo->address}}</p>
+                                <p><span>Країна </span>: {{$userInfo->city}} {{$userInfo->address}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Birthday</span>: {{$userInfo->DOB}}</p>
+                                <p><span>Дата народження</span>: {{$userInfo->DOB}}</p>
                             </div>
                             <div class="bio-row">
                                 <p><span>Email </span>: {{$userInfo->user->email}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Mobile </span>: {{$userInfo->phone}}</p>
+                                <p><span>Мобільний телефон </span>: {{$userInfo->phone}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Rise </span>: {{$userInfo->rise}}</p>
+                                <p><span>Вага </span>: {{$userInfo->rise}}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>Rise </span>: {{$userInfo->weight}}</p>
+                                <p><span>Зріст </span>: {{$userInfo->weight}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-9 panel">
+                    <h3>Відвідування: </h3>
                     <div class="row">
                         @foreach($meets as $meet)
-                        <div class="col-md-6 card">
+                        <div class="col-md-12 card">
                             <div class="panel">
                                 <div class="panel-body">
                                     <div class="bio-chart">
@@ -96,6 +94,7 @@
                                         <h4 class="red" onclick="send({{$meet->id}})">{{$meet->doctor->name}} {{$meet->doctor->patronymic}} {{$meet->doctor->last_name}}</h4>
                                         <p>Дата : {{$meet->date}}</p>
                                         <p>Время : {{$meet->times->time}}</p>
+                                        <p>Cтатус : {{($meet->status)? "Завершено" : "Заплановано"}}</p>
                                     </div>
                                 </div>
                             </div>
