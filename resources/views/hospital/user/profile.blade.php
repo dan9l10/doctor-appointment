@@ -80,8 +80,13 @@
                     </div>
                 </div>
                 <div class="col-md-9 panel">
-                    <h3>Відвідування: </h3>
                     <div class="row">
+                        <h3 class="col-md-9">Відвідування: </h3>
+                    </div>
+                    <div class="row">
+                        @if(empty($meets[0]))
+                            <p class="col-md-offset-5">Записів немає</p>
+                        @endif
                         @foreach($meets as $meet)
                         <div class="col-md-12 card">
                             <div class="panel">
@@ -90,7 +95,7 @@
                                         <div style="display:inline;width:100px;height:100px;">
                                             <canvas width="100" height="100px"></canvas>
                                             <a onclick="refresh({{$meet->doctor->id}})" href="" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;">
-                                                Изменить
+                                                Докладніше
                                             </a>
                                         </div>
                                     </div>
