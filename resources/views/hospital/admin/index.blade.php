@@ -1,6 +1,11 @@
 @extends('hospital.admin.layouts.admin_app')
 @section('title','Home page')
 
+@section('countMeets')
+{{$countMeets}}
+@endsection
+
+
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">

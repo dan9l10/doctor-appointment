@@ -1,7 +1,4 @@
-
-
 <head>
-
     <title>@yield('title')</title>
 
     <meta charset="UTF-8">
@@ -17,21 +14,16 @@
     <link rel="stylesheet" href="/home/css/owl.carousel.css">
     <link rel="stylesheet" href="/home/css/owl.theme.default.min.css">
 
-    <!-- MAIN CSS -->
     <link rel="stylesheet" href="/home/css/tooplate-style.css">
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
-<!-- PRE LOADER -->
 <section class="preloader">
     <div class="spinner">
-
         <span class="spinner-rotate"></span>
-
     </div>
 </section>
-
 
 <!-- HEADER -->
 <header>
@@ -57,7 +49,6 @@
     </div>
 </header>
 
-
 <!-- MENU -->
 <section class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
@@ -76,14 +67,13 @@
         <!-- MENU LINKS -->
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#top" class="smoothScroll">Домашня сторінка</a></li>
+                <li><a href="{{route('root')}}" class="smoothScroll">Домашня сторінка</a></li>
                 <li><a href="#about" class="smoothScroll">Про нас</a></li>
-                <li><a href="#team" class="smoothScroll">Лікарі</a></li>
+                <li><a href="{{route('doctors.show')}}" class="smoothScroll">Лікарі</a></li>
                 <li><a href="#news" class="smoothScroll">Новини</a></li>
                 <li><a href="#google-map" class="smoothScroll">Контакти</a></li>
                 <li class="appointment-btn"><a href="{{route('doctors.show')}}">Записатися на прийом</a></li>
                 @guest
-
                 @else
                     <li><a class="smoothScroll" href="{{ route('user.profile',Auth::user()->id) }}"><b>МІЙ КАБІНЕТ</b></a></li>
                     <li><a class="smoothScroll" href="{{ route('logout') }}"
@@ -106,8 +96,6 @@
     @yield('content')
 </div>
 
-
-
 <!-- GOOGLE MAP -->
 @yield('google_map')
 
@@ -117,9 +105,6 @@
     <div class="container">
         <div class="row">
             @yield('pre_footer')
-
-
-
             <div class="col-md-12 col-sm-12 border-top">
                 <div class="col-md-4 col-sm-6">
                     <div class="copyright-text">
@@ -140,12 +125,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </footer>
 
-<!-- SCRIPTS -->
 <script src="/home/js/jquery.js"></script>
 <script src="/home/js/bootstrap.min.js"></script>
 <script src="/home/js/jquery.sticky.js"></script>
@@ -154,6 +137,5 @@
 <script src="/home/js/smoothscroll.js"></script>
 <script src="/home/js/owl.carousel.min.js"></script>
 <script src="/home/js/custom.js"></script>
-
 </body>
 
