@@ -13,7 +13,7 @@
 
         <div class="col-md-9">
 
-            <form id="msform" action="{{route('register')}}" method="POST">
+            <form id="msform" action="{{route('register')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- progressbar -->
                 <ul id="progressbar">

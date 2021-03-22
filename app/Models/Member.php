@@ -23,6 +23,7 @@ class Member extends Authenticatable
         'phone',
         'male',
         'address',
+        'avatar',
         'city',
         'DOB',
         'weight',

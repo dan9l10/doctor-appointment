@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Image;
+use File;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -20,7 +22,9 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input)
     {
+        $request = request();
         Validator::make($input, [
+            'avatar'=>['mimes:jpg,jpeg,png,bmp,tiff'],
             'name' => ['required', 'string', 'max:60'],
             'last_name' => ['required', 'string', 'max:60'],
             'patronymic' => ['required', 'string', 'max:60'],
@@ -36,6 +40,27 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
         $user->assignRole('patient');
+        if($request->file('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = 'avatar.'.$avatar->getClientOriginalExtension();
+            $save_path = storage_path('app/public/avatar/users/id/'.$user->id.'/');
+            $path = $save_path.$filename;
+
+            //File::makeDirectory($save_path, $mode = 0755, true, true);
+            //dd($path);
+            File::makeDirectory($save_path, $mode = 0755, true, true);
+
+            Image::make($avatar)->resize(300, 300)->save($path);
+
+
+            $public_path = '/storage/avatar/users/id/'.$user->id.'/'.$filename;
+            //dd($public_path);
+        }else{
+            $public_path = null;
+        }
+
+
+
 
         $member = new Member([
             'phone'=>$input['phone'],
@@ -45,6 +70,7 @@ class CreateNewUser implements CreatesNewUsers
             'DOB'=>$input['DOB'],
             'weight'=>$input['weight'],
             'rise'=>$input['rise'],
+            'avatar'=>$public_path,
         ]);
         $user->members()->save($member);
 
