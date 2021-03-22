@@ -3,6 +3,7 @@
 @section('content')
 
     <link href="/user/profile/css/profile.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <div class="container bootstrap snippets bootdey">
         @if ($message = Session::get('success'))
             <div class="alert alert-success col-md-12 row">
@@ -22,11 +23,14 @@
             <div class="profile-nav col-md-3">
                 <div class="panel">
                     <div class="user-heading round">
+
+
                         <a href="#">
-                            <img src="{{$userInfo->avatar}}" alt="">
+                            <img src="{{empty($userInfo->avatar)? "https://bootdey.com/img/Content/avatar/avatar3.png" : $userInfo->avatar}}" alt="">
                         </a>
                         <h1>{{$userInfo->name}}</h1>
                         <p>{{$userInfo->email}}</p>
+                        <i class="fas fa-edit"></i>
                     </div>
 
                     <ul class="nav nav-pills nav-stacked">
