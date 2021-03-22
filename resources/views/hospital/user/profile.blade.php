@@ -30,8 +30,11 @@
                         </a>
                         <h1>{{$userInfo->name}}</h1>
                         <p>{{$userInfo->email}}</p>
-                        <label for="avatar" style="cursor: pointer;"><i class="fas fa-edit"></i></label>
-                        <input type="file" name="avatar" id="avatar" style="opacity: 0;position: absolute;z-index: -1;">
+                        <form method="POST" enctype="multipart/form-data" id="file-upload">
+                            @csrf
+                            <label for="avatar" style="cursor: pointer;"><i class="fas fa-edit"></i></label>
+                            <input type="file" name="avatar" id="avatar" style="opacity: 0;position: absolute;z-index: -1;">
+                        </form>
                     </div>
 
                     <ul class="nav nav-pills nav-stacked">
@@ -153,5 +156,35 @@
 
             console.log(idMeet);
         }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('#file-upload').change(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type:'POST',
+                    url: "{{ route('avatar.user.upload')}}",
+                    data: formData,
+                    cache:false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+                        this.reset();
+                        alert('File has been uploaded successfully');
+                        console.log(data);
+                    },
+                    error: function(data){
+                        console.log(data);
+                    }
+                });
+            });
+        });
     </script>
 @endsection

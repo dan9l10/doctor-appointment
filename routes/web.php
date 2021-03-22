@@ -42,6 +42,7 @@ Route::group(['middleware'=>'auth'],function (){
     Route::resource('/meet',MeetController::class)->names('meet');
     Route::post('/meet/{id_doc}',[MeetController::class,'store'])->name('meet.create');
     Route::get('/appointments/{id}',[AppointmentController::class,'index'])->name('appointment.index');
+    Route::post('/avatar/upload', [ProfileController::class,'upload'])->name('avatar.user.upload');
 });
 
 //for show doctors and appointments

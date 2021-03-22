@@ -8,6 +8,8 @@ use App\Models\Meet;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Image;
+use File;
 
 class ProfileController extends Controller
 {
@@ -79,6 +81,32 @@ class ProfileController extends Controller
     {
         //
     }
+    /**
+     * Upload and Update user avatar.
+     *
+     * @param $file
+     *
+     * @return mixed
+     */
+    public function upload(Request $request)
+    {
+        if($request->file('avatar')){
+            $currentUser = auth()->user();
+            $avatar = $request->file('avatar');
+            $filename = 'avatar.'.$avatar->getClientOriginalExtension();
+            $save_path = storage_path('app/public/avatar/users/id/'.$currentUser->id.'/');
+            $path = $save_path.$filename;
+            File::makeDirectory($save_path, $mode = 0755, true, true);
+            Image::make($avatar)->resize(300, 300)->save($path);
+            $public_path = '/storage/avatar/users/id/'.$currentUser->id.'/'.$filename;
+            $currentUser->members->avatar = $public_path;
+            $currentUser->members->save();
+            return response()->json(['path' => $path], 200);
+        }else{
+            return response()->json(false, 200);
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.
