@@ -93,7 +93,7 @@
                                 <p><i class="fa fa-envelope-o"></i> <a href="#">{{$doctor->email}}</a></p>
                             </div>
                             <ul class="social-icon">
-                                <li><a href="#" class="fa fa-linkedin-square"></a></li>
+                                <li><a href="{{route('appointment.index',$doctor->members->id)}}" class="fa fa-pencil"></a></li>
                                 <li><a href="#" class="fa fa-envelope-o"></a></li>
                             </ul>
                         </div>
