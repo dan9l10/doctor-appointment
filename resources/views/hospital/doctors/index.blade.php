@@ -59,7 +59,7 @@
                     <div class="row">
                         <div class="container-card col-md-10 col-md-offset-2">
                             <div class="card-doc">
-                                <img src="https://html5css.ru/howto/img_avatar2.png" alt="Avatar" style="width: 65%; margin: 5px">
+                                <img src="{{(is_null($doctor->members->avatar))?'https://html5css.ru/howto/img_avatar2.png':$doctor->members->avatar}}" alt="Avatar" style="width: 65%; margin: 5px">
                                 <div class="container-card-info">
                                     <h4><b>{{$doctor->name}} {{$doctor->patronymic}} {{$doctor->last_name}}</b></h4>
                                     <p>{{$doctor->email}}</p>
