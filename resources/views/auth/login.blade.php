@@ -1,13 +1,14 @@
 @extends('hospital.layouts.app')
 
 @section('content')
+    <link href="/user/profile/css/profile.css" rel="stylesheet">
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <div class="row">
+        <div class="col-md-offset-1">
+            <div class="profile-info">
+                <div class="panel-header"><h2>{{ __('Login') }}</h2></div>
 
-                <div class="card-body">
+                <div class="panel-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
