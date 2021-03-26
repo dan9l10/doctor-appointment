@@ -43,6 +43,8 @@ Route::group(['middleware'=>'auth'],function (){
     Route::post('/meet/{id_doc}',[MeetController::class,'store'])->name('meet.create');
     Route::get('/appointments/{id}',[AppointmentController::class,'index'])->name('appointment.index');
     Route::post('/avatar/upload', [ProfileController::class,'upload'])->name('avatar.user.upload');
+    Route::get('/time',[AppointmentController::class,'returnAppointmentsTime'])->name('time.update');
+    Route::get('/scopeSpecial',[DoctorController::class,'scopeSpecial'])->name('doctor.update');
 });
 
 //for show doctors and appointments
@@ -51,6 +53,6 @@ Route::prefix('/hospital')->group(function () {
 });
 
 //for ajax to get time
-Route::get('/time',[AppointmentController::class,'returnAppointmentsTime'])->name('time.update');
+
 
 

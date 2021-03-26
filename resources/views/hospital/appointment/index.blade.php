@@ -1,13 +1,6 @@
 @extends('hospital.layouts.app')
-
 @section('content')
-
-    <div class="alert alert-success alert-block" style="display: none;">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong class="success-msg"></strong>
-    </div>
-
-<div class="container">
+    <div class="container">
     @if ($message = Session::get('success'))
         <div class="alert alert-success col-md-12 row">
             <p>{{$message}}</p>
@@ -22,15 +15,19 @@
             </ul>
         </div>
     @endif
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <img class="col-md-3" src="https://html5css.ru/howto/img_avatar2.png" alt="Avatar" >
-            <p class="col-1"><small>{{$appointments->specials->name}}</small></p>
-            <p class="col-md-9">
-                <b>
-                    {{$appointments->user->name}} {{$appointments->user->last_name}} {{$appointments->user->patronymic}}
-                </b>
-            </p>
+    <div class="card">
+        <div class="card-body">
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto">
+                    <img class="col-md-3" src="{{($appointments->avatar)? $appointments->avatar : 'https://html5css.ru/howto/img_avatar2.png'}}" alt="Avatar">
+                    <p class="col-1"><small>{{$appointments->specials->name}}</small></p>
+                    <p class="col-md-9">
+                        <b>
+                            {{$appointments->user->name}} {{$appointments->user->last_name}} {{$appointments->user->patronymic}}
+                        </b>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -60,7 +57,6 @@
             </div>
         </form>
     </div>
-
 </div>
 
 
