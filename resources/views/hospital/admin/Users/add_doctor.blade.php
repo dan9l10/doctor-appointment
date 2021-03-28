@@ -74,7 +74,7 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="DOB">DOB</label>
-                            <input type="date" class="form-control" id="DOB">
+                            <input name="date" type="date" class="form-control" id="DOB">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>

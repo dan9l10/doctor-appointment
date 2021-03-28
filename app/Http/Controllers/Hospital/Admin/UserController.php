@@ -69,6 +69,10 @@ class UserController extends Controller
 
         $member = new Member([
             'id_spec'=>$request->get('special'),
+            'patronymic'=>$request->get('patronymic'),
+            'phone'=>$request->get('phone_number'),
+            'DOB'=>$request->get('date'),
+            'city'=>$request->get('city'),
         ]);
 
         $user->assignRole("{$request->get('role')}");
