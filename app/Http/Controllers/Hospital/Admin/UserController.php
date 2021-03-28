@@ -73,6 +73,7 @@ class UserController extends Controller
             'phone'=>$request->get('phone_number'),
             'DOB'=>$request->get('date'),
             'city'=>$request->get('city'),
+            'address'=>$request->get('address'),
         ]);
 
         $user->assignRole("{$request->get('role')}");
@@ -95,10 +96,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $userEdit = Member::with('user')->with('user')->with('specials')->where('user_id',$id)->first();
+        /*dd($userEdit);
         $userEdit = DB::table('users')
             ->join('model_has_roles','model_has_roles.model_id','=','users.id')
             ->join('roles','roles.id','=','model_has_roles.role_id')
-            ->select(['users.id as id','users.last_name','users.patronymic','users.email as email','roles.name as role','users.name as name'])->where('users.id','=',$id)->orderBy('id')->get()->first();
+            ->select(['users.id as id','users.last_name','users.patronymic','users.email as email','roles.name as role','users.name as name'])->where('users.id','=',$id)->orderBy('id')->get()->first();*/
         $roles = Role::all(['id','name']);
         $specials = Special::all(['id','name']);
         return view('hospital.admin.users.edit_user',compact('roles','userEdit','specials'));
@@ -113,7 +116,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $user = User::find($id);
 
         if(empty($user)) {
@@ -134,10 +136,19 @@ class UserController extends Controller
             $user->password=Hash::make($request->get('password'));
         }
 
+        $roles=$user->getRoleNames();
+        foreach ($roles as $role) $user->removeRole($role);
+
         $user->assignRole("{$request->get('role')}");
         $user->members->id_spec=$request->get('special');
+        $user->members->address=$request->get('address');
+        $user->members->city=$request->get('city');
+        $user->members->DOB=$request->get('DOB');
+        $user->members->phone=$request->get('phone_number');
+
         $user->members->save();
         $result=$user->save();
+
         if($result){
             return redirect()->route('users.admin.edit',$id)
                 ->with(['success'=>'Data added']);
