@@ -20,7 +20,6 @@ class DoctorController extends Controller
         $doctorInfo = User::role('doctor')->with('specials')->with('members')->get();
         $specials = Special::all(['id','name']);
         return view('hospital.doctors.index',compact('doctorInfo','specials'));
-
     }
 
     /**
@@ -32,8 +31,9 @@ class DoctorController extends Controller
         if($request->ajax()){
             if ( $request->has('specials') && $request->specials != '' ) {
                 $doctorInfo = Member::with('specials')->with('user')->whereIn('id_spec',$request->specials)->get();
-            } else {
-                $doctorInfo = Member::with('specials')->with('user')->get();
+            }else{
+                $doctors = User::select('id')->role('doctor')->get()->toArray();
+                $doctorInfo = Member::with('specials')->with('user')->whereIn('user_id',$doctors)->get();
             }
         }
         return response()->json($doctorInfo);

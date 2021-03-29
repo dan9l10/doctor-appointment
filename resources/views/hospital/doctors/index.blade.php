@@ -95,15 +95,26 @@
         crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        var specials = [];
+
+
         // Listen for 'change' event, so this triggers when the user clicks on the checkboxes labels
 
-
         $('.special_checkbox').on('change', function (e) {
-            specials.push($(this).val());
+            var specials = [];
+            e.preventDefault();
+            $('input[name="special[]"]:checked').each(function () {
+                specials.push($(this).val());
+            });
             console.log(specials);
             send(specials);
         });
+
+
+        /*$('.special_checkbox').on('change', function (e) {
+            specials.push($(this).val());
+            console.log(specials);
+            send(specials);
+        });*/
 
 
        /* $('.special_checkbox').on('change', function (e) {

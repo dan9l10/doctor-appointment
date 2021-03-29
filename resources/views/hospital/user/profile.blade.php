@@ -43,7 +43,7 @@
                         <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>
                         <li><a href=" {{route('doctors.show')}} "> <i class="fa fa-edit"></i> Записатися на візит</a></li>
                         @if(auth()->user()->hasRole('doctor'))
-                            <li><a href=""> <i class="fa fa-edit"></i>Приём пациентов</a></li>
+                            <li><a href="#"> <i class="fa fa-edit"></i>Приём пациентов</a></li>
                         @endif
                         @if(auth()->user()->hasRole('admin'))
                             <li><a href="{{route('admin.panel')}}"> <i class="fa fa-edit"></i>Panel</a></li>
