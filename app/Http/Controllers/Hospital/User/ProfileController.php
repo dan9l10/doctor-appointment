@@ -22,9 +22,8 @@ class ProfileController extends Controller
     {
         $userInfo = Member::with('user')->where('user_id',$id)->get()->first();
         $meets = Meet::with('times')->where('id_user',$id)->with('doctor')->get();
-        //dd($meets);
-        return view('hospital.user.profile',compact('userInfo'),compact('meets'));
-
+        $countMeet = count($meets);
+        return view('hospital.user.profile',compact('userInfo','meets'),compact('countMeet'));
     }
 
     /**
