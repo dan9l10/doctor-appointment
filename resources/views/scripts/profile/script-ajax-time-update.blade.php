@@ -27,9 +27,4 @@
             }
         });
     }
-
-    function send(idMeet){
-
-        console.log(idMeet);
-    }
 </script>
