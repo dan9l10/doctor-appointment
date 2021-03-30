@@ -43,7 +43,7 @@
                         @if(auth()->user()->hasRole('admin'))
                             <li class="button"><a href="{{route('admin.panel')}}"> <i class="fa fa-edit"></i>Panel</a></li>
                         @endif
-                        <li class="button"><a href="#"> <i class="fa fa-edit"></i> Змінити особисту інформацію</a></li>
+                        <li class="button edit-information"><a href="#"> <i class="fa fa-edit"></i> Змінити особисту інформацію</a></li>
                         <li class="button information"><a href="#" > <i class="fa fa-user"></i> Особиста інформація</a></li>
                     </ul>
                 </div>
@@ -61,7 +61,7 @@
                                     <p><span>Прізвище </span>: {{$userInfo->user->last_name}}</p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>Країна </span>: {{$userInfo->city}} {{$userInfo->address}}</p>
+                                    <p><span>Адреса </span>: {{$userInfo->city}} {{$userInfo->address}}</p>
                                 </div>
                                 <div class="bio-row">
                                     <p><span>Дата народження</span>: {{$userInfo->DOB}}</p>
@@ -81,6 +81,46 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="panel profile-info col-md-9 edit-information-profile hidden">
+                        <div class="panel-body bio-graph-info">
+                            <h1>Введіть нові дані</h1>
+                            <div class="row">
+                                <form action="">
+                                    <div class="bio-row">
+                                        <label for="name">Iм"я</label> <input type="text" id="name" class="form-control col-md-3" value="{{$userInfo->user->name}}">
+                                    </div>
+                                    <div class="bio-row">
+                                        <label for="last_name">Прізвище</label> <input type="text" id="last_name" class="form-control col-md-3" value="{{$userInfo->user->last_name}}">
+                                    </div>
+                                    <div class="bio-row">
+                                        <label for="city">Місто</label> <input type="text" id="city" class="form-control col-md-3" value="{{$userInfo->city}}">
+                                    </div>
+                                    <div class="bio-row">
+                                        <label for="DOB">Дата народження</label> <input type="date" id="DOB" class="form-control col-md-3" value="{{$userInfo->DOB}}">
+                                    </div>
+                                    <div class="bio-row">
+                                        <label for="email">Email</label> <input type="text" id="email" class="form-control col-md-3" value="{{$userInfo->user->email}}">
+                                    </div>
+                                    <div class="bio-row">
+                                        <label for="phone">Мобільний телефон</label> <input type="text" id="phone" class="form-control col-md-3" value="{{$userInfo->phone}}">
+                                    </div>
+                                    <div class="bio-row">
+                                        <label for="rise">Зріст</label> <input type="text" id="rise" class="form-control col-md-3" value="{{$userInfo->rise}}">
+                                    </div>
+                                    <div class="bio-row">
+                                        <label for="weight">Вага</label> <input type="text" id="weight" class="form-control col-md-3" value="{{$userInfo->weight}}">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="col-md-9 panel profile-info appointment-info">
                         <div class="row">
                             <h3 class="col-md-9">Відвідування: </h3>
