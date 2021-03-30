@@ -66,9 +66,7 @@
 
                     </div>
                 </div>
-
             </div>
-
 
             <div class="col-md-8" id="doc_card">
                     @foreach($doctorInfo as $doctor)
@@ -80,7 +78,9 @@
                                     <h4><b>{{$doctor->name}} {{$doctor->patronymic}} {{$doctor->last_name}}</b></h4>
                                     <p>{{$doctor->email}}</p>
                                     @foreach($doctor->specials as $special)<p>{{$special->name}}</p>@endforeach
-                                    <a href="{{route('appointment.index',$doctor->id)}}" class="btn btn-info">Записаться</a>
+                                    @if(!($doctor->id == auth()->user()->id))
+                                        <a href="{{route('appointment.index',$doctor->id)}}" class="btn btn-info">Записаться</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -93,73 +93,6 @@
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
+    @include('scripts.doctors.script-ajax-update-doctor')
 
-
-        // Listen for 'change' event, so this triggers when the user clicks on the checkboxes labels
-
-        $('.special_checkbox').on('change', function (e) {
-            var specials = [];
-            e.preventDefault();
-            $('input[name="special[]"]:checked').each(function () {
-                specials.push($(this).val());
-            });
-            console.log(specials);
-            send(specials);
-        });
-
-
-        /*$('.special_checkbox').on('change', function (e) {
-            specials.push($(this).val());
-            console.log(specials);
-            send(specials);
-        });*/
-
-
-       /* $('.special_checkbox').on('change', function (e) {
-            e.preventDefault();
-            if ($(this).is(":checked")) {
-                specials.push($(this).val());
-                console.log(specials);
-            }
-            send(specials);
-        });*/
-    });
-    function send(specials){
-        $('#doc_card').empty();
-        $.ajax({
-            url: "{{route('doctor.update')}}",
-            type: 'GET',
-            data: {
-                specials: specials,
-            },
-            dataType: 'json',
-            success: function (responce) {
-                if(isNaN(responce)){
-                    $('#doc_card').empty();
-                    $.each(responce, function (index, element) {
-                        $('#doc_card').append(`
-                            <div class="container-card col-md-10 col-md-offset-2">
-                                <div class="card-doc">
-                                    <img src="${(element.avatar)? element.avatar: 'https://html5css.ru/howto/img_avatar2.png' }" alt="Avatar" style="width: 65%; margin: 5px">
-                                    <div class="container-card-info">
-                                        <h4><b>${element.user.name} ${element.user.last_name} ${element.user.patronymic}</b></h4>
-                                        <p>${element.user.email}</p>
-                                        <p>${element.specials.name}</p>
-                                        <a href="" class="btn btn-info">Записаться</a>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-                    });
-                }
-            },
-            error: function () {
-                console.log('error');
-            }
-        });
-    }
-
-</script>
 @endsection

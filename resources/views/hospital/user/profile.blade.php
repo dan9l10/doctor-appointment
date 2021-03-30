@@ -38,7 +38,7 @@
                         <li class="button active appointment"><a href="#"> <i class="fa fa-calendar"></i> Візити <span class="label label-warning pull-right r-activity">{{$countMeet}}</span></a></li>
                         <li class="button"><a href=" {{route('doctors.show')}} "> <i class="fa fa-edit"></i> Записатися на візит</a></li>
                         @if(auth()->user()->hasRole('doctor'))
-                            <li class="button"><a href="#"> <i class="fa fa-edit"></i>Пацієнти</a></li>
+                            <li class="button appointment-patient"><a href="#"> <i class="fa fa-edit"></i>Пацієнти</a></li>
                         @endif
                         @if(auth()->user()->hasRole('admin'))
                             <li class="button"><a href="{{route('admin.panel')}}"> <i class="fa fa-edit"></i>Panel</a></li>
@@ -121,6 +121,40 @@
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
+
+
+    <script>
+        $('.appointment-patient').click(function (){
+            alert({{auth()->user()->id}});
+            /*$.ajax({
+                url: "route('time.update')}}",
+                type: 'GET',
+                data: {
+                    date: date,
+                    id: id
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('#times').empty();
+                    $.each(data, function (index, element) {
+                        $.each(element.times, function (index, element) {
+                            if (element.status === 1) {
+                                $('#times').append($('<label class="btn btn-primary disabled"><input type="radio" name="time" id="time" disabled>' + element.time + '</label>'));
+                            } else {
+                                $('#times').append($('<label class="btn btn-primary"><input type="radio" name="time" id="time" value="' + element.id + '">' + element.time + '</label>'));
+                            }
+
+                        });
+                    });
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });*/
+        });
+
+    </script>
+
 
     @include('scripts.profile.script-change-page');
     @include('scripts.profile.script-ajax-time-update');
