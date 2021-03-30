@@ -1,6 +1,7 @@
 @extends('hospital.layouts.app')
 
 @section('content')
+
     <link href="/user/profile/css/profile.css" rel="stylesheet">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <div class="container bootstrap snippets bootdey">
@@ -38,7 +39,7 @@
                         <li class="button active appointment"><a href="#"> <i class="fa fa-calendar"></i> Візити <span class="label label-warning pull-right r-activity">{{$countMeet}}</span></a></li>
                         <li class="button"><a href=" {{route('doctors.show')}} "> <i class="fa fa-edit"></i> Записатися на візит</a></li>
                         @if(auth()->user()->hasRole('doctor'))
-                            <li class="button appointment-patient"><a href="#"> <i class="fa fa-edit"></i>Пацієнти</a></li>
+                            <li class="button appointment-patients"><a href="#"> <i class="fa fa-edit"></i>Пацієнти</a></li>
                         @endif
                         @if(auth()->user()->hasRole('admin'))
                             <li class="button"><a href="{{route('admin.panel')}}"> <i class="fa fa-edit"></i>Panel</a></li>
@@ -55,28 +56,28 @@
                             <h1>Особиста інформація</h1>
                             <div class="row">
                                 <div class="bio-row">
-                                    <p><span>Ім"я </span>: {{$userInfo->user->name}}</p>
+                                    <p><span><b>Ім"я </b> </span>: {{$userInfo->user->name}}</p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>Прізвище </span>: {{$userInfo->user->last_name}}</p>
+                                    <p><span><b>Прізвище</b> </span>: {{$userInfo->user->last_name}}</p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>Адреса </span>: {{$userInfo->city}} {{$userInfo->address}}</p>
+                                    <p><span><b>Адреса</b> </span>: {{$userInfo->city}} {{$userInfo->address}}</p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>Дата народження</span>: {{$userInfo->DOB}}</p>
+                                    <p><span><b>Дата народження</b></span>: {{$userInfo->DOB}}</p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>Email </span>: {{$userInfo->user->email}}</p>
+                                    <p><span><b>Email</b> </span>: {{$userInfo->user->email}}</p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>Мобільний телефон </span>: {{$userInfo->phone}}</p>
+                                    <p><span><b>Мобільний телефон</b> </span>: {{$userInfo->phone}}</p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>Вага </span>: {{$userInfo->rise}}</p>
+                                    <p><span><b>Вага</b> </span>: {{$userInfo->rise}}</p>
                                 </div>
                                 <div class="bio-row">
-                                    <p><span>Зріст </span>: {{$userInfo->weight}}</p>
+                                    <p><span><b>Зріст</b> </span>: {{$userInfo->weight}}</p>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +87,7 @@
                         <div class="panel-body bio-graph-info">
                             <h1>Введіть нові дані</h1>
                             <div class="row">
-                                <form action="">
+                                <form>
                                     <div class="bio-row">
                                         <label for="name">Iм"я</label> <input type="text" id="name" class="form-control col-md-3" value="{{$userInfo->user->name}}">
                                     </div>
@@ -112,9 +113,8 @@
                                         <label for="weight">Вага</label> <input type="text" id="weight" class="form-control col-md-3" value="{{$userInfo->weight}}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <a class="btn btn-primary" id="submit-new-info">Submit</a>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -163,40 +163,8 @@
         crossorigin="anonymous"></script>
 
 
-    <script>
-        $('.appointment-patient').click(function (){
-            alert({{auth()->user()->id}});
-            /*$.ajax({
-                url: "route('time.update')}}",
-                type: 'GET',
-                data: {
-                    date: date,
-                    id: id
-                },
-                dataType: 'json',
-                success: function (data) {
-                    $('#times').empty();
-                    $.each(data, function (index, element) {
-                        $.each(element.times, function (index, element) {
-                            if (element.status === 1) {
-                                $('#times').append($('<label class="btn btn-primary disabled"><input type="radio" name="time" id="time" disabled>' + element.time + '</label>'));
-                            } else {
-                                $('#times').append($('<label class="btn btn-primary"><input type="radio" name="time" id="time" value="' + element.id + '">' + element.time + '</label>'));
-                            }
-
-                        });
-                    });
-                },
-                error: function () {
-                    console.log('error');
-                }
-            });*/
-        });
-
-    </script>
-
-
-    @include('scripts.profile.script-change-page');
-    @include('scripts.profile.script-ajax-time-update');
-    @include('scripts.profile.script-photo-update');
+    @include('scripts.profile.script-update-info-profile-ajax')
+    @include('scripts.profile.script-change-page')
+    @include('scripts.profile.script-ajax-time-update')
+    @include('scripts.profile.script-photo-update')
 @endsection

@@ -78,7 +78,22 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->name = $request->name;
+        $user->last_name = $request->lastName;
+        $user->email = $request->email;
+
+        $user->members->phone = $request->phone;
+        $user->members->city = $request->city;
+        $user->members->DOB = $request->dob;
+        $user->members->weight = $request->weight;
+        $user->members->rise = $request->rise;
+
+        $user->save();
+        $result = $user->members->save();
+
+        return response()->json($result);
     }
     /**
      * Upload and Update user avatar.
