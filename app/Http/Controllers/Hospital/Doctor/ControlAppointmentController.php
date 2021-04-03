@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hospital\Doctor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Meet;
 use Illuminate\Http\Request;
 
 class ControlAppointmentController extends Controller
@@ -14,7 +15,10 @@ class ControlAppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $id_doc = auth()->user()->id;
+
+        $meets = Meet::where('id_doc',$id_doc)->with('patient')->with('times')->get();
+        return view('hospital.user.doctor.show-patient',compact('meets'));
     }
 
     /**

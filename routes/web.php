@@ -6,6 +6,7 @@ use App\Http\Controllers\Hospital\Admin\MeetsManagementController;
 use App\Http\Controllers\Hospital\Admin\HomeController;
 use App\Http\Controllers\Hospital\Admin\UserController;
 use App\Http\Controllers\Hospital\AppointmentController;
+use App\Http\Controllers\Hospital\Doctor\ControlAppointmentController;
 use App\Http\Controllers\Hospital\HomePageController;
 use App\Http\Controllers\Hospital\MeetController;
 use App\Http\Controllers\Hospital\User\DoctorController;
@@ -24,6 +25,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[HomePageController::class,'index'])->name('root');
+
+Route::group(['middleware'=>['role:doctor']],function (){
+    Route::resource('/patients',ControlAppointmentController::class)->names('patient.doctor');
+});
 
 //admin-panel
 Route::prefix('/admin')->group(function () {
