@@ -1,7 +1,7 @@
 +--------+-----------+--------------------------------------+---------------------------------+--------------------------------------------------------------------------------+--------------+
 | Domain | Method    | URI                                  | Name                            | Action                                                                         | Middleware   |
 +--------+-----------+--------------------------------------+---------------------------------+--------------------------------------------------------------------------------+--------------+
-|        | GET|HEAD  | /                                    | root                            | Closure                                                                        | web          |
+|        | GET|HEAD  | /                                    | root                            | App\Http\Controllers\Hospital\HomePageController@index                         | web          |
 |        | POST      | admin/appointment                    | appointments.admin.store        | App\Http\Controllers\Hospital\Admin\AppointmentManagementController@store      | web          |
 |        |           |                                      |                                 |                                                                                | role:admin   |
 |        | GET|HEAD  | admin/appointment                    | appointments.admin.index        | App\Http\Controllers\Hospital\Admin\AppointmentManagementController@index      | web          |
@@ -28,9 +28,9 @@
 |        |           |                                      |                                 |                                                                                | role:admin   |
 |        | GET|HEAD  | admin/panel                          | admin.panel                     | App\Http\Controllers\Hospital\Admin\HomeController@index                       | web          |
 |        |           |                                      |                                 |                                                                                | role:admin   |
-|        | POST      | admin/users                          | users.admin.store               | App\Http\Controllers\Hospital\Admin\UserController@store                       | web          |
-|        |           |                                      |                                 |                                                                                | role:admin   |
 |        | GET|HEAD  | admin/users                          | users.admin.index               | App\Http\Controllers\Hospital\Admin\UserController@index                       | web          |
+|        |           |                                      |                                 |                                                                                | role:admin   |
+|        | POST      | admin/users                          | users.admin.store               | App\Http\Controllers\Hospital\Admin\UserController@store                       | web          |
 |        |           |                                      |                                 |                                                                                | role:admin   |
 |        | GET|HEAD  | admin/users/create                   | users.admin.create              | App\Http\Controllers\Hospital\Admin\UserController@create                      | web          |
 |        |           |                                      |                                 |                                                                                | role:admin   |
@@ -44,6 +44,8 @@
 |        |           |                                      |                                 |                                                                                | auth:api     |
 |        | GET|HEAD  | appointments/{id}                    | appointment.index               | App\Http\Controllers\Hospital\AppointmentController@index                      | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
+|        | POST      | avatar/upload                        | avatar.user.upload              | App\Http\Controllers\Hospital\User\ProfileController@upload                    | web          |
+|        |           |                                      |                                 |                                                                                | auth         |
 |        | POST      | email/verification-notification      | verification.send               | Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController@store | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
 |        |           |                                      |                                 |                                                                                | throttle:6,1 |
@@ -53,11 +55,12 @@
 |        |           |                                      |                                 |                                                                                | auth         |
 |        |           |                                      |                                 |                                                                                | signed       |
 |        |           |                                      |                                 |                                                                                | throttle:6,1 |
-|        | POST      | forgot-password                      | password.email                  | Laravel\Fortify\Http\Controllers\PasswordResetLinkController@store             | web          |
-|        |           |                                      |                                 |                                                                                | guest        |
 |        | GET|HEAD  | forgot-password                      | password.request                | Laravel\Fortify\Http\Controllers\PasswordResetLinkController@create            | web          |
 |        |           |                                      |                                 |                                                                                | guest        |
+|        | POST      | forgot-password                      | password.email                  | Laravel\Fortify\Http\Controllers\PasswordResetLinkController@store             | web          |
+|        |           |                                      |                                 |                                                                                | guest        |
 |        | GET|HEAD  | hospital/doctors                     | doctors.show                    | App\Http\Controllers\Hospital\User\DoctorController@index                      | web          |
+|        |           |                                      |                                 |                                                                                | auth         |
 |        | POST      | hospital/profile                     | user.profile.store              | App\Http\Controllers\Hospital\User\ProfileController@store                     | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
 |        | GET|HEAD  | hospital/profile/{id}                | user.profile                    | App\Http\Controllers\Hospital\User\ProfileController@index                     | web          |
@@ -73,22 +76,36 @@
 |        | POST      | login                                |                                 | Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@store          | web          |
 |        |           |                                      |                                 |                                                                                | guest        |
 |        | POST      | logout                               | logout                          | Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy        | web          |
-|        | POST      | meet                                 | meet.store                      | App\Http\Controllers\Hospital\MeetController@store                             | web          |
-|        |           |                                      |                                 |                                                                                | auth         |
 |        | GET|HEAD  | meet                                 | meet.index                      | App\Http\Controllers\Hospital\MeetController@index                             | web          |
+|        |           |                                      |                                 |                                                                                | auth         |
+|        | POST      | meet                                 | meet.store                      | App\Http\Controllers\Hospital\MeetController@store                             | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
 |        | GET|HEAD  | meet/create                          | meet.create                     | App\Http\Controllers\Hospital\MeetController@create                            | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
 |        | POST      | meet/{id_doc}                        | meet.create                     | App\Http\Controllers\Hospital\MeetController@store                             | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
-|        | PUT|PATCH | meet/{meet}                          | meet.update                     | App\Http\Controllers\Hospital\MeetController@update                            | web          |
-|        |           |                                      |                                 |                                                                                | auth         |
 |        | DELETE    | meet/{meet}                          | meet.destroy                    | App\Http\Controllers\Hospital\MeetController@destroy                           | web          |
+|        |           |                                      |                                 |                                                                                | auth         |
+|        | PUT|PATCH | meet/{meet}                          | meet.update                     | App\Http\Controllers\Hospital\MeetController@update                            | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
 |        | GET|HEAD  | meet/{meet}                          | meet.show                       | App\Http\Controllers\Hospital\MeetController@show                              | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
 |        | GET|HEAD  | meet/{meet}/edit                     | meet.edit                       | App\Http\Controllers\Hospital\MeetController@edit                              | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
+|        | POST      | patients                             | patient.doctor.store            | App\Http\Controllers\Hospital\Doctor\ControlAppointmentController@store        | web          |
+|        |           |                                      |                                 |                                                                                | role:doctor  |
+|        | GET|HEAD  | patients                             | patient.doctor.index            | App\Http\Controllers\Hospital\Doctor\ControlAppointmentController@index        | web          |
+|        |           |                                      |                                 |                                                                                | role:doctor  |
+|        | GET|HEAD  | patients/create                      | patient.doctor.create           | App\Http\Controllers\Hospital\Doctor\ControlAppointmentController@create       | web          |
+|        |           |                                      |                                 |                                                                                | role:doctor  |
+|        | PUT|PATCH | patients/{patient}                   | patient.doctor.update           | App\Http\Controllers\Hospital\Doctor\ControlAppointmentController@update       | web          |
+|        |           |                                      |                                 |                                                                                | role:doctor  |
+|        | DELETE    | patients/{patient}                   | patient.doctor.destroy          | App\Http\Controllers\Hospital\Doctor\ControlAppointmentController@destroy      | web          |
+|        |           |                                      |                                 |                                                                                | role:doctor  |
+|        | GET|HEAD  | patients/{patient}                   | patient.doctor.show             | App\Http\Controllers\Hospital\Doctor\ControlAppointmentController@show         | web          |
+|        |           |                                      |                                 |                                                                                | role:doctor  |
+|        | GET|HEAD  | patients/{patient}/edit              | patient.doctor.edit             | App\Http\Controllers\Hospital\Doctor\ControlAppointmentController@edit         | web          |
+|        |           |                                      |                                 |                                                                                | role:doctor  |
 |        | GET|HEAD  | register                             | register                        | Laravel\Fortify\Http\Controllers\RegisteredUserController@create               | web          |
 |        |           |                                      |                                 |                                                                                | guest        |
 |        | POST      | register                             |                                 | Laravel\Fortify\Http\Controllers\RegisteredUserController@store                | web          |
@@ -97,10 +114,12 @@
 |        |           |                                      |                                 |                                                                                | guest        |
 |        | GET|HEAD  | reset-password/{token}               | password.reset                  | Laravel\Fortify\Http\Controllers\NewPasswordController@create                  | web          |
 |        |           |                                      |                                 |                                                                                | guest        |
+|        | GET|HEAD  | scopeSpecial                         | doctor.update                   | App\Http\Controllers\Hospital\User\DoctorController@scopeSpecial               | web          |
 |        | GET|HEAD  | time                                 | time.update                     | App\Http\Controllers\Hospital\AppointmentController@returnAppointmentsTime     | web          |
-|        | GET|HEAD  | user/confirm-password                | password.confirm                | Laravel\Fortify\Http\Controllers\ConfirmablePasswordController@show            | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
 |        | POST      | user/confirm-password                |                                 | Laravel\Fortify\Http\Controllers\ConfirmablePasswordController@store           | web          |
+|        |           |                                      |                                 |                                                                                | auth         |
+|        | GET|HEAD  | user/confirm-password                | password.confirm                | Laravel\Fortify\Http\Controllers\ConfirmablePasswordController@show            | web          |
 |        |           |                                      |                                 |                                                                                | auth         |
 |        | GET|HEAD  | user/confirmed-password-status       | password.confirmation           | Laravel\Fortify\Http\Controllers\ConfirmedPasswordStatusController@show        | web          |
 |        |           |                                      |                                 |                                                                                | auth         |

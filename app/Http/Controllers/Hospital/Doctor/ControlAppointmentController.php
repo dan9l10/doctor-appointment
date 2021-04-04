@@ -73,7 +73,16 @@ class ControlAppointmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $meet = Meet::findOrFail($id);
+
+        $meet->status = 1;
+        $result = $meet->save();
+
+        if($result){
+            return redirect()->route('patient.doctor.index');
+        }else{
+            return back()->withErrors(['msg'=>'Error with add'])->withInput();
+        }
     }
 
     /**
