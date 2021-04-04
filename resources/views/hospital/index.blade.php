@@ -82,7 +82,7 @@
                 @foreach($doctors as $doctor)
                 <div class="col-md-4 col-sm-6">
                     <div class="team-thumb wow fadeInUp" data-wow-delay="0.2s">
-                        <img src="/home/images/team-image1.jpg" class="img-responsive" alt="">
+                        <img src="{{is_null($doctor->members->avatar)? "/home/images/team-image1.jpg": $doctor->members->avatar }}" class="img-responsive" alt="">
                         <div class="team-info">
                             <h3>{{$doctor->name}} {{$doctor->last_name}} {{$doctor->patronymic}}</h3>
                             @foreach($doctor->specials as $special)
