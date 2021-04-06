@@ -125,32 +125,44 @@
                         <div class="row">
                             <h3 class="col-md-9">Відвідування: </h3>
                         </div>
+                        <div class="row" style="margin-bottom: 5px;">
+                            <div class="col-md-6">
+                                <select class="form-control" name="" id="">
+                                    <option value="">Усі записи</option>
+                                    <option value="">Заплановані</option>
+                                    <option value="">Завершені</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="row">
                             @if(empty($meets[0]))
                                 <p class="col-md-offset-5">Записів немає</p>
-                            @endif
-                            @foreach($meets as $meet)
-                                <div class="col-md-12 card">
-                                    <div class="panel">
-                                        <div class="panel-body">
-                                            <div class="bio-chart">
-                                                <div style="display:inline;width:100px;height:100px;">
-                                                    <canvas width="100" height="100px"></canvas>
-                                                    <a onclick="refresh({{$meet->doctor->id}})" href="" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;">
-                                                        Изменить
-                                                    </a>
+                            @else
+                                @foreach($meets as $meet)
+                                    <div>
+                                        <div class="col-md-12">
+                                            <div class="panel" style="background: #fcfaf8;">
+                                                <div class="panel-body">
+                                                    <div class="col-md-6">
+                                                        <a href="{{route('appointment.index',$meet->doctor->id)}}" style="font-size: 15px;"><b>{{$meet->doctor->name}} {{$meet->doctor->patronymic}} {{$meet->doctor->last_name}}</b></a>
+                                                        <div class="col-md-12" style="margin-top: 10px;">
+                                                            <p>ВАШ ЗАПИС</p>
+                                                            <p>Дата: <b>{{$meet->date}}</b></p>
+                                                            <p>Статус: <b>{{($meet->status)? "Завершено" : "Заплановано"}}</b></p>
+                                                            <p>Час: <b>{{$meet->times->time}}</b></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-offset-8">
+                                                        <div class="row">
+                                                            <a class="btn btn-primary" href="">Переглянути</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="bio-desk">
-                                                <h4 class="red" onclick="send({{$meet->id}})">{{$meet->doctor->name}} {{$meet->doctor->patronymic}} {{$meet->doctor->last_name}}</h4>
-                                                <p>Дата : {{$meet->date}}</p>
-                                                <p>Время : {{$meet->times->time}}</p>
-                                                <p>Cтатус : {{($meet->status)? "Завершено" : "Заплановано"}}</p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
