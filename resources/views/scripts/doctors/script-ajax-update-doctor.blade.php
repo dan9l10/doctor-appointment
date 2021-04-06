@@ -1,16 +1,17 @@
 <script>
     $(document).ready(function () {
-        // Listen for 'change' event, so this triggers when the user clicks on the checkboxes labels
-        $('.special_checkbox').on('change', function (e) {
-            var specials = [];
-            e.preventDefault();
-            $('input[name="special[]"]:checked').each(function () {
-                specials.push($(this).val());
-            });
-            console.log(specials);
-            send(specials);
-        });
+        pushChecked();
     });
+    $('.special_checkbox').on('change', function (e) {
+        pushChecked();
+    });
+    function pushChecked(){
+        var specials = [];
+        $('input[name="special[]"]:checked').each(function () {
+            specials.push($(this).val());
+        });
+        send(specials);
+    }
     function send(specials){
         $('#doc_card').empty();
         $.ajax({
@@ -33,7 +34,7 @@
                                         <h4><b>${element.user.name} ${element.user.last_name} ${element.user.patronymic}</b></h4>
                                         <p>${element.user.email}</p>
                                         <p>${element.specials.name}</p>
-                                        ${(!(element.user.id===userId))?'<a href="" class="btn btn-info">Записаться</a>':''}
+                                        ${(!(element.user.id===userId))?'<a href="/appointments/'+element.user.id+'"class="btn btn-info">Записаться</a>':''}
                                     </div>
                                 </div>
                             </div>
@@ -46,5 +47,4 @@
             }
         });
     }
-
 </script>
