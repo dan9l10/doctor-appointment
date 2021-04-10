@@ -50,7 +50,8 @@ class ControlAppointmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $meets = Meet::where('id',$id)->with('patient')->with('times')->first();
+        return view('hospital.user.doctor.show-info-appointment',compact('meets'));
     }
 
     /**
@@ -75,11 +76,14 @@ class ControlAppointmentController extends Controller
     {
         $meet = Meet::findOrFail($id);
 
-        $meet->status = 1;
+        if (!is_null($request->get('status'))){
+            $meet->status = $request->get('status');
+        }
+        $meet->diagnosis = $request->get('diagnosis');
         $result = $meet->save();
 
         if($result){
-            return redirect()->route('patient.doctor.index');
+            return redirect()->route('patient.doctor.index')->with(['success'=>'Дані зменені']);
         }else{
             return back()->withErrors(['msg'=>'Error with add'])->withInput();
         }

@@ -2,6 +2,20 @@
 @section('content')
 
 <div class="container bootstrap snippets bootdey">
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success col-md-12 row">
+            <p>{{$message}}</p>
+        </div>
+    @elseif($errors->any())
+        <div class="alert alert-danger col-md-12 row">
+            <strong>Error!</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <a href="{{url()->previous()}}" class="btn btn-danger">Back</a>
     <div class="row">
         <div class="panel profile-info">
@@ -28,13 +42,7 @@
                             <td >{{$meet->times->time}}</td>
                             <td>{{ !($meet->status)? "Очікується" : "Закінчена"}}</td>
                             <td>{{$meet->patient->name}} {{$meet->patient->last_name}}</td>
-                            <td><a class="btn btn-primary mr-2" href="{{route('meets.admin.edit',$meet->id)}}" role="button">Информация</a>
-                                <form method="post" style="display: contents;" action="{{route('patient.doctor.update',$meet->id)}}" class="form-contents">
-                                    @method('PATCH')
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger">Отметить заявку</button>
-                                </form>
-                            </td>
+                            <td><a class="btn btn-primary mr-2" href="{{route('patient.doctor.show',$meet->id)}}" role="button">Інформація</a></td>
                         </tr>
                     @endforeach
                     </tbody>
