@@ -37,12 +37,12 @@
 
                     <ul class="nav nav-pills nav-stacked">
                         <li class="button active appointment"><a href="#"> <i class="fa fa-calendar"></i> Візити <span class="label label-warning pull-right r-activity">{{$countMeet}}</span></a></li>
-                        <li class="button"><a href=" {{route('doctors.show')}} "> <i class="fa fa-edit"></i> Записатися на візит</a></li>
+                        <li class="button"><a href=" {{route('doctors.show')}} "> <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Записатися на візит</a></li>
                         @if(auth()->user()->hasRole('doctor'))
-                            <li class="button appointment-patients"><a href="{{route('patient.doctor.index')}}"> <i class="fa fa-edit"></i>Пацієнти</a></li>
+                            <li class="button appointment-patients"><a href="{{route('patient.doctor.index')}}"> <i class="fa fa-heartbeat" aria-hidden="true"></i>Пацієнти</a></li>
                         @endif
                         @if(auth()->user()->hasRole('admin'))
-                            <li class="button"><a href="{{route('admin.panel')}}"> <i class="fa fa-edit"></i>Panel</a></li>
+                            <li class="button"><a href="{{route('admin.panel')}}"> <i class="fa fa-cog" aria-hidden="true"></i>Panel</a></li>
                         @endif
                         <li class="button edit-information"><a href="#"> <i class="fa fa-edit"></i> Змінити особисту інформацію</a></li>
                         <li class="button information"><a href="#" > <i class="fa fa-user"></i> Особиста інформація</a></li>

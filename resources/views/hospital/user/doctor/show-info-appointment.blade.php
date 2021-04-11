@@ -19,7 +19,7 @@
         </div>
     @endif
     <div class="panel profile-info">
-        <a href="{{route('patient.doctor.index')}}" class="col-md-6"><b><-------Повернутись до пацієнтів</b></a>
+        <a href="{{route('patient.doctor.index')}}" class="col-md-6"><b><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Повернутись до пацієнтів</b></a>
         <div class="panel-body">
             <h3>Пацієнт:</h3>
             <h4><b>{{$meets->patient->name}}  {{$meets->patient->last_name}} {{$meets->patient->patronymic}}</b></h4>

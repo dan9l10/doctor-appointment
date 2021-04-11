@@ -18,7 +18,7 @@
                                 <p class="col-md-6"><b>Лікар: </b>${data.doctor.name} ${data.doctor.last_name} ${data.doctor.patronymic}</p>
                             </div>
                             <div class="row">
-                                <p class="col-md-6"><b>Час: </b>${data.times.time}</p>
+                                <p class="col-md-6"><b><i class="fa fa-clock-o" aria-hidden="true"></i> Час: </b>${data.times.time}</p>
                                 <p class="col-md-6"><b>Cтатус: </b>${(data.status)? 'Завершено': 'Очікується'}</p>
                             </div>
                         </div>
@@ -33,9 +33,9 @@
 
                     `);
                 if (data.status){
-                    $('.information-profile').append(`<div class="col-md-offset-7"><div class="row"><a onclick="back()" class="btn ml-2">Повернутись назад</a> <a href="" class="btn btn-primary">Записатися повторно</a></div></div>`)
+                    $('.information-profile').append(`<div class="col-md-offset-7"><div class="row"><a onclick="back()" class="btn ml-2"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Повернутись назад</a> <a href="" class="btn btn-primary">Записатися повторно</a></div></div>`)
                 }else{
-                    $('.information-profile').append(`<div class="col-md-offset-9"><div class="row"><a onclick="back()" class="btn ml-2">Повернутись назад</a></div></div>`)
+                    $('.information-profile').append(`<div class="col-md-offset-9"><div class="row"><a onclick="back()" class="btn ml-2"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Повернутись назад</a></div></div>`)
                 }
 
             },
