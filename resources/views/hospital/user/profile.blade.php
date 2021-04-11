@@ -114,4 +114,5 @@
     @include('scripts.profile.script-change-page')
     @include('scripts.profile.script-ajax-time-update')
     @include('scripts.profile.script-photo-update')
+    @include('scripts.profile.script-show-meet-info')
 @endsection
