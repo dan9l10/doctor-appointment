@@ -115,7 +115,7 @@ class ProfileController extends Controller
             $public_path = '/storage/avatar/users/id/'.$currentUser->id.'/'.$filename;
             $currentUser->members->avatar = $public_path;
             $currentUser->members->save();
-            return response()->json(['path' => $path], 200);
+            return response()->json(['path' => $public_path], 200);
         }else{
             return response()->json(false, 200);
         }

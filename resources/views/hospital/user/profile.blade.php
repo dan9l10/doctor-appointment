@@ -24,7 +24,7 @@
                 <div class="panel">
                     <div class="user-heading round">
                         <a href="#">
-                            <img src="{{empty($userInfo->avatar)? "https://bootdey.com/img/Content/avatar/avatar3.png" : $userInfo->avatar}}" alt="">
+                            <img class="profile-avatar" src="{{empty($userInfo->avatar)? "https://bootdey.com/img/Content/avatar/avatar3.png" : $userInfo->avatar}}" alt="">
                         </a>
                         <form method="POST" enctype="multipart/form-data" id="file-upload">
                             @csrf
@@ -57,9 +57,9 @@
 
                     <div class="col-md-9 panel profile-info appointment-info">
                         <div class="row">
-                            <h3 class="col-md-9">Відвідування: </h3>
+                            <h2 class="col-md-9">Ваші візити: </h2>
                         </div>
-                        <div class="row" style="margin-bottom: 5px;">
+                        <div class="row filter-meet" >
                             <div class="col-md-6">
                                 <select class="form-control" name="" id="">
                                     <option value="">Усі записи</option>
@@ -75,11 +75,11 @@
                                 @foreach($meets as $meet)
                                     <div>
                                         <div class="col-md-12">
-                                            <div class="panel" style="background: #fcfaf8;">
+                                            <div class="panel meet-info">
                                                 <div class="panel-body">
                                                     <div class="col-md-6">
-                                                        <a href="{{route('appointment.index',$meet->doctor->id)}}" style="font-size: 15px;"><b>{{$meet->doctor->name}} {{$meet->doctor->patronymic}} {{$meet->doctor->last_name}}</b></a>
-                                                        <div class="col-md-12" style="margin-top: 10px;">
+                                                        <a href="{{route('appointment.index',$meet->doctor->id)}}" class="doctor-meet-name"><b>{{$meet->doctor->name}} {{$meet->doctor->patronymic}} {{$meet->doctor->last_name}}</b></a>
+                                                        <div class="col-md-12 meet-info-body">
                                                             <p>ВАШ ЗАПИС</p>
                                                             <p>Дата: <b>{{$meet->date}}</b></p>
                                                             <p>Статус: <b>{{($meet->status)? "Завершено" : "Заплановано"}}</b></p>

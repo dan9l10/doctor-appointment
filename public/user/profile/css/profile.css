@@ -12,6 +12,19 @@ body {
 .profile-nav, .profile-info{
     margin-top:30px;
 }
+.meet-info:hover{
+    border: 1px solid #a5c422;
+}
+.meet-info-body{
+    margin-top: 10px;
+}
+.filter-meet{
+    margin-bottom: 10px;
+    align-items: center;
+}
+.doctor-meet-name{
+    font-size: 15px;
+}
 
 .profile-nav .user-heading {
     background: #a5c422;

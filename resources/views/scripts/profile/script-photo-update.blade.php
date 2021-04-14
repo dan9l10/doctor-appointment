@@ -16,7 +16,7 @@
                 contentType: false,
                 processData: false,
                 success: (data) => {
-                    location.reload();
+                    $('.profile-avatar').attr("src",data.path);
                 },
                 error: function(data){
                     console.log(data);
