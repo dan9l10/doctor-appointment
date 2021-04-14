@@ -1,8 +1,8 @@
 @extends('hospital.layouts.app')
 
 @section('content')
-
     <link href="/user/profile/css/profile.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <div class="container bootstrap snippets bootdey">
         @if ($message = Session::get('success'))
@@ -34,7 +34,6 @@
                         <h1>{{$userInfo->user->name}} {{$userInfo->user->last_name}}</h1>
                         <p>{{$userInfo->user->email}}</p>
                     </div>
-
                     <ul class="nav nav-pills nav-stacked">
                         <li class="button active appointment"><a href="#"> <i class="fa fa-calendar"></i> Візити <span class="label label-warning pull-right r-activity">{{$countMeet}}</span></a></li>
                         <li class="button"><a href=" {{route('doctors.show')}} "> <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Записатися на візит</a></li>
@@ -50,11 +49,9 @@
                 </div>
             </div>
                 <div class="active-content">
-
                     <div class="panel profile-info col-md-9 information-profile hidden">
 
                     </div>
-
                     <div class="col-md-9 panel profile-info appointment-info">
                         <div class="row">
                             <h2 class="col-md-9">Ваші візити: </h2>
@@ -101,14 +98,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
     </div>
     <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 
     @include('scripts.profile.script-update-info-profile-ajax')
     @include('scripts.profile.script-change-page')
