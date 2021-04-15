@@ -29,38 +29,38 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @endforeach
-                    <input type="text" name="name" placeholder="First Name" value="{{ old('name') }}"/>
-                    <input type="text" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}"/>
-                    <input type="text" name="patronymic" placeholder="Patronymic "  value="{{ old('patronymic') }}"/>
-                    <input type="text" name="phone" placeholder="Phone"  value="{{ old('phone') }}"/>
-                    <input type="text" name="city" placeholder="City"  value="{{ old('city') }}"/>
-                    <input type="text" name="address" placeholder="Address"  value="{{ old('address') }}"/>
+                    <input type="text" name="name" placeholder="Ім'я" value="{{ old('name') }}"/>
+                    <input type="text" name="last_name" placeholder="Прізвище" value="{{ old('last_name') }}"/>
+                    <input type="text" name="patronymic" placeholder="По-батькові"  value="{{ old('patronymic') }}"/>
+                    <input type="text" id="phone-mobile" name="phone" placeholder="+38"  value="{{ old('phone') }}"/>
+                    <input type="text" name="city" placeholder="Місто"  value="{{ old('city') }}"/>
+                    <input type="text" name="address" placeholder="Адреса"  value="{{ old('address') }}"/>
                     <select name="male">
-                        <option value="">Select your male</option>
-                        <option value="Man">Man</option>
-                        <option value="Woman">Woman</option>
+                        <option value="">Вибиріть свою стать</option>
+                        <option value="Man">Чоловік</option>
+                        <option value="Woman">Жінка</option>
                     </select>
-                    <input type="date" name="DOB" class="ui-datepicker" placeholder="Date of birth"  value="{{ old('DOB') }}">
-                    <input type="file" name="avatar" placeholder="Select photo"  value="{{ old('avatar') }}">
+                    <input type="date" name="DOB" class="ui-datepicker" placeholder="Дата народження"  value="{{ old('DOB') }}">
+                    <input type="file" name="avatar" placeholder="Ваша фотокартка"  value="{{ old('avatar') }}">
 
-                    <input type="button" name="next" class="next action-button" value="Next"/>
+                    <input type="button" name="next" class="next action-button" value="Далі"/>
                 </fieldset>
                 <fieldset>
-                    <h3 class="fs-subtitle">Fill in your credentials</h3>
-                    <input type="text" name="rise" placeholder="Rise" value="{{ old('rise') }}"/>
-                    <input type="text" name="weight" placeholder="Weight" value="{{ old('weight') }}"/>
-                    <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                    <input type="button" name="next" class="next action-button" value="Next"/>
+                    <h3 class="fs-subtitle">Заповніть поля</h3>
+                    <input type="text" name="rise" placeholder="Зріст" value="{{ old('rise') }}"/>
+                    <input type="text" name="weight" placeholder="Вага" value="{{ old('weight') }}"/>
+                    <input type="button" name="previous" class="previous action-button-previous" value="Назад"/>
+                    <input type="button" name="next" class="next action-button" value="Далі"/>
                 </fieldset>
                 <fieldset>
-                    <h2 class="fs-title">Create your account</h2>
-                    <h3 class="fs-subtitle">Fill in your credentials</h3>
+                    <h2 class="fs-title">Створіть аккаунт</h2>
+                    <h3 class="fs-subtitle">Заповніть поля</h3>
                     <input type="text" name="email" placeholder="Email" value="{{ old('email') }}"/>
-                    <input type="password" name="password" placeholder="Password"/>
-                    <input type="password" id="password-confirm" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm Password"/>
-                    <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                    <input type="password" name="password" placeholder="Пароль"/>
+                    <input type="password" id="password-confirm" name="password_confirmation" required autocomplete="new-password" placeholder="Підтвердіть пароль"/>
+                    <input type="button" name="previous" class="previous action-button-previous" value="Назад"/>
                     <button type="submit" class="btn">
-                        {{ __('Register') }}
+                        {{ __('Зареєструватись') }}
                     </button>
                 </fieldset>
             </form>
@@ -79,4 +79,8 @@
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
 <script src="/auth/bootstrap/js/bootstrap.min.js"></script>
 <script src="/auth/auth.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    $('#phone-mobile').mask("+38(999)-999-99-99");
+</script>
 
