@@ -7,6 +7,7 @@ use App\Models\Special;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Member;
+use Illuminate\Support\Facades\DB;
 
 class DoctorController extends Controller
 {
@@ -37,5 +38,29 @@ class DoctorController extends Controller
             }
         }
         return response()->json($doctorInfo);
+    }
+    /**
+     * Search doctor
+     *
+     */
+    public function scopeDoctor(Request $request)
+    {
+        if($request->ajax()) {
+            $query = $request->get('query');
+            if ($query != '') {
+                $doctors = User::select('id')
+                    ->where('Name', 'like', '%' . $query . '%')
+                    ->orWhere('last_name', 'like', '%' . $query . '%')
+                    ->orWhere('patronymic', 'like', '%' . $query . '%')
+                    ->role('doctor')->get()->toArray();
+                $data = Member::with('specials')->with('user')->whereIn('user_id',$doctors)->get();
+            }
+            else {
+                $doctors = User::select('id')->role('doctor')->get()->toArray();
+                $data = Member::with('specials')->with('user')->whereIn('user_id',$doctors)->get();
+            }
+
+        }
+        return response()->json($data);
     }
 }

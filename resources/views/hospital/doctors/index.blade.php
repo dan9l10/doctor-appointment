@@ -32,17 +32,9 @@
     </style>
     <div class="row">
         <div class="col-md-12 find-panel panel">
-            <form>
-                <div class="form-group col-md-2 col-md-offset-2">
-                    <select class="form-control">
-                        <option>Value</option>
-                        <option>Value</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-6 ">
-                    <input name="last_name" type="text" class="form-control" id="last_name" placeholder="Input name">
-                </div>
-            </form>
+            <div class="form-group container">
+                <input name="search-doc" type="text" class="form-control" id="search-doc" placeholder="Введіть ім'я або прізвище">
+            </div>
         </div>
     </div>
     <div class="container main-container-style" >
@@ -50,26 +42,21 @@
             <div class="col-md-4" >
                 <div class="row">
                     <div class="col-md-12 panel">
-                        <h3 style="margin-bottom: 5px;">Фільтри за категорією: </h3>
+                        <h2 style="margin-bottom: 5px; border-bottom: 1px solid #939ba2;">Фільтри: </h2>
+                        <h3 style="margin-bottom: 5px;">За спеціальностями:</h3>
                         @foreach($specials as $special)
-                        <div class="form-check">
-                            <input class="form-check-input special_checkbox" type="checkbox" attr-name="{{$special->name}}" name="special[]" value="{{$special->id}}" id="{{$special->id}}">
-                            <label class="form-check-label" for="{{$special->id}}">
+                        <div style="margin-bottom:3px; " class="form-check">
+                            <input style=" transform:scale(1.3);  opacity:0.9; cursor:pointer; margin-right: 2px; color: #000;" class="form-check-input special_checkbox" type="checkbox" attr-name="{{$special->name}}" name="special[]" value="{{$special->id}}" id="{{$special->id}}">
+                            <label style="font-size: 15px; " class="form-check-label" for="{{$special->id}}">
                                {{$special->name}}
                             </label>
                         </div>
                         @endforeach
                     </div>
                 </div>
-                <div class="row">
-                    <div id="filters" class="col-md-12 panel">
-
-                    </div>
-                </div>
             </div>
-
             <div class="col-md-8" id="doc_card">
-                    @foreach($doctorInfo as $doctor)
+                @foreach($doctorInfo as $doctor)
                     <div class="row" >
                         <div class="container-card col-md-10 col-md-offset-2">
                             <div class="card-doc">
@@ -85,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                @endforeach
             </div>
         </div>
     </div>
@@ -94,5 +81,6 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
     @include('scripts.doctors.script-ajax-update-doctor')
+
 
 @endsection
