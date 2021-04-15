@@ -59,7 +59,7 @@
                     <input type="password" name="password" placeholder="Пароль"/>
                     <input type="password" id="password-confirm" name="password_confirmation" required autocomplete="new-password" placeholder="Підтвердіть пароль"/>
                     <input type="button" name="previous" class="previous action-button-previous" value="Назад"/>
-                    <button type="submit" class="btn">
+                    <button type="submit" class="registration-button">
                         {{ __('Зареєструватись') }}
                     </button>
                 </fieldset>
