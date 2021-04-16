@@ -3,19 +3,19 @@
     <link href="/user/profile/css/profile.css" rel="stylesheet">
     <div class="container">
         @if ($message = Session::get('success'))
-            <div class="alert alert-success col-md-12 row">
+            <div class="alert alert-success col-md-12">
                 <p>{{$message}}</p>
             </div>
         @elseif($errors->any())
-        <div class="alert alert-danger col-md-12 row">
-            <strong>Error!</strong>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+            <div class="alert alert-danger col-md-12">
+                <strong>Error!</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="panel">
                 <div class="panel-body">
                     <div class="row">
@@ -33,7 +33,7 @@
         </div>
         <div class="panel">
             <div class="panel-body profile-info">
-                <form method="POST" action="{{ route('meet.create',$appointments->user->id) }}">
+                <form method="POST" action="{{ route('meet.create',$appointments->user->id) }}" enctype="multipart/form-data">
                     @method('POST')
                     @csrf
                     <div class="form-row">
@@ -52,6 +52,10 @@
                         <div class="form-group col-md-11">
                             <label for="complaint">Опишите свою жалобу (* от 30 символов)</label>
                             <textarea name="complaint" rows="3" class="form-control " id="complaint">{{old('complaint')}}</textarea>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <label for="complaint">Прикрепить результаты анализов</label>
+                            <input name="files[]" type="file" class="form-control ui-datepicker" id="files" multiple>
                         </div>
                     </div>
                     <div class="col-md-9">

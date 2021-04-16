@@ -7,6 +7,7 @@ use App\Models\Meet;
 use App\Models\Member;
 use App\Models\Time;
 use Illuminate\Http\Request;
+use FileUpload;
 
 class MeetController extends Controller
 {
@@ -38,12 +39,19 @@ class MeetController extends Controller
      */
     public function store(Request $request, $idDoc)
     {
-
         $request->validate([
             'time'=>'required',
             'date-appointment'=>'required',
-            'complaint'=>'min:30|max:255',
+            'complaint'=>'max:255',
+            'files'=>'mimes:doc,pdf,docx,txt,zip,jpeg,jpg,png'
         ]);
+
+        if($request->hasFile('files'))
+        {
+            $files = $request->file('files');
+            FileUpload::upload($files);
+            //add files to table
+        }
 
         $time = $request->get('time');
         $date = $request->get('date-appointment');
