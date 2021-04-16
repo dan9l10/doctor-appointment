@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
+use App\Models\Analyzes;
 use App\Models\Meet;
 use App\Models\Member;
 use App\Models\Time;
@@ -43,15 +44,8 @@ class MeetController extends Controller
             'time'=>'required',
             'date-appointment'=>'required',
             'complaint'=>'max:255',
-            'files'=>'mimes:doc,pdf,docx,txt,zip,jpeg,jpg,png'
+            //'files'=>'mimes:doc,pdf,docx,txt,zip,jpeg,jpg,png'
         ]);
-
-        if($request->hasFile('files'))
-        {
-            $files = $request->file('files');
-            FileUpload::upload($files);
-            //add files to table
-        }
 
         $time = $request->get('time');
         $date = $request->get('date-appointment');
@@ -71,11 +65,24 @@ class MeetController extends Controller
         $times = Time::find($time);
         $times->status=1;
         $resultOfSaveMeet = $times->meets()->save($meet);
+        if($request->hasFile('files'))
+        {
+            $files = $request->file('files');
+            foreach ($files as $file){
+                $path = FileUpload::upload($file);
+                if($path){
+                    $analyze = new Analyzes([
+                        'path'=>$path
+                    ]);
+                    $resultOfSaveMeet->analyzes()->save($analyze);
+                }
+            }
+        }
         $times->save();
 
         if($resultOfSaveMeet){
             return redirect()->route('appointment.index',$idDoc)
-                ->with(['success'=>'Запись добавлена']);
+                ->with(['success'=>'Запис додано. Інформацію можна переглянути у своємо профілі']);
         }else{
             return back()->withErrors(['msg'=>'Error with add'])->withInput();
         }

@@ -20,7 +20,6 @@ class MeetsManagementController extends Controller
     {
         $meets = Meet::with('doctor')->with('times')->with('patient')->paginate(5);
         return view('hospital.admin.meet.index',compact('meets'));
-
     }
 
     /**
@@ -114,7 +113,8 @@ class MeetsManagementController extends Controller
         $meet = Meet::findOrFail($id);
 
         $meet->times->status = 0;
-        $tmp = $meet->times->save();
+        $meet->times->save();
+        $meet->analyzes()->delete();
 
         $result = $meet->delete();
 
