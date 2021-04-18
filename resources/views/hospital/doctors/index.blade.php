@@ -56,32 +56,16 @@
                 </div>
             </div>
             <div class="col-md-8" id="doc_card">
-                @foreach($doctorInfo as $doctor)
-                    <div class="row" >
-                        <div class="container-card col-md-10 col-md-offset-2">
-                            <div class="card-doc">
-                                <img src="{{(is_null($doctor->members->avatar))?'https://html5css.ru/howto/img_avatar2.png':$doctor->members->avatar}}" alt="Avatar" style="width: 65%; margin: 5px">
-                                <div class="container-card-info">
-                                    <h4><b>{{$doctor->name}} {{$doctor->patronymic}} {{$doctor->last_name}}</b></h4>
-                                    <p>{{$doctor->email}}</p>
-                                    @foreach($doctor->specials as $special)<p>{{$special->name}}</p>@endforeach
-                                    @if(!($doctor->id == auth()->user()->id))
-                                        <a href="{{route('appointment.index',$doctor->id)}}" class="btn btn-info">Записаться</a>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                @include('hospital.doctors.doctor-data')
             </div>
+            <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
         </div>
     </div>
     <script
         src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>
-    @include('scripts.doctors.script-ajax-update-doctor')
-    @include('scripts.doctors.script-ajax-search')
 
+    @include('scripts.doctors.script-ajax-update-doctor')
 
 @endsection

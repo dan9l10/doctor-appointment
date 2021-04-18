@@ -1,50 +1,66 @@
 <script>
-    $(document).ready(function () {
-        pushChecked();
-    });
-    $('.special_checkbox').on('change', function (e) {
-        pushChecked();
-    });
-    function pushChecked(){
+
+    $(document).ready(function(){
+
         var specials = [];
-        $('input[name="special[]"]:checked').each(function () {
-            specials.push($(this).val());
+
+        $('.special_checkbox').on('change', function (e) {
+            pushChecked();
         });
-        send(specials);
-    }
-    function send(specials){
-        $('#doc_card').empty();
-        $.ajax({
-            url: "{{route('doctor.update')}}",
-            type: 'GET',
-            data: {
-                specials: specials,
-            },
-            dataType: 'json',
-            success: function (responce) {
-                var userId = {{auth()->user()->id}};
-                if(isNaN(responce)){
-                    $('#doc_card').empty();
-                    $.each(responce, function (index, element) {
-                        $('#doc_card').append(`
-                            <div class="container-card col-md-10 col-md-offset-2">
-                                <div class="card-doc">
-                                    <img src="${(element.avatar)? element.avatar: 'https://html5css.ru/howto/img_avatar2.png' }" alt="Avatar" style="width: 65%; margin: 5px">
-                                    <div class="container-card-info">
-                                        <h4><b>${element.user.name} ${element.user.last_name} ${element.user.patronymic}</b></h4>
-                                        <p>${element.user.email}</p>
-                                        <p>${element.specials.name}</p>
-                                        ${(!(element.user.id===userId))?'<a href="/appointments/'+element.user.id+'"class="btn btn-info">Записаться</a>':''}
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-                    });
+
+        function pushChecked(){
+            specials = [];
+            var query = $('#search-doc').val();
+            var page = $('#hidden_page').val();
+            $('input[name="special[]"]:checked').each(function () {
+                specials.push($(this).val());
+            });
+            fetch_data(page, specials, query);
+        }
+
+        function fetch_data(page, specials, query)
+        {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            },
-            error: function () {
-                console.log('error');
-            }
+            });
+
+            $.ajax({
+                url: '{{route('doctor.update')}}?page=' + page,
+                type: 'get',
+                data: {
+                    query: query,
+                    specials: specials,
+                },
+                dataType: 'json',
+                success: function (responce) {
+                    $('#doc_card').empty().html(responce);
+                    console.log(responce);
+                },
+                error: function (responce) {
+                    console.log(responce);
+                }
+            });
+        }
+
+        $('#search-doc').on('keyup', function(){
+            var query = $(this).val();
+            var page = $('#hidden_page').val();
+            fetch_data(page, specials, query);
         });
-    }
+
+
+        $(document).on('click', '.pagination a', function(event){
+            event.preventDefault();
+            var page = $(this).attr('href').split('page=')[1];
+            $('#hidden_page').val(page);
+
+            var query = $('#search-doc').val();
+
+            $('li').removeClass('active');
+            $(this).parent().addClass('active');
+            fetch_data(page, specials, query);
+        });
+    })
 </script>
