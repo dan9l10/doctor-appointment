@@ -20,14 +20,8 @@
 
         function fetch_data(page, specials, query)
         {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
             $.ajax({
-                url: '{{route('doctor.update')}}?page=' + page,
+                url: '{{route('doctor.update')}}?page='+page,
                 type: 'get',
                 data: {
                     query: query,
@@ -36,7 +30,6 @@
                 dataType: 'json',
                 success: function (responce) {
                     $('#doc_card').empty().html(responce);
-                    console.log(responce);
                 },
                 error: function (responce) {
                     console.log(responce);
@@ -49,7 +42,6 @@
             var page = $('#hidden_page').val();
             fetch_data(page, specials, query);
         });
-
 
         $(document).on('click', '.pagination a', function(event){
             event.preventDefault();

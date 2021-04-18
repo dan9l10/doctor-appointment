@@ -15,4 +15,7 @@
         </div>
     </div>
 @endforeach
-{!! $doctorInfo->links() !!}
+<div class="col-md-12">
+    <div class="col-md-6">{!! $doctorInfo->links() !!}</div>
+</div>
+
