@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hospital\User;
 
 
+use App\Exceptions\InvalidUserPageExeption;
 use App\Http\Controllers\Controller;
 use App\Models\Meet;
 use App\Models\Member;
@@ -20,7 +21,10 @@ class ProfileController extends Controller
      */
     public function index($id)
     {
-        $userInfo = Member::with('user')->where('user_id',$id)->get()->first();
+        if($id != auth()->user()->id){
+            throw new InvalidUserPageExeption();
+        }
+        $userInfo = Member::with('user')/*->where('user_id',$id)*/->findOrFail($id)->first();
         $meets = Meet::with('times')->where('id_user',$id)->with('doctor')->get();
         $countMeet = count($meets);
         return view('hospital.user.profile',compact('userInfo','meets'),compact('countMeet'));
