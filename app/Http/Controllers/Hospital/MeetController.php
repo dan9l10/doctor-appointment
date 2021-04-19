@@ -68,7 +68,7 @@ class MeetController extends Controller
         ]);
 
         $times = Time::findOrFail($time);
-        if(!$times){
+        if(!$times || $times->status == 1){
             return back()->withErrors(['msg'=>'Запис не додано. Спробуйте ще раз'])->withInput();
         }
         $times->status=1;
@@ -88,7 +88,7 @@ class MeetController extends Controller
         }
         $times->save();
 
-        $dataForEmail = [
+        $dataMeet = [
             'date'=>$date,
             'complaint'=>$complaint,
             'time'=>$times->time,
@@ -98,9 +98,9 @@ class MeetController extends Controller
             'doctor_special'=>$doctor->specials[0]->name,
         ];
 
-        $pathToFile = $pdf->generateTicket($user_id);
+        $pathToFile = $pdf->generateTicket($user_id,$dataMeet);
 
-        Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataForEmail,$pathToFile));
+        Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataMeet,$pathToFile));
 
         if($resultOfSaveMeet){
             return redirect()->route('appointment.index',$idDoc)
