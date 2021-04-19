@@ -81,6 +81,7 @@
 <script src="/auth/auth.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 <script>
-    $('#phone-mobile').mask("+38(999)-999-99-99");
+    $('#phone-mobile').mask("+389999999999");
 </script>
+
 

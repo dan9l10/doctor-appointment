@@ -179,6 +179,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\FileUploadServiceProvider::class,
+        Elibyy\TCPDF\ServiceProvider::class,
+
 
     ],
 
@@ -233,6 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'FileUpload'=>App\Facades\FileUploadFacade::class,
+        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
 
     ],
 

@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendTicketMeet;
 use App\Models\Analyzes;
 use App\Models\Meet;
 use App\Models\Member;
 use App\Models\Time;
+use App\Models\User;
+use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
 use FileUpload;
+use Illuminate\Support\Facades\Mail;
 
 class MeetController extends Controller
 {
@@ -38,7 +42,7 @@ class MeetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $idDoc)
+    public function store(Request $request, GeneratePdf $pdf, $idDoc)
     {
         $request->validate([
             'time'=>'required',
@@ -51,6 +55,7 @@ class MeetController extends Controller
         $date = $request->get('date-appointment');
         $complaint = $request->get('complaint');
         $user_id = auth()->user()->id;
+        $doctor = User::with('specials')->findOrFail($idDoc);
 
         $meet = new Meet([
             'id_doc' => $idDoc,
@@ -62,7 +67,10 @@ class MeetController extends Controller
             'created_at'=>now(),
         ]);
 
-        $times = Time::find($time);
+        $times = Time::findOrFail($time);
+        if(!$times){
+            return back()->withErrors(['msg'=>'Error with add'])->withInput();
+        }
         $times->status=1;
         $resultOfSaveMeet = $times->meets()->save($meet);
         if($request->hasFile('files'))
@@ -79,6 +87,20 @@ class MeetController extends Controller
             }
         }
         $times->save();
+
+        $dataForEmail = [
+            'date'=>$meet->date,
+            'complaint'=>$meet->complaint,
+            'time'=>$times->time,
+            'doctor_name'=>$doctor->name,
+            'doctor_lastname'=>$doctor->last_name,
+            'doctor_patronymic'=>$doctor->patronymic,
+            'doctor_special'=>$doctor->specials[0]->name,
+        ];
+
+        $pathToFile = $pdf->generateTicket($user_id);
+
+        Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataForEmail,$pathToFile));
 
         if($resultOfSaveMeet){
             return redirect()->route('appointment.index',$idDoc)
