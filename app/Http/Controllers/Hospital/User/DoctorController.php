@@ -60,29 +60,4 @@ class DoctorController extends Controller
         $doctorInfo = $doctorInfo->with('specials')->with('user')->paginate(3);
         return response()->json(view('hospital.doctors.doctor-data', compact('doctorInfo'))->render());
     }
-
-    /**
-     * Search doctor
-     *
-     */
-    public function scopeDoctor(Request $request)
-    {
-        if($request->ajax()) {
-            $query = $request->get('query');
-            if ($query != '') {
-                $doctors = User::select('id')
-                    ->where('Name', 'like', '%' . $query . '%')
-                    ->orWhere('last_name', 'like', '%' . $query . '%')
-                    ->orWhere('patronymic', 'like', '%' . $query . '%')
-                    ->role('doctor')->get()->toArray();
-                $data = Member::with('specials')->with('user')->whereIn('user_id',$doctors)->get();
-            }
-            else {
-                $doctors = User::select('id')->role('doctor')->get()->toArray();
-                $data = Member::with('specials')->with('user')->whereIn('user_id',$doctors)->get();
-            }
-
-        }
-        return response()->json($data);
-    }
 }
