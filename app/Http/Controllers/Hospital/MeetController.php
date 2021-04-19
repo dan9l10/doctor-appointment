@@ -89,8 +89,8 @@ class MeetController extends Controller
         $times->save();
 
         $dataForEmail = [
-            'date'=>$meet->date,
-            'complaint'=>$meet->complaint,
+            'date'=>$date,
+            'complaint'=>$complaint,
             'time'=>$times->time,
             'doctor_name'=>$doctor->name,
             'doctor_lastname'=>$doctor->last_name,

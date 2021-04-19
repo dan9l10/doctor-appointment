@@ -25,8 +25,9 @@ class ProfileController extends Controller
             throw new InvalidUserPageExeption();
         }
         $userInfo = Member::with('user')/*->where('user_id',$id)*/->findOrFail($id)->first();
-        $meets = Meet::with('times')->where('id_user',$id)->with('doctor')->get();
-        $countMeet = count($meets);
+        $meets = Meet::with('times')->where('id_user',$id)->with('doctor');
+        $countMeet = $meets->count();
+        $meets = $meets->paginate(3);
         return view('hospital.user.profile',compact('userInfo','meets'),compact('countMeet'));
     }
 
