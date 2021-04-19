@@ -69,7 +69,7 @@ class MeetController extends Controller
 
         $times = Time::findOrFail($time);
         if(!$times){
-            return back()->withErrors(['msg'=>'Error with add'])->withInput();
+            return back()->withErrors(['msg'=>'Запис не додано. Спробуйте ще раз'])->withInput();
         }
         $times->status=1;
         $resultOfSaveMeet = $times->meets()->save($meet);
@@ -106,7 +106,7 @@ class MeetController extends Controller
             return redirect()->route('appointment.index',$idDoc)
                 ->with(['success'=>'Запис додано. Інформацію можна переглянути у своємо профілі']);
         }else{
-            return back()->withErrors(['msg'=>'Error with add'])->withInput();
+            return back()->withErrors(['msg'=>'Запис не додано. Спробуйте ще раз'])->withInput();
         }
 
     }
