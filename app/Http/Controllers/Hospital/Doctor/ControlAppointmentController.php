@@ -50,7 +50,7 @@ class ControlAppointmentController extends Controller
      */
     public function show($id)
     {
-        $meets = Meet::where('id',$id)->with('patient')->with('times')->first();
+        $meets = Meet::where('id',$id)->with('patient')->with('times')->with('analyzes')->first();
         return view('hospital.user.doctor.show-info-appointment',compact('meets'));
     }
 
