@@ -24,7 +24,7 @@ class ProfileController extends Controller
         if($id != auth()->user()->id){
             throw new InvalidUserPageExeption();
         }
-        $userInfo = Member::with('user')/*->where('user_id',$id)*/->findOrFail($id)->first();
+        $userInfo = Member::with('user')->where('user_id',$id)->first();
         $meets = Meet::with('times')->where('id_user',$id)->with('doctor');
         $countMeet = $meets->count();
         $meets = $meets->paginate(3);

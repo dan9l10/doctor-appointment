@@ -36,12 +36,6 @@ class DoctorController extends Controller
             $query = $request->get('query');
             $query = str_replace(" ", "%", $query);
             $doctorInfo = Member::query();
-            if ($specials != null) {
-                $doctorInfo = $doctorInfo->whereHas("specials", function ($query) use ($specials) {
-                    $query->whereIn('id_spec',  $specials);
-                });
-            }
-
             if($query != null){
                 $users = User::select('id')
                     ->where('Name', 'like', '%' . $query . '%')
@@ -50,7 +44,11 @@ class DoctorController extends Controller
                     ->role('doctor')->get()->toArray();
                 $doctorInfo = $doctorInfo->whereIn('user_id',$users);
             }
-
+            if ($specials != null) {
+                $doctorInfo = $doctorInfo->whereHas("specials", function ($query) use ($specials) {
+                    $query->whereIn('id_spec',  $specials);
+                });
+            }
             if($specials == null && $query == null){
                 $doctors = User::select('id')->role('doctor')->get()->toArray();
                 $doctorInfo = Member::whereIn('user_id',$doctors);
