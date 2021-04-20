@@ -126,6 +126,22 @@ class MeetController extends Controller
         }
     }
 
+
+    public function filterMeet(Request $request)
+    {
+        if($request->ajax())
+        {
+            $meets = Meet::query();
+            $sortBy = $request->get('sorting');
+            if($sortBy != null){
+                $meets = $meets->where('status',$sortBy);
+            }
+            $meets = $meets->with('times')->with('doctor');
+        }
+        $meets = $meets->paginate(3);
+        return response()->json(view('hospital.user.show-meets-profile', compact('meets'))->render());
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

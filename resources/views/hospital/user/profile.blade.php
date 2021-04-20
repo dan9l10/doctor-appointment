@@ -58,18 +58,19 @@
                         </div>
                         <div class="row filter-meet" >
                             <div class="col-md-6">
-                                <select class="form-control" name="" id="">
+                                <select class="form-control" name="" id="sort-meet">
                                     <option value="">Усі записи</option>
-                                    <option value="">Заплановані</option>
-                                    <option value="">Завершені</option>
+                                    <option value="0">Заплановані</option>
+                                    <option value="1">Завершені</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row meets">
                             @if(empty($meets[0]))
                                 <p class="col-md-offset-5">Записів немає</p>
                             @else
                                 @include('hospital.user.show-meets-profile')
+                                <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                             @endif
                         </div>
                     </div>
@@ -83,6 +84,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 
+    @include('scripts.profile.script-sort-meet')
     @include('scripts.profile.script-update-info-profile-ajax')
     @include('scripts.profile.script-change-page')
     @include('scripts.profile.script-ajax-time-update')

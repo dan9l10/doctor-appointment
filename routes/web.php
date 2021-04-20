@@ -59,6 +59,6 @@ Route::group(['middleware'=>'auth'],function (){
 
 //for ajax to use filter for doctor
 Route::get('/scopeSpecial',[DoctorController::class,'scopeSpecial'])->name('doctor.update');
-Route::get('/scopeDoctor',[DoctorController::class,'scopeDoctor'])->name('doctor.search');
+Route::get('/filter/meet',[MeetController::class,'filterMeet'])->name('meet.filter');
 
 
