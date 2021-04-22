@@ -44,7 +44,6 @@ class MeetController extends Controller
      */
     public function store(Request $request, GeneratePdf $pdf, $idDoc)
     {
-        //dd($request);
         $request->validate([
             'time'=>'required',
             'date-appointment'=>'required',
@@ -86,8 +85,11 @@ class MeetController extends Controller
             $meet->link = $linkToMeet;
         }else if($typeMeet === 'offline'){
             $pathToFile = $pdf->generateTicket($user_id,$dataMeet);
-            $meet->ticket = $pathToFile;
-            Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataMeet,$pathToFile));
+            if(!$pathToFile){
+                return back()->withErrors(['msg'=>'Запис не додано. Спробуйте ще раз'])->withInput();
+            }
+            $meet->ticket = $pathToFile['publicPath'];
+            Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataMeet,$pathToFile['pathToFile']));
         }
 
         if(!$times || $times->status == 1){

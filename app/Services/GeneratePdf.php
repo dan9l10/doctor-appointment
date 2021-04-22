@@ -32,16 +32,26 @@ class GeneratePdf
         $fileName = str_replace([' ',':'],'_',date("Y-m-d H:i:s")).'.pdf';
         $pathToFile = $savePath.$fileName;
 
-        File::makeDirectory($savePath, $mode = 0755, true, true);
-        PDF::SetTitle('Ticket');
-        PDF::SetFont('freesans', '', 8, '', true);
-        PDF::AddPage();
-        PDF::setBarcode(date('Y-m-d H:i:s'));
-        PDF::write1DBarcode('CODE 39', 'C39', '', '', '', 18, 0.4, $this->style, 'N');
-        PDF::writeHTML(view('mail.layouts.ticket',compact('data'))->render());
-        PDF::Output($pathToFile, 'F');
-        PDF::reset();
-        return $pathToFile;
+        $publicPath = '/files/tickets/user/'.$userId.'/'.$fileName;
+
+        $path = [
+            'publicPath'=> $publicPath,
+            'pathToFile'=>$pathToFile,
+        ];
+        try {
+            File::makeDirectory($savePath, $mode = 0755, true, true);
+            PDF::SetTitle('Ticket');
+            PDF::SetFont('freesans', '', 8, '', true);
+            PDF::AddPage();
+            PDF::setBarcode(date('Y-m-d H:i:s'));
+            PDF::write1DBarcode('CODE 39', 'C39', '', '', '', 18, 0.4, $this->style, 'N');
+            PDF::writeHTML(view('mail.layouts.ticket',compact('data'))->render());
+            PDF::Output($pathToFile, 'F');
+            PDF::reset();
+        }catch (\Exception $e){
+            return false;
+        }
+        return $path;
     }
 
 }
