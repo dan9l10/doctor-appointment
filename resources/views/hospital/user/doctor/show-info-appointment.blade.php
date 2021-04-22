@@ -25,6 +25,9 @@
             <h4><b>{{$meets->patient->name}}  {{$meets->patient->last_name}} {{$meets->patient->patronymic}}</b></h4>
             <p style="margin-top: 10px;">Час:<b> {{$meets->times->time}}</b></p>
             <p>Дата:<b> {{$meets->date}}</b></p>
+            @if($meets->type==='online')
+            <a href="{{$meets->link}}" target="_blank">Перейти до конференції <i class="fa fa-video-camera" aria-hidden="true"> </i></a>
+            @endif
         </div>
     </div>
     <div class="panel profile-info">

@@ -31,6 +31,7 @@
                         <th scope="col">Час</th>
                         <th scope="col">Статус</th>
                         <th scope="col">Пацієнт</th>
+                        <th scope="col">Тип зустрічі</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,6 +43,7 @@
                             <td >{{$meet->times->time}}</td>
                             <td>{{ !($meet->status)? "Очікується" : "Закінчена"}}</td>
                             <td>{{$meet->patient->name}} {{$meet->patient->last_name}}</td>
+                            <td>{{($meet->type==='online')? 'Відео зв\'язок' : 'Зустріч з лікарем'}}</td>
                             <td><a class="btn btn-primary mr-2" href="{{route('patient.doctor.show',$meet->id)}}" role="button">Інформація</a></td>
                         </tr>
                     @endforeach
