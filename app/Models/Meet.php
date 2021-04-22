@@ -15,7 +15,7 @@ class Meet extends Model
      * @var array
      */
     protected $fillable = [
-        'id_doc', 'id_user', 'time', 'date', 'complaint', 'diagnosis', 'status', 'created_at', 'updated_at',
+        'id_doc', 'id_user', 'time', 'date', 'complaint', 'diagnosis', 'status', 'created_at', 'updated_at','type','ticket','link'
     ];
     /**
      * A meet.

@@ -44,6 +44,7 @@ class MeetController extends Controller
      */
     public function store(Request $request, GeneratePdf $pdf, $idDoc)
     {
+        //dd($request);
         $request->validate([
             'time'=>'required',
             'date-appointment'=>'required',
@@ -55,8 +56,9 @@ class MeetController extends Controller
         $date = $request->get('date-appointment');
         $complaint = $request->get('complaint');
         $user_id = auth()->user()->id;
-        $doctor = User::with('specials')->findOrFail($idDoc);
+        $typeMeet = $request->get('type-meet');
 
+        $times = Time::findOrFail($time);
         $meet = new Meet([
             'id_doc' => $idDoc,
             'id_user' => $user_id,
@@ -65,9 +67,29 @@ class MeetController extends Controller
             'complaint'=>$complaint,
             'status'=>0,
             'created_at'=>now(),
+            'type'=>$typeMeet,
         ]);
 
-        $times = Time::findOrFail($time);
+        $doctor = User::with('specials')->findOrFail($idDoc);
+        $dataMeet = [
+            'date'=>$date,
+            'complaint'=>$complaint,
+            'time'=>$times->time,
+            'doctor_name'=>$doctor->name,
+            'doctor_lastname'=>$doctor->last_name,
+            'doctor_patronymic'=>$doctor->patronymic,
+            'doctor_special'=>$doctor->specials[0]->name,
+        ];
+
+        if($typeMeet === 'online'){
+            $linkToMeet = "https://meet.jit.si/".uniqid();
+            $meet->link = $linkToMeet;
+        }else if($typeMeet === 'offline'){
+            $pathToFile = $pdf->generateTicket($user_id,$dataMeet);
+            $meet->ticket = $pathToFile;
+            Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataMeet,$pathToFile));
+        }
+
         if(!$times || $times->status == 1){
             return back()->withErrors(['msg'=>'Запис не додано. Спробуйте ще раз'])->withInput();
         }
@@ -88,19 +110,7 @@ class MeetController extends Controller
         }
         $times->save();
 
-        $dataMeet = [
-            'date'=>$date,
-            'complaint'=>$complaint,
-            'time'=>$times->time,
-            'doctor_name'=>$doctor->name,
-            'doctor_lastname'=>$doctor->last_name,
-            'doctor_patronymic'=>$doctor->patronymic,
-            'doctor_special'=>$doctor->specials[0]->name,
-        ];
-
-        $pathToFile = $pdf->generateTicket($user_id,$dataMeet);
-
-        Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataMeet,$pathToFile));
+        //
 
         if($resultOfSaveMeet){
             return redirect()->route('appointment.index',$idDoc)

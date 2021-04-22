@@ -38,24 +38,33 @@
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="date-appointment">Выберите дату*</label>
+                            <label for="date-appointment">Оберіть дату*</label>
                             <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment" onchange="refresh({{$appointments->id}})">
                         </div>
                         <div class="form-group">
-                            <label for="inputLogType" class="col-md-6 control-label">Выберите время*</label>
+                            <label for="inputLogType" class="col-md-6 control-label">Оберіть час запису*</label>
                             <div class="col-md-6">
                                 <div class="btn-group" data-toggle="buttons" id="times">
-                                    <p>Выберите дату</p>
+                                    <p>Спочатку оберіть дату</p>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-md-11">
-                            <label for="complaint">Опишите свою жалобу (* от 30 символов)</label>
+                            <label for="complaint">Опишіть свою скаргу</label>
                             <textarea name="complaint" rows="3" class="form-control " id="complaint">{{old('complaint')}}</textarea>
                         </div>
-                        <div class="form-group col-md-11">
-                            <label for="complaint">Прикрепить результаты анализов</label>
+                        <div class="form-group col-md-6">
+                            <label for="complaint">Додайте результати аналізів</label>
                             <input name="files[]" type="file" class="form-control ui-datepicker" id="files" multiple>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLogType" class="col-md-6 control-label">Оберіть тип запису</label>
+                            <div class="col-md-6">
+                                <div class="btn-group" data-toggle="buttons" id="types-meet">
+                                    <label for="type-meet-online" class="btn btn-primary ">Онлайн<input type="radio" name="type-meet" id="type-meet-online" value="online"></label>
+                                    <label for="type-meet-offline" class="btn btn-primary active">Офлайн<input type="radio" name="type-meet" id="type-meet-offline" value="offline" checked></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-9">
