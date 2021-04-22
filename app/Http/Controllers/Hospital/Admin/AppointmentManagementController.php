@@ -39,16 +39,24 @@ class AppointmentManagementController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'doctor'=>'required',
             'date'=>'required|date',
             'time'=>'required',
         ]);
 
+        $docId = $request->get('doctor');
+        $date = $request->get('date');
+
+        $chekAppointmenfForDoctor = $this->checkAppointmentForDoctor($docId,$date);
+
+        if($chekAppointmenfForDoctor){
+            return back()->withErrors(['msg'=>'Цей доктор має розклад на цю дату'])->withInput();
+        }
+
         $appointment = Appointment::create([
-            'doc_id'=>$request->get('doctor'),
-            'date'=>$request->get('date'),
+            'doc_id'=>$docId,
+            'date'=>$date,
         ]);
 
         foreach ($request->get('time') as $time){
@@ -63,10 +71,25 @@ class AppointmentManagementController extends Controller
 
         if($result){
             return redirect()->route('appointments.admin.index')
-                ->with(['success'=>'User deleted']);
+                ->with(['success'=>'Графік створений']);
         }else{
-            return back()->withErrors(['msg'=>'Error with delete'])->withInput();
+            return back()->withErrors(['msg'=>'Помилка при створенні графіку'])->withInput();
         }
+    }
+
+    /**
+     * Check appointment for doctor
+     *
+     * @param  int  $idDoc
+     * @param  int  $date
+     * @return bool
+     */
+    public function checkAppointmentForDoctor($idDoc,$date):bool {
+        $appontment = Appointment::where([
+            ['date','=',$date],
+            ['doc_id','=',$idDoc]
+            ])->exists();
+        return $appontment;
     }
 
     /**
@@ -88,7 +111,11 @@ class AppointmentManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+        /*$appointments = Appointment::with('times')->where([
+            ['date','2021-04-22'],
+            ['doc_id','2']
+        ])->first();
+        dd($appointments);*/
     }
 
     /**
