@@ -1,3 +1,6 @@
+@if(empty($meets[0]))
+    <p class="col-md-offset-5">Записів немає</p>
+@else
 @foreach($meets as $meet)
     <div>
         <div class="col-md-12">
@@ -35,3 +38,4 @@
 <div class="col-md-12">
     {{$meets->links()}}
 </div>
+@endif

@@ -7,6 +7,7 @@
                 type: 'get',
                 data: {
                     sorting: sort,
+                    idUser: {{auth()->user()->id}}
                 },
                 dataType: 'json',
                 success: function (responce) {
