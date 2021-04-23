@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Hospital\Doctor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Meet;
+use App\Models\User;
 use App\Services\PathCreator;
 use Illuminate\Http\Request;
 
@@ -12,14 +13,43 @@ class ControlAppointmentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
         $id_doc = auth()->user()->id;
 
-        $meets = Meet::where('id_doc',$id_doc)->with('patient')->with('times')->get();
+        $meets = Meet::where('id_doc',$id_doc)->with('patient')->with('times')->paginate(15);
         return view('hospital.user.doctor.show-patient',compact('meets'));
+    }
+
+    public function filterMeetForDoc(Request $request){
+
+        $meetBuilder = Meet::query();
+
+        if($request->ajax())
+        {
+            $statusMeet = $request->get('status');
+            $query = $request->get('query');
+            $query = str_replace(" ", "%", $query);
+            $idDoc = $request->get('docId');
+            if($statusMeet != null){
+                $meetBuilder = $meetBuilder->where('status',$statusMeet);
+            }
+
+            if ($query != null){
+                $users = User::select('id')
+                    ->where('Name', 'like', '%' . $query . '%')
+                    ->orWhere('last_name', 'like', '%' . $query . '%')
+                    ->orWhere('patronymic', 'like', '%' . $query . '%')
+                    ->get()->toArray();
+                $meetBuilder = $meetBuilder->whereIn('id_user',$users);
+            }
+            $meetBuilder = $meetBuilder->with('times')->with('patient')->where('id_doc',$idDoc);
+        }
+        $meets = $meetBuilder->paginate(15);
+        return response()->json(view('hospital.user.doctor.show-data-patient', compact('meets'))->render());
+
     }
 
     /**
@@ -53,7 +83,10 @@ class ControlAppointmentController extends Controller
     {
         $meets = Meet::where('id',$id)->with('patient')->with('times')->with('analyzes')->first();
         $paths = $meets->analyzes->pluck('path');
-        $pinnedFiles = (new PathCreator())->splitPath($paths);
+        $pinnedFiles = '';
+        if($paths->count() != 0){
+            $pinnedFiles = (new PathCreator())->splitPath($paths);
+        }
         $extensionClassesImg =[
             'pdf'=>'fa-file-pdf-o',
             'doc'=>'fa-file-word-o',

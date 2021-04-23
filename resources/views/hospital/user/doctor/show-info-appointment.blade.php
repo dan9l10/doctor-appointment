@@ -55,7 +55,7 @@
                 </div>
                 <button class="btn btn-primary" type="submit">Зберегти</button>
             </form>
-            @if(!empty($meets->analyzes))
+            @if(!empty($pinnedFiles) && is_array($pinnedFiles))
             <div>
                 <span id="show-files" style="cursor: pointer;">Переглянути файли аналізів <i class="fa fa-plus" id="icon-show" aria-hidden="true"> </i></span>
                 <div id="files">
@@ -64,7 +64,6 @@
                             <div class="col-md-12">
                                 <a href="{{Storage::url($path['path'])}}" download><i class="fa {{$extensionsClass[$path['extension']]}}" aria-hidden="true"> </i> {{$path['filename']}}</a>
                             </div>
-
                         </div>
                     @endforeach
                 </div>

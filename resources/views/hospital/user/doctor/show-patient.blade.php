@@ -5,14 +5,14 @@
     <div class="row">
         <div class="find-panel " style="margin-top: 20px;">
             <div class="form-group col-md-2">
-                <select class="form-control">
-                    <option>Статус запису</option>
-                    <option>Завершені</option>
-                    <option>В роботі</option>
+                <select class="form-control" id="select-status">
+                    <option value="">Усі записи</option>
+                    <option value="1">Завершені</option>
+                    <option value="0">В роботі</option>
                 </select>
             </div>
             <div class="form-group col-md-10">
-                <input name="last_name" type="text" class="form-control" id="last_name" placeholder="Пацієнт">
+                <input name="last_name" type="text" class="form-control" id="patient-search" placeholder="Пацієнт">
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
                         <th scope="col">Тип зустрічі</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="data-meet">
 
                     @include('hospital.user.doctor.show-data-patient')
 
@@ -52,5 +52,11 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
 </div>
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+    @include('scripts.doctors.script-ajax-search-meet')
 @endsection

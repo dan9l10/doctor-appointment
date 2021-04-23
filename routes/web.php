@@ -54,6 +54,7 @@ Route::group(['middleware'=>'auth'],function (){
     });
     Route::get('/scopeSpecial',[DoctorController::class,'scopeSpecial'])->name('doctor.update');
     Route::get('/filter/meet',[MeetController::class,'filterMeet'])->name('meet.filter');
+    Route::get('/filter/meet/doctor',[ControlAppointmentController::class,'filterMeetForDoc'])->name('meet.filter.doc');
 });
 
 //for show doctors and appointments
