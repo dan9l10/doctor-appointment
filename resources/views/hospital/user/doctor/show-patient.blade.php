@@ -1,7 +1,21 @@
 @extends('hospital.layouts.app')
 @section('content')
-
-<div class="container bootstrap snippets bootdey">
+    <link href="/user/profile/css/profile.css" rel="stylesheet">
+<div class="container bootstrap snippets bootdey panel">
+    <div class="row">
+        <div class="find-panel " style="margin-top: 20px;">
+            <div class="form-group col-md-2">
+                <select class="form-control">
+                    <option>Статус запису</option>
+                    <option>Завершені</option>
+                    <option>В роботі</option>
+                </select>
+            </div>
+            <div class="form-group col-md-10">
+                <input name="last_name" type="text" class="form-control" id="last_name" placeholder="Пацієнт">
+            </div>
+        </div>
+    </div>
     @if ($message = Session::get('success'))
         <div class="alert alert-success col-md-12 row">
             <p>{{$message}}</p>
@@ -16,17 +30,12 @@
             </ul>
         </div>
     @endif
-    <a href="{{url()->previous()}}" class="btn btn-danger">Back</a>
     <div class="row">
-        <div class="panel profile-info">
+        <div class="">
             <div class="panel-body">
                 <table class="table table-striped ">
                     <thead class="thead-light" >
                     <tr>
-                        <th scope="col">
-                            <input type="checkbox"
-                                   onclick="for(c in document.getElementsByName('meet-id[]')) document.getElementsByName('meet-id[]').item(c).checked=this.checked;">
-                        </th>
                         <th scope="col">Дата</th>
                         <th scope="col">Час</th>
                         <th scope="col">Статус</th>
@@ -36,17 +45,8 @@
                     </thead>
                     <tbody>
 
-                    @foreach($meets as $meet)
-                        <tr>
-                            <td><input type="checkbox" name="meet-id[]" value="{{$meet->id}}"></td>
-                            <td >{{$meet->date}}</td>
-                            <td >{{$meet->times->time}}</td>
-                            <td>{{ !($meet->status)? "Очікується" : "Закінчена"}}</td>
-                            <td>{{$meet->patient->name}} {{$meet->patient->last_name}}</td>
-                            <td>{{($meet->type==='online')? 'Відео зв\'язок' : 'Зустріч з лікарем'}}</td>
-                            <td><a class="btn btn-primary mr-2" href="{{route('patient.doctor.show',$meet->id)}}" role="button">Інформація</a></td>
-                        </tr>
-                    @endforeach
+                    @include('hospital.user.doctor.show-data-patient')
+
                     </tbody>
                 </table>
             </div>

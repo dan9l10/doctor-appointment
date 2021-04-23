@@ -9,7 +9,7 @@ class PathCreator
             $array = explode('/',$path);
             $filename = array_pop($array);
             $explodedFilename = explode('.',$filename);
-            $extension = array_pop($explodedFilename);
+            $extension = strtolower(array_pop($explodedFilename));
             $pathsWithNameFile[] = [
                 'path'=>$path,'filename'=>$filename,'extension'=>$extension,
             ];
