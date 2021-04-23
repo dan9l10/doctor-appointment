@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Time;
 use App\Models\User;
+use App\Services\Checker;
 use Illuminate\Http\Request;
 
 class AppointmentManagementController extends Controller
@@ -48,7 +49,7 @@ class AppointmentManagementController extends Controller
         $docId = $request->get('doctor');
         $date = $request->get('date');
 
-        $chekAppointmenfForDoctor = $this->checkAppointmentForDoctor($docId,$date);
+        $chekAppointmenfForDoctor = (new Checker())->checkAppointmentForDoctor($docId,$date);
 
         if($chekAppointmenfForDoctor){
             return back()->withErrors(['msg'=>'Цей доктор має розклад на цю дату'])->withInput();
@@ -75,21 +76,6 @@ class AppointmentManagementController extends Controller
         }else{
             return back()->withErrors(['msg'=>'Помилка при створенні графіку'])->withInput();
         }
-    }
-
-    /**
-     * Check appointment for doctor
-     *
-     * @param  int  $idDoc
-     * @param  int  $date
-     * @return bool
-     */
-    public function checkAppointmentForDoctor($idDoc,$date):bool {
-        $appontment = Appointment::where([
-            ['date','=',$date],
-            ['doc_id','=',$idDoc]
-            ])->exists();
-        return $appontment;
     }
 
     /**

@@ -52,13 +52,15 @@ Route::group(['middleware'=>'auth'],function (){
     Route::prefix('/hospital')->group(function () {
         Route::get('/doctors',[DoctorController::class,'index'])->name('doctors.show');
     });
+    Route::get('/scopeSpecial',[DoctorController::class,'scopeSpecial'])->name('doctor.update');
+    Route::get('/filter/meet',[MeetController::class,'filterMeet'])->name('meet.filter');
 });
 
 //for show doctors and appointments
 
 
 //for ajax to use filter for doctor
-Route::get('/scopeSpecial',[DoctorController::class,'scopeSpecial'])->name('doctor.update');
-Route::get('/filter/meet',[MeetController::class,'filterMeet'])->name('meet.filter');
+/*Route::get('/scopeSpecial',[DoctorController::class,'scopeSpecial'])->name('doctor.update');
+Route::get('/filter/meet',[MeetController::class,'filterMeet'])->name('meet.filter');*/
 
 

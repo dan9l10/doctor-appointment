@@ -9,6 +9,7 @@ use App\Models\Meet;
 use App\Models\Member;
 use App\Models\Time;
 use App\Models\User;
+use App\Services\Checker;
 use App\Services\GeneratePdf;
 use Illuminate\Http\Request;
 use FileUpload;
@@ -56,6 +57,11 @@ class MeetController extends Controller
         $complaint = $request->get('complaint');
         $user_id = auth()->user()->id;
         $typeMeet = $request->get('type-meet');
+
+        $checkMeetUser = (new Checker())->checkMeetForUser($user_id,$date,$idDoc);
+        if($checkMeetUser){
+            return back()->withErrors(['msg'=>'Ви вже маєте запис на цю дату.'])->withInput();
+        }
 
         $times = Time::findOrFail($time);
         $meet = new Meet([
@@ -111,8 +117,6 @@ class MeetController extends Controller
             }
         }
         $times->save();
-
-        //
 
         if($resultOfSaveMeet){
             return redirect()->route('appointment.index',$idDoc)
