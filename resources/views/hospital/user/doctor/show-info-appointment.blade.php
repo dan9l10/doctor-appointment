@@ -62,7 +62,7 @@
                     @foreach($pinnedFiles as $path)
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="{{Storage::url($path['path'])}}" download>{{$path['filename']}}</a>
+                                <a href="{{Storage::url($path['path'])}}" download><i class="fa {{$extensionsClass[$path['extension']]}}" aria-hidden="true"> </i> {{$path['filename']}}</a>
                             </div>
 
                         </div>

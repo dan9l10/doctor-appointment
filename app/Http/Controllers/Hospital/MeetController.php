@@ -48,7 +48,7 @@ class MeetController extends Controller
             'time'=>'required',
             'date-appointment'=>'required',
             'complaint'=>'max:255',
-            //'files'=>'mimes:doc,pdf,docx,txt,zip,jpeg,jpg,png'
+            'files.*' => 'mimes:pdf,doc,jpg,jpeg,png,docx|max:4096'
         ]);
 
         $time = $request->get('time');

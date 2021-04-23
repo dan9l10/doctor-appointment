@@ -47,16 +47,22 @@ class ControlAppointmentController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
         $meets = Meet::where('id',$id)->with('patient')->with('times')->with('analyzes')->first();
         $paths = $meets->analyzes->pluck('path');
         $pinnedFiles = (new PathCreator())->splitPath($paths);
-        //dd($data);
-        //dd($meets->analyzes->pluck('path'));
-        return view('hospital.user.doctor.show-info-appointment',['pinnedFiles'=>$pinnedFiles],compact('meets'));
+        $extensionClassesImg =[
+            'pdf'=>'fa-file-pdf-o',
+            'doc'=>'fa-file-word-o',
+            'jpg'=>'fa-file-image-o',
+            'jpeg'=>'fa-file-image-o',
+            'png'=>'fa-picture-o',
+            'docx'=>'fa-file-word-o',
+        ];
+        return view('hospital.user.doctor.show-info-appointment',['pinnedFiles'=>$pinnedFiles,'extensionsClass'=>$extensionClassesImg],compact('meets'));
     }
 
     /**
