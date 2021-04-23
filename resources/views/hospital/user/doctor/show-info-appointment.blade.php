@@ -1,7 +1,6 @@
 @extends('hospital.layouts.app')
 
 @section('content')
-
     <link href="/user/profile/css/profile.css" rel="stylesheet">
 <div class="container bootstrap snippets">
     @if ($message = Session::get('success'))
@@ -32,8 +31,7 @@
     </div>
     <div class="panel profile-info">
         <div class="panel-body">
-            <div class="col-md-12">
-            </div>
+
             <form action="{{route('patient.doctor.update',$meets->id)}}" method="POST">
                 @method('PATCH')
                 @csrf
@@ -57,7 +55,38 @@
                 </div>
                 <button class="btn btn-primary" type="submit">Зберегти</button>
             </form>
+            @if(!empty($meets->analyzes))
+            <div>
+                <span id="show-files" style="cursor: pointer;">Переглянути файли аналізів <i class="fa fa-plus" id="icon-show" aria-hidden="true"> </i></span>
+                <div id="files">
+                    @foreach($pinnedFiles as $path)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="{{Storage::url($path['path'])}}" download>{{$path['filename']}}</a>
+                            </div>
+
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>
+
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function (){
+
+            $("#files").hide();
+            $("#show-files").on('click',function (){
+                $("#files").toggle(500);
+            })
+        })
+
+    </script>
 @endsection

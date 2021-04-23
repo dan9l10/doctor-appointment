@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Hospital\Doctor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Meet;
+use App\Services\PathCreator;
 use Illuminate\Http\Request;
 
 class ControlAppointmentController extends Controller
@@ -51,7 +52,11 @@ class ControlAppointmentController extends Controller
     public function show($id)
     {
         $meets = Meet::where('id',$id)->with('patient')->with('times')->with('analyzes')->first();
-        return view('hospital.user.doctor.show-info-appointment',compact('meets'));
+        $paths = $meets->analyzes->pluck('path');
+        $pinnedFiles = (new PathCreator())->splitPath($paths);
+        //dd($data);
+        //dd($meets->analyzes->pluck('path'));
+        return view('hospital.user.doctor.show-info-appointment',['pinnedFiles'=>$pinnedFiles],compact('meets'));
     }
 
     /**

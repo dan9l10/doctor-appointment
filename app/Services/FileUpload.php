@@ -13,7 +13,7 @@ class FileUpload
         $filename = date('d-m-y').'.'.$currentUser->id.'.'.uniqid().'.'.$file->getClientOriginalExtension();
         $result = $file->move($save_path,$filename);
         //Storage::put('app/public/files/user/'.$currentUser->id.'/','')
-        $publicPath = '/storage/files/user/'.$currentUser->id.'/'.$filename;
+        $publicPath = '/files/user/'.$currentUser->id.'/'.$filename;
         return $publicPath;
     }
 }
