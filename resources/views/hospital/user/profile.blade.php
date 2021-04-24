@@ -24,7 +24,7 @@
                 <div class="panel">
                     <div class="user-heading round">
                         <a href="#">
-                            <img class="profile-avatar" src="{{empty($userInfo->avatar)? "https://bootdey.com/img/Content/avatar/avatar3.png" : $userInfo->avatar}}" alt="">
+                            <img class="profile-avatar" src="{{empty($userInfo->avatar)? 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png'/*"https://bootdey.com/img/Content/avatar/avatar3.png"*/ : $userInfo->avatar}}" alt="">
                         </a>
                         <form method="POST" enctype="multipart/form-data" id="file-upload">
                             @csrf
