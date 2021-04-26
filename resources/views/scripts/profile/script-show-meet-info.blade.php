@@ -27,7 +27,7 @@
                                 <p class="col-md-12"><b>Скрага: </b>${data.complaint}</p>
                             </div>
                             <div class="row">
-                                <p class="col-md-12"><b>Діагноз: </b>${(data.diagnosis)? data.diagnosis : 'Діагнозу не проставлено'}</p>
+                                <p class="col-md-12">${(data.status)?'<b>Діагноз: </b>'+((data.diagnosis)? data.diagnosis : 'Діагнозу не проставлено'):''}</p>
                             </div>
                         </div>
 

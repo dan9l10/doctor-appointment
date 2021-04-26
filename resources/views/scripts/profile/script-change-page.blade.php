@@ -76,7 +76,7 @@
                 '                                        <label for="weight">Вага</label> <input type="text" id="weight" class="form-control col-md-3" value="{{$userInfo->weight}}">\n' +
                 '                                    </div>\n' +
                 '                                    <div class="form-group col-md-6">\n' +
-                '                                        <a class="btn btn-primary" id="submit-new-info">Submit</a>\n' +
+                '                                        <a class="btn btn-primary" onclick="sendNewInfo()" id="submit-new-info">Submit</a>\n' +
                 '                                    </div>\n' +
                 '                                </form>\n' +
                 '                            </div>\n' +

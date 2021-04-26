@@ -35,22 +35,54 @@
                         <p>{{$userInfo->user->email}}</p>
                     </div>
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="button active appointment"><a href="#"> <i class="fa fa-calendar"></i> Візити <span class="label label-warning pull-right r-activity">{{$countMeet}}</span></a></li>
-                        <li class="button"><a href=" {{route('doctors.show')}} "> <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Записатися на візит</a></li>
+                        @if(auth()->user()->hasRole(['patient','admin']))
+                            <li class="button active appointment"><a href="#"> <i class="fa fa-calendar"></i> Візити <span class="label label-warning pull-right r-activity">{{$countMeet}}</span></a></li>
+                            <li class="button information"><a href="#" > <i class="fa fa-user"></i> Особиста інформація</a></li>
+                            <li class="button"><a href=" {{route('doctors.show')}} "> <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Записатися на візит</a></li>
+                        @endif
                         @if(auth()->user()->hasRole('doctor'))
-                            <li class="button appointment-patients"><a href="{{route('patient.doctor.index')}}"> <i class="fa fa-heartbeat" aria-hidden="true"></i>Пацієнти</a></li>
+                                <li class="button information active"><a href="#" > <i class="fa fa-user"></i> Особиста інформація</a></li>
+                                <li class="button appointment-patients"><a href="{{route('patient.doctor.index')}}"> <i class="fa fa-heartbeat" aria-hidden="true"></i>Пацієнти</a></li>
                         @endif
                         @if(auth()->user()->hasRole('admin'))
                             <li class="button"><a href="{{route('admin.panel')}}"> <i class="fa fa-cog" aria-hidden="true"></i>Panel</a></li>
                         @endif
                         <li class="button edit-information"><a href="#"> <i class="fa fa-edit"></i> Змінити особисту інформацію</a></li>
-                        <li class="button information"><a href="#" > <i class="fa fa-user"></i> Особиста інформація</a></li>
                     </ul>
                 </div>
             </div>
-                <div class="active-content">
+            <div class="active-content">
+            @if(auth()->user()->hasRole('doctor'))
+                    <div class="panel profile-info col-md-9 information-profile">
+                        <div class="panel-body bio-graph-info">
+                            <h1>Особиста інформація</h1>
+                                <div class="row">
+                                    <div class="bio-row">
+                                        <p><span><b>Ім"я </b> </span>: {{$userInfo->user->name}}</p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span><b>Прізвище</b> </span>: {{$userInfo->user->last_name}}</p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span><b>Адреса</b> </span>: {{$userInfo->city}} {{$userInfo->address}}</p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span><b>Дата народження</b></span>: {{$userInfo->DOB}}</p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span><b>Email</b> </span>: {{$userInfo->user->email}}</p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span><b>Мобільний телефон</b> </span>: {{$userInfo->phone}}</p>
+                                    </div>
+                                    <div class="bio-row">
+                                        <p><span><b>Стаж</b> </span>: {{$userInfo->rise}}</p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+            @else
                     <div class="panel profile-info col-md-9 information-profile hidden">
-
                     </div>
                     <div class="col-md-9 panel profile-info appointment-info">
                         <div class="row">
@@ -74,7 +106,7 @@
                             @endif
                         </div>
                     </div>
-                </div>
+            @endif
             </div>
     </div>
     </div>
