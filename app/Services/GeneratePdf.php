@@ -54,4 +54,31 @@ class GeneratePdf
         return $path;
     }
 
+    public function generateConclusion($data,$userId){
+        $savePath = storage_path('app/public/files/conclusion/user/'.$userId.'/');
+
+        $fileName = str_replace([' ',':'],'_',date("Y-m-d H:i:s")).'.pdf';
+        $pathToFile = $savePath.$fileName;
+
+        $publicPath = '/files/conclusion/user/'.$userId.'/'.$fileName;
+
+        $path = [
+            'publicPath'=> $publicPath,
+            'pathToFile'=>$pathToFile,
+        ];
+        try {
+            File::makeDirectory($savePath, $mode = 0755, true, true);
+            PDF::SetTitle('Conclusion');
+            PDF::SetFont('freesans', '', 8, '', true);
+            PDF::AddPage();
+            PDF::setBarcode(date('Y-m-d H:i:s'));
+            PDF::writeHTML(view('mail.layouts.conclusion',compact('data'))->render(), true, false, true, false, '');
+            PDF::Output($pathToFile, 'F');
+            PDF::reset();
+        }catch (\Exception $e){
+            return false;
+        }
+        return $path;
+    }
+
 }

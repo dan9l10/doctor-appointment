@@ -15,7 +15,17 @@ class Meet extends Model
      * @var array
      */
     protected $fillable = [
-        'id_doc', 'id_user', 'time', 'date', 'complaint', 'diagnosis', 'status', 'created_at', 'updated_at','type','ticket','link'
+        'id_doc',
+        'id_user',
+        'time',
+        'date',
+        'complaint',
+        'diagnosis',
+        'status',
+        'type',
+        'ticket',
+        'link',
+        'conclusion'
     ];
     /**
      * A meet.
@@ -43,6 +53,15 @@ class Meet extends Model
     public function patient()
     {
         return $this->belongsTo(User::class,'id_user','id');
+    }
+    /**
+     * Meet belongs to patient.
+     *
+     * @return mixed
+     */
+    public function userAsMember()
+    {
+        return $this->belongsTo(Member::class,'id_user','id');
     }
     /**
      * Meet has many analyzes.

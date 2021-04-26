@@ -20,13 +20,21 @@
     <div class="panel profile-info">
         <a href="{{route('patient.doctor.index')}}" class="col-md-6"><b><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Повернутись до пацієнтів</b></a>
         <div class="panel-body">
-            <h3>Пацієнт:</h3>
-            <h4><b>{{$meets->patient->name}}  {{$meets->patient->last_name}} {{$meets->patient->patronymic}}</b></h4>
-            <p style="margin-top: 10px;">Час:<b> {{$meets->times->time}}</b></p>
-            <p>Дата:<b> {{$meets->date}}</b></p>
-            @if($meets->type==='online')
-            <a href="{{$meets->link}}" target="_blank">Перейти до конференції <i class="fa fa-video-camera" aria-hidden="true"> </i></a>
-            @endif
+            <div class="col-md-7">
+                <h3>Пацієнт:</h3>
+                <h4><b>{{$meets->patient->name}}  {{$meets->patient->last_name}} {{$meets->patient->patronymic}}</b></h4>
+                <p>Дата народження:<b> {{$meets->userAsMember->DOB}}</b></p>
+                <p>Зріст: <b>{{$meets->userAsMember->rise}} см</b> Вага: <b> {{$meets->userAsMember->weight}} кг</b></p>
+                <p style="margin-top: 10px;">Час:<b> {{$meets->times->time}}</b></p>
+                <p>Дата:<b> {{$meets->date}}</b></p>
+                @if($meets->type==='online')
+                    <a href="{{$meets->link}}" target="_blank">Перейти до конференції <i class="fa fa-video-camera" aria-hidden="true"> </i></a>
+                @endif
+            </div>
+            <div class="col-md-5">
+                <img style="width: 300px;height: 300px;" src="{{($meets->userAsMember->avatar)? $meets->userAsMember->avatar:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png' }}" alt="d">
+            </div>
+
         </div>
     </div>
     <div class="panel profile-info">
@@ -53,7 +61,39 @@
                         Завершити зустріч
                     </label>
                 </div>
-                <button class="btn btn-primary" type="submit">Зберегти</button>
+                @if(!($meets->conclusion))
+                    <div class="form-group">
+                        @if($meets->status)
+                            <input name="conclusion" class="form-check-input" type="checkbox" id="generate-conclusion" disabled>
+                        @else
+                            <input name="conclusion" class="form-check-input" type="checkbox" value="1" id="generate-conclusion">
+                        @endif
+                        <label class="form-check-label" for="generate-conclusion">
+                            Згенерувати висновок лікаря
+                        </label>
+                    </div>
+                    <div class="form-group" id="data-conclusion">
+                        <label for="additional-info-complaint">Додаткова інформація щодо скарги пацієнта</label>
+                        <input type="text" id="additional-info-complaint" name="additional-info-complaint" class="form-control">
+                        <label for="recommendation"><b>Рекомедації</b></label>
+                        <textarea name="recommendation" class="form-control" id="recommendation" rows="3" ></textarea>
+                        <label for="pills">Лікарняні препарати</label>
+                        <span id="add-field-pills" style="cursor: pointer; color: #000b16;">Додати препарат <i class="fa fa-plus" id="icon-show" aria-hidden="true"> </i></span>
+                        <input type="text" id="pills" name="pills[]" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Зберегти</button>
+                    </div>
+                @else
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Зберегти</button>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <a  href="{{Storage::url($meets->conclusion)}}" download>Висновок <i class="fa fa-download" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                @endif
             </form>
             @if(!empty($pinnedFiles) && is_array($pinnedFiles))
             <div>
@@ -81,10 +121,20 @@
     <script>
         $(document).ready(function (){
 
+            $('#data-conclusion').hide();
+
+            $('#generate-conclusion').on('click',function (){
+                $("#data-conclusion").toggle(500);
+            });
+
+            $('#add-field-pills').on('click',function (){
+                $('#data-conclusion').append(`<input type="text" id="pills" name="pills[]" class="form-control">`);
+            });
+
             $("#files").hide();
             $("#show-files").on('click',function (){
                 $("#files").toggle(500);
-            })
+            });
         })
 
     </script>

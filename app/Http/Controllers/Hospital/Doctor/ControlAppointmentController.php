@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Hospital\Doctor;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendConclusion;
 use App\Models\Meet;
 use App\Models\User;
+use App\Services\GeneratePdf;
 use App\Services\PathCreator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ControlAppointmentController extends Controller
 {
@@ -19,7 +22,7 @@ class ControlAppointmentController extends Controller
     {
         $id_doc = auth()->user()->id;
 
-        $meets = Meet::where('id_doc',$id_doc)->with('patient')->with('times')->paginate(15);
+        $meets = Meet::where('id_doc',$id_doc)->with('patient')->with('times')->orderBy('status')->paginate(15);
         return view('hospital.user.doctor.show-patient',compact('meets'));
     }
 
@@ -81,7 +84,7 @@ class ControlAppointmentController extends Controller
      */
     public function show($id)
     {
-        $meets = Meet::where('id',$id)->with('patient')->with('times')->with('analyzes')->first();
+        $meets = Meet::where('id',$id)->with('patient')->with('userAsMember')->with('times')->with('analyzes')->first();
         $paths = $meets->analyzes->pluck('path');
         $pinnedFiles = '';
         if($paths->count() != 0){
@@ -123,6 +126,22 @@ class ControlAppointmentController extends Controller
         if (!is_null($request->get('status'))){
             $meet->status = $request->get('status');
         }
+        if ($request->get('conclusion')){
+            $userData = $meet->patient()->first();
+            $docData = $meet->doctor()->first();
+            $data = [
+                'diagnosis'=>$request->get('diagnosis'),
+                'complaint'=>$meet->complaint.$request->get('additional-info-complaint'),
+                'recommendation'=>$request->get('recommendation'),
+                'pills'=>$request->get('pills'),
+                'doctor_data'=>$docData->name.''.$docData->last_name.''.$docData->patronymic,
+                'user_data'=>$userData->name.''.$userData->last_name.''.$userData->patronymic,
+            ];
+            $conclusionPath = (new GeneratePdf())->generateConclusion($data,$userData->id);
+            $meet->conclusion = $conclusionPath['publicPath'];
+            Mail::to($userData->email)->send(new SendConclusion($conclusionPath['pathToFile']));
+        }
+
         $meet->diagnosis = $request->get('diagnosis');
         $result = $meet->save();
 
