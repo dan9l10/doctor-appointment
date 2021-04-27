@@ -46,6 +46,17 @@ class AppointmentController extends Controller
         }
         return response()->json($data);
     }
+
+    public function returnAppointmentsAvailableDate(Request $request)
+    {
+        $data= '';
+        if($request->ajax()) {
+            $idDoc = $request->get('id_doc');
+            if($idDoc) $data = Appointment::select('date')->where('doc_id',$idDoc)->get();
+        }
+        return response()->json($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -49,6 +49,7 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('/appointments/{id}',[AppointmentController::class,'index'])->name('appointment.index');
     Route::post('/avatar/upload', [ProfileController::class,'upload'])->name('avatar.user.upload');
     Route::get('/time',[AppointmentController::class,'returnAppointmentsTime'])->name('time.update');
+    Route::get('/date/get',[AppointmentController::class,'returnAppointmentsAvailableDate'])->name('date.available.get');
     Route::prefix('/hospital')->group(function () {
         Route::get('/doctors',[DoctorController::class,'index'])->name('doctors.show');
     });
@@ -57,11 +58,5 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('/filter/meet/doctor',[ControlAppointmentController::class,'filterMeetForDoc'])->name('meet.filter.doc');
 });
 
-//for show doctors and appointments
-
-
-//for ajax to use filter for doctor
-/*Route::get('/scopeSpecial',[DoctorController::class,'scopeSpecial'])->name('doctor.update');
-Route::get('/filter/meet',[MeetController::class,'filterMeet'])->name('meet.filter');*/
 
 

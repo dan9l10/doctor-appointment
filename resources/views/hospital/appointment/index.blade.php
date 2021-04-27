@@ -1,6 +1,9 @@
 @extends('hospital.layouts.app')
 @section('content')
     <link href="/user/profile/css/profile.css" rel="stylesheet">
+    <script src="/js/vanilla-calendar-min.js"></script>
+
+    <link rel="stylesheet" href="/css/vanilla-calendar-min.css">
     <div class="container">
         @if ($message = Session::get('success'))
             <div class="alert alert-success col-md-12">
@@ -38,8 +41,9 @@
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="date-appointment">Оберіть дату*</label>
-                            <input name="date-appointment" type="date" class="form-control ui-datepicker" id="date-appointment" onchange="refresh({{$appointments->id}})">
+                            <label for="myCalendar">Оберіть дату*</label>
+                            <input type="text" name="date-appointment" id="date-appointment" hidden value="">
+                            <div id="myCalendar" class="vanilla-calendar" style="margin-bottom: 20px" onchange="refresh({{$appointments->id}})"></div>
                         </div>
                         <div class="form-group">
                             <label for="inputLogType" class="col-md-6 control-label">Оберіть час запису*</label>
@@ -79,14 +83,48 @@
                 </div>
             </div>
     </div>
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
 
-<script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        function refresh(id) {
-            var date = $(".ui-datepicker").val();
+    <script>
+        let availableDates = [], availableWeekDays = false, calendar = true;
+
+        $(document).ready(function (){
+            $.ajax({
+                url: "/date/get",
+                type: 'GET',
+                data: {
+                    id_doc: {{$appointments->user->id}}
+                },
+                dataType: 'json',
+                success: function (data) {
+                    availableDates = data;
+                    createCalendar(data);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
+        function createCalendar(availableDates){
+            calendar = new VanillaCalendar({
+                selector: "#myCalendar",
+                months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+                shortWeekday: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+                onSelect: (data, elem) => {
+                    refresh({{$appointments->id}},data.data);
+                    $('#date-appointment').val(data.data.date);
+                },
+                pastDates:false,
+                availableDates: availableDates,
+                datesFilter: true
+            })
+        }
+
+        function refresh(id,date) {
             $.ajax({
                 url: "{{route('time.update')}}",
                 type: 'GET',
