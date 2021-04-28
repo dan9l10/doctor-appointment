@@ -1,0 +1,52 @@
+.card-doc {
+    width: 100%;
+    display: flex;
+}
+
+.container-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container-card-info {
+    padding: 2px 16px;
+
+}
+.container-card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    align-content: end;
+    background: #fff;
+    margin-bottom: 15px ;
+    border-radius: 7px;
+}
+.find-panel{
+    padding-top: 10px;
+}
+.main-container-style{
+    margin-top: 10px;
+}
+.name-doctor{
+    font-size: 15px;
+}
+.special_checkbox{
+    transform:scale(1.3);
+    opacity:0.9;
+    cursor:pointer;
+    margin-right: 2px;
+    color: #000;
+}
+#avatar-doctor-info{
+    width: 300px;
+    margin: 5px;
+    border-radius: 3px;
+}
+.additional-info-doc{
+    text-align:center;
+    margin: 0;
+    border: 1px dashed #a5c422;
+    border-radius: 9px;
+    padding: 4px;
+}
+.btn-appointment{
+    padding-top: 2px;
+}

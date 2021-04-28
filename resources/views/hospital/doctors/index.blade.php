@@ -1,35 +1,7 @@
 @extends('hospital.layouts.app')
 @section('content')
     <link href="/user/profile/css/profile.css" rel="stylesheet">
-    <style>
-        .card-doc {
-            width: 75%;
-            display: flex;
-        }
-
-        .container-card:hover {
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }
-
-        .container-card-info {
-            padding: 2px 16px;
-
-        }
-        .container-card{
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-            transition: 0.3s;
-            align-content: end;
-            background: #fff;
-            margin-bottom: 15px ;
-            border-radius: 7px;
-        }
-        .find-panel{
-           padding-top: 10px;
-        }
-        .main-container-style{
-            margin-top: 10px;
-        }
-    </style>
+    <link href="/css/doctor-info-style.css" rel="stylesheet">
     <div class="row">
         <div class="col-md-12 find-panel panel">
             <div class="form-group container">
@@ -46,8 +18,8 @@
                         <h3 style="margin-bottom: 5px;">За спеціальностями:</h3>
                         @foreach($specials as $special)
                         <div style="margin-bottom:3px; " class="form-check">
-                            <input style=" transform:scale(1.3);  opacity:0.9; cursor:pointer; margin-right: 2px; color: #000;" class="form-check-input special_checkbox" type="checkbox" attr-name="{{$special->name}}" name="special[]" value="{{$special->id}}" id="{{$special->id}}">
-                            <label style="font-size: 15px; " class="form-check-label" for="{{$special->id}}">
+                            <input class="form-check-input special_checkbox" type="checkbox" attr-name="{{$special->name}}" name="special[]" value="{{$special->id}}" id="{{$special->id}}">
+                            <label class="form-check-label name-doctor" for="{{$special->id}}">
                                {{$special->name}}
                             </label>
                         </div>
