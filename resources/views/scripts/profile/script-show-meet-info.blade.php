@@ -24,7 +24,7 @@
                         </div>
                         <div class="panel-body bio-graph-info">
                             <div class="row">
-                                <p class="col-md-12"><b>Скрага: </b>${data.complaint}</p>
+                                <p class="col-md-12"><b>Скрага: </b>${(data.complaint)?data.complaint:'Скаргу не описано'}</p>
                             </div>
                             <div class="row">
                                 <p class="col-md-12">${(data.status)?'<b>Діагноз: </b>'+((data.diagnosis)? data.diagnosis : 'Діагнозу не проставлено'):''}</p>

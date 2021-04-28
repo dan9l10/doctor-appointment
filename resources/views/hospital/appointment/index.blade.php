@@ -25,11 +25,16 @@
                         <div class="col-md-auto">
                             <img class="col-md-3" src="{{($appointments->avatar)? $appointments->avatar : 'https://html5css.ru/howto/img_avatar2.png'}}" alt="Avatar">
                             <p class="col-1"><small>{{$appointments->specials->name}}</small></p>
-                            <p class="col-md-9">
-                                <b>
-                                    {{$appointments->user->name}} {{$appointments->user->last_name}} {{$appointments->user->patronymic}}
-                                </b>
-                            </p>
+                            <div class="col-md-9">
+                                <h4>
+                                    <b>
+                                        {{$appointments->user->name}} {{$appointments->user->last_name}} {{$appointments->user->patronymic}}
+                                    </b>
+                                </h4>
+                                <p><b><i class="fa fa-money" aria-hidden="true"></i> Ціна прийому від:</b> {{($appointments->price)? $appointments->price.'грн':'Уточнюйте з лікарем'}}</p>
+                                <p><b><i class="fa fa-id-card" aria-hidden="true"></i> Стаж лікаря:</b> {{$appointments->experience}}</p>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -77,9 +82,35 @@
                 </form>
             </div>
         </div>
-            <div class="panel">
-                <div class="profile-info">
-                    Правила запису
+            <div class="panel" style="border-radius: 5px; border: 2px solid #1da1f2;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Правила запису до лікаря</h3>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <div class="row">
+                            <div class="col-md-12" style="font-size: 16px; color: #000b16;">
+                                <span >
+                                    Для запису до лікаря оберіть дату у розділі "Оберіть дату" - це поле є обов'язковим.<br>
+                                    Після вибору дати у полі "Оберіть час" з'явиться доступний час для створення зустрічі.<br>
+                                    Оберіть зручний час для зустрічі з вибраним лікарем.
+                                    Пацієнт може обрати такі типи запису:
+                                    <ul>
+                                        <li>Онлайн - після створення запису у кабінеті з'явиться посилання на кімнату для зустрічі з лікарем.
+                                            Лікар буде вас чекати у назначений час (+-10 хвилин)</li>
+                                        <li>Офлайн - після створення на пошту приходить квиток, який містить інформацію про запис. Також його можна завантажити у особистому кабінеті.</li>
+                                    </ul>
+                                    Поля "Опишіть свою скаргу" не є обов'язковими, але вони допомагають лікарю.<br>
+                                    Пацієнт може закріпити декілька файлів у форматі pdf,png,jpg,jpeg,doc,docx, які мають розмір не більше 4-х мбайтів.<br>
+                                    Після консультації з лікарем пацієнт отримує висновок лікаря на поштову адресу, яку вказано при реєстрації.
+                                    Також лікар може роздрукувати її та видати особисто пацієнту.
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
     </div>

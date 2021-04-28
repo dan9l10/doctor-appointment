@@ -21,11 +21,23 @@
                             <input id="{{$meet->id}}" type="button" class="btn btn-primary info-meet-show" onclick="getDataMeet($(this));return false;" value="Переглянути інформацію"/>
                             @if($meet->type==='online')
                                 <div class="col-md-12">
-                                    <a href="{{$meet->link}}" target="_blank">Перейти до конференції <i class="fa fa-video-camera" aria-hidden="true"> </i></a>
+                                    @if($meet->status)
+                                        @if($meet->conclusion)
+                                            <a href="{{Storage::url($meet->conclusion)}}" target="_blank">Завантажити висновки <i class="fa fa-download" aria-hidden="true"> </i></a>
+                                        @endif
+                                    @else
+                                        <a href="{{$meet->link}}" target="_blank">Перейти до конференції <i class="fa fa-video-camera" aria-hidden="true"> </i></a>
+                                    @endif
                                 </div>
                             @else
                                 <div class="col-md-12">
-                                    <a href="{{ Storage::url($meet->ticket)}}" download>Завантажити квиток <i class="fa fa-download" aria-hidden="true"></i></a>
+                                    @if($meet->status)
+                                        @if($meet->conclusion)
+                                            <a href="{{Storage::url($meet->conclusion)}}" target="_blank">Завантажити висновки <i class="fa fa-download" aria-hidden="true"> </i></a>
+                                        @endif
+                                    @else
+                                        <a href="{{ Storage::url($meet->ticket)}}" download>Завантажити квиток <i class="fa fa-download" aria-hidden="true"></i></a>
+                                    @endif
                                 </div>
                             @endif
                         </div>
