@@ -29,20 +29,20 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputName">Имя</label>
+                            <label for="inputName">Ім"я</label>
                             <input name="name" type="text" class="form-control" id="inputName" placeholder="Your name" required>
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="last_name">Фамилия</label>
+                            <label for="last_name">Прізвище</label>
                             <input name="last_name" id="last_name" class="form-control" required>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="patronymic">Отчество</label>
+                            <label for="patronymic">По-батькові</label>
                             <input name="patronymic" type="text" class="form-control" id="patronymic" required>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="phone_number">Номер телефона</label>
+                            <label for="phone_number">Номер телефону</label>
                             <input name="phone_number" type="text" class="form-control" id="phone_number" placeholder="+38(___) ___ __ __" >
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         <div class="form-group col-md-6">
                             <label for="inputState">Special</label>
                             <select name="special" id="inputState" class="form-control">
-                                <option value="">Выберите специализацию</option>
+                                <option value="">Спеціалізація</option>
                                 @foreach($specials as $special)
                                     <option value="{{$special->id}}">{{$special->name}}</option>
                                 @endforeach
@@ -70,15 +70,19 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputCity">City</label>
+                            <label for="inputCity">Місто</label>
                             <input name="city" type="text" class="form-control" id="inputCity">
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="DOB">DOB</label>
-                            <input name="date"  type="date" class="form-control" id="DOB">
+                            <label for="experience">Cтаж роботи лікаря</label>
+                            <input name="experience"  type="number" class="form-control" id="experience">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="price">Ціна за прийом</label>
+                            <input name="price"  type="number" class="form-control" id="price">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Додати користувача</button>
                 </form>
             </div>
         </div>

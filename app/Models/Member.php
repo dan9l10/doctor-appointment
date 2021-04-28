@@ -28,9 +28,8 @@ class Member extends Authenticatable
         'DOB',
         'weight',
         'rise',
-        'created_at',
-        'updated_at ',
-        'remember_token',
+        'price',
+        'experience',
     ];
     /**
      * A profile belongs to a user.

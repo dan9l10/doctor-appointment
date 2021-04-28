@@ -39,8 +39,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $specials = DB::table('specials')->select(['id','name'])->get();
-        $roles = DB::table('roles')->select('name')->get();
+        $specials = Special::select(['id','name'])->orderBy('name', 'ASC')->get();
+        $roles = Role::select('name')->get();
         return view('hospital.admin.users.add_doctor',compact('specials','roles'));
     }
 
@@ -56,7 +56,9 @@ class UserController extends Controller
             'name'=>'required|max:60',
             'email'=>'required|email|unique:users',
             'password'=>'required|min:8',
-            'role'=>'required'
+            'role'=>'required',
+            'experience'=>'max:90|min:0',
+            'price'=>'max:999999'
         ]);
 
         $user = new User([
@@ -74,6 +76,8 @@ class UserController extends Controller
             'DOB'=>$request->get('date'),
             'city'=>$request->get('city'),
             'address'=>$request->get('address'),
+            'experience'=>$request->get('experience'),
+            'price'=>$request->get('price'),
         ]);
 
         $user->assignRole("{$request->get('role')}");
@@ -97,11 +101,6 @@ class UserController extends Controller
     public function edit($id)
     {
         $userEdit = Member::with('user')->with('user')->with('specials')->where('user_id',$id)->first();
-        /*dd($userEdit);
-        $userEdit = DB::table('users')
-            ->join('model_has_roles','model_has_roles.model_id','=','users.id')
-            ->join('roles','roles.id','=','model_has_roles.role_id')
-            ->select(['users.id as id','users.last_name','users.patronymic','users.email as email','roles.name as role','users.name as name'])->where('users.id','=',$id)->orderBy('id')->get()->first();*/
         $roles = Role::all(['id','name']);
         $specials = Special::all(['id','name']);
         return view('hospital.admin.users.edit_user',compact('roles','userEdit','specials'));
