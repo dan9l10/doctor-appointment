@@ -23,7 +23,7 @@
                                 <div class="col-md-12">
                                     @if($meet->status)
                                         @if($meet->conclusion)
-                                            <a href="{{Storage::url($meet->conclusion)}}" target="_blank">Завантажити висновки <i class="fa fa-download" aria-hidden="true"> </i></a>
+                                            <a href="{{Storage::url($meet->conclusion)}}" download>Завантажити висновки <i class="fa fa-download" aria-hidden="true"> </i></a>
                                         @endif
                                     @else
                                         <a href="{{$meet->link}}" target="_blank">Перейти до конференції <i class="fa fa-video-camera" aria-hidden="true"> </i></a>
@@ -33,7 +33,7 @@
                                 <div class="col-md-12">
                                     @if($meet->status)
                                         @if($meet->conclusion)
-                                            <a href="{{Storage::url($meet->conclusion)}}" target="_blank">Завантажити висновки <i class="fa fa-download" aria-hidden="true"> </i></a>
+                                            <a href="{{Storage::url($meet->conclusion)}}" download>Завантажити висновки <i class="fa fa-download" aria-hidden="true"> </i></a>
                                         @endif
                                     @else
                                         <a href="{{ Storage::url($meet->ticket)}}" download>Завантажити квиток <i class="fa fa-download" aria-hidden="true"></i></a>

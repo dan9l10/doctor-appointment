@@ -1,4 +1,8 @@
 @extends('hospital.layouts.app')
+
+@section('title')
+    Запис на прийом
+@endsection
 @section('content')
     <link href="/user/profile/css/profile.css" rel="stylesheet">
     <script src="/js/vanilla-calendar-min.js"></script>

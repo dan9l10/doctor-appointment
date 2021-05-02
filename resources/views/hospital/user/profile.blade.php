@@ -1,4 +1,7 @@
 @extends('hospital.layouts.app')
+@section('title')
+Моя сторінка
+@endsection
 
 @section('content')
     <link href="/user/profile/css/profile.css" rel="stylesheet">

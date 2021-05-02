@@ -1,5 +1,5 @@
 <!-- MultiStep Form -->
-
+<title>Регістрація</title>
 <link href="/auth/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/auth/auth.css">
 <div class="page-header text-center">

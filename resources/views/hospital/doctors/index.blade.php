@@ -1,4 +1,8 @@
 @extends('hospital.layouts.app')
+
+@section('title')
+    Лікарі
+@endsection
 @section('content')
     <link href="/user/profile/css/profile.css" rel="stylesheet">
     <link href="/css/doctor-info-style.css" rel="stylesheet">
