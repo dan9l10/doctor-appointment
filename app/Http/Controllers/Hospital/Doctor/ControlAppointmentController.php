@@ -86,6 +86,8 @@ class ControlAppointmentController extends Controller
     public function show($id)
     {
         $meets = Meet::where('id',$id)->with('patient')->with('userAsMember')->with('times')->with('analyzes')->first();
+        $diagnosis = Meet::with('patient')->with('userAsMember')->with('times')->with('analyzes')->where('id_user',$meets->patient->id)->get();
+
         $paths = $meets->analyzes->pluck('path');
         $pinnedFiles = '';
         if($paths->count() != 0){
