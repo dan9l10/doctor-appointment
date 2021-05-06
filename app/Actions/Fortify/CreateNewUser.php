@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Mail\WelcomeMessage;
 use App\Models\Member;
 use App\Models\User;
+use App\Services\Mailer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -68,7 +69,8 @@ class CreateNewUser implements CreatesNewUsers
             'avatar'=>$public_path,
         ]);
         $user->members()->save($member);
-        Mail::to($input['email'])->send(new WelcomeMessage($input));
+        (new Mailer())->sendWelcome($input['email'],$input);
+        //Mail::to($input['email'])->send(new WelcomeMessage($input));
 
         return $user;
     }

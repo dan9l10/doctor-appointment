@@ -7,6 +7,7 @@ use App\Mail\SendConclusion;
 use App\Models\Meet;
 use App\Models\User;
 use App\Services\GeneratePdf;
+use App\Services\Mailer;
 use App\Services\PathCreator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -139,7 +140,8 @@ class ControlAppointmentController extends Controller
             ];
             $conclusionPath = (new GeneratePdf())->generateConclusion($data,$userData->id);
             $meet->conclusion = $conclusionPath['publicPath'];
-            Mail::to($userData->email)->send(new SendConclusion($conclusionPath['pathToFile']));
+            (new Mailer())->sendConclusion($userData->email,$conclusionPath['pathToFile']);
+            //Mail::to($userData->email)->send(new SendConclusion($conclusionPath['pathToFile']));
         }
 
         $meet->diagnosis = $request->get('diagnosis');

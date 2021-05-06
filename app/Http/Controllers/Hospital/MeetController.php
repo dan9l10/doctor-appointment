@@ -11,6 +11,7 @@ use App\Models\Time;
 use App\Models\User;
 use App\Services\Checker;
 use App\Services\GeneratePdf;
+use App\Services\Mailer;
 use Illuminate\Http\Request;
 use FileUpload;
 use Illuminate\Support\Facades\Mail;
@@ -95,7 +96,8 @@ class MeetController extends Controller
                 return back()->withErrors(['msg'=>'Запис не додано. Спробуйте ще раз'])->withInput();
             }
             $meet->ticket = $pathToFile['publicPath'];
-            Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataMeet,$pathToFile['pathToFile']));
+            (new Mailer())->sendTicket(auth()->user()->email,$dataMeet,$pathToFile['pathToFile']);
+            //Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataMeet,$pathToFile['pathToFile']));
         }
 
         if(!$times || $times->status == 1){
