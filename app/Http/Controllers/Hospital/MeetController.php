@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendTicketEmail;
 use App\Mail\SendTicketMeet;
 use App\Models\Analyzes;
 use App\Models\Meet;
@@ -96,7 +97,8 @@ class MeetController extends Controller
                 return back()->withErrors(['msg'=>'Запис не додано. Спробуйте ще раз'])->withInput();
             }
             $meet->ticket = $pathToFile['publicPath'];
-            (new Mailer())->sendTicket(auth()->user()->email,$dataMeet,$pathToFile['pathToFile']);
+            dispatch(new SendTicketEmail($pathToFile['pathToFile'],auth()->user()->email,$dataMeet));
+            //(new Mailer())->sendTicket(auth()->user()->email,$dataMeet,$pathToFile['pathToFile']);
             //Mail::to(auth()->user()->email)->send(new SendTicketMeet($dataMeet,$pathToFile['pathToFile']));
         }
 

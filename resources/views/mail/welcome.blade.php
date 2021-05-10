@@ -104,21 +104,6 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <!-- logo -->
-                                    <table bgcolor="#282828" width="140" align="left" border="0" cellpadding="0" cellspacing="0" class="devicewidth">
-                                        <tbody>
-                                        <tr>
-                                            <td width="140" height="50" align="center">
-                                                <div class="imgpop">
-                                                    <a target="_blank" href="#">
-                                                        <img src="img/logo.jpg" alt="" border="0" width="140" height="50" style="display:block; border:none; outline:none; text-decoration:none;">
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <!-- end of logo -->
                                     <!-- start of menu -->
                                     <table bgcolor="#eacb3c" width="250" height="50" border="0" align="right" valign="middle" cellpadding="0" cellspacing="0" border="0" class="devicewidth">
                                         <tbody>
@@ -197,19 +182,6 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <!-- Start of left column -->
-                                    <table width="280" align="left" border="0" cellpadding="0" cellspacing="0" class="devicewidth">
-                                        <tbody>
-                                        <!-- image -->
-                                        <tr>
-                                            <td width="280" height="140" align="center" class="devicewidth">
-                                                <img src="img/left-image.jpg" alt="" border="0" width="280" height="140" style="display:block; border:none; outline:none; text-decoration:none;" class="col2img">
-                                            </td>
-                                        </tr>
-                                        <!-- /image -->
-                                        </tbody>
-                                    </table>
-                                    <!-- end of left column -->
                                     <!-- spacing for mobile devices-->
                                     <table align="left" border="0" cellpadding="0" cellspacing="0" class="mobilespacing">
                                         <tbody>

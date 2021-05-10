@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hospital\Doctor;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendConclusionEmail;
 use App\Mail\SendConclusion;
 use App\Models\Meet;
 use App\Models\User;
@@ -137,12 +138,13 @@ class ControlAppointmentController extends Controller
                 'complaint'=>$meet->complaint.$request->get('additional-info-complaint'),
                 'recommendation'=>$request->get('recommendation'),
                 'pills'=>$request->get('pills'),
-                'doctor_data'=>$docData->name.''.$docData->last_name.''.$docData->patronymic,
-                'user_data'=>$userData->name.''.$userData->last_name.''.$userData->patronymic,
+                'doctor_data'=>$docData->name.' '.$docData->last_name.' '.$docData->patronymic,
+                'user_data'=>$userData->name.' '.$userData->last_name.' '.$userData->patronymic,
             ];
             $conclusionPath = (new GeneratePdf())->generateConclusion($data,$userData->id);
             $meet->conclusion = $conclusionPath['publicPath'];
-            (new Mailer())->sendConclusion($userData->email,$conclusionPath['pathToFile']);
+            dispatch(new SendConclusionEmail($conclusionPath['pathToFile'] ,$userData->email));
+            //(new Mailer())->sendConclusion($userData->email,$conclusionPath['pathToFile']);
             //Mail::to($userData->email)->send(new SendConclusion($conclusionPath['pathToFile']));
         }
 
