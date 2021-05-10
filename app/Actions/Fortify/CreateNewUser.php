@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Jobs\SendWelcomeMail;
 use App\Mail\WelcomeMessage;
 use App\Models\Member;
 use App\Models\User;
@@ -69,7 +70,8 @@ class CreateNewUser implements CreatesNewUsers
             'avatar'=>$public_path,
         ]);
         $user->members()->save($member);
-        (new Mailer())->sendWelcome($input['email'],$input);
+        dispatch(new SendWelcomeMail($input,$input['email']));
+        //(new Mailer())->sendWelcome($input['email'],$input);
         //Mail::to($input['email'])->send(new WelcomeMessage($input));
 
         return $user;
