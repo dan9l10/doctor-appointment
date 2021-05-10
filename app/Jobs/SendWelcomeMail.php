@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class SendWelcomeMail implements ShouldQueue
 {
@@ -33,9 +34,8 @@ class SendWelcomeMail implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(Mailer $mailer)
     {
-        $mailer = new Mailer();
         $mailer->sendWelcome($this->recipient,$this->data);
     }
 }
