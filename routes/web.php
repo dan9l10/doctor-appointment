@@ -33,14 +33,16 @@ Route::group(['middleware'=>['role:doctor']],function (){
 });
 
 //admin-panel
-Route::prefix('/admin')->group(function () {
+
     Route::group(['middleware'=>['role:admin']],function (){
-        Route::resource('/users',UserController::class)->except('show')->names('users.admin');
-        Route::resource('/meets',MeetsManagementController::class)->except('show')->names('meets.admin');
-        Route::resource('/appointment',AppointmentManagementController::class)->except('show')->names('appointments.admin');
-        Route::get('/panel', [HomeController::class,'index'])->name('admin.panel');
+        Route::prefix('/admin')->group(function () {
+            Route::resource('/users',UserController::class)->except('show')->names('users.admin');
+            Route::resource('/meets',MeetsManagementController::class)->except('show')->names('meets.admin');
+            Route::resource('/appointment',AppointmentManagementController::class)->except('show')->names('appointments.admin');
+            Route::get('/panel', [HomeController::class,'index'])->name('admin.panel');
+        });
     });
-});
+
 
 //show user profile
 Route::group(['middleware'=>'auth'],function (){

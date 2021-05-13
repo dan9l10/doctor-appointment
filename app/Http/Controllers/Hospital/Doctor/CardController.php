@@ -10,7 +10,8 @@ class CardController extends Controller
 {
     public function index($id){
         $infoMeetForUser = Meet::where('id_user',$id)->with('times')->with('doctor')->get();
-        //dd($infoMeetForUser);
+
+        dd($infoMeetForUser);
         return view('hospital.user.doctor.index-card',compact('infoMeetForUser'));
     }
 }
