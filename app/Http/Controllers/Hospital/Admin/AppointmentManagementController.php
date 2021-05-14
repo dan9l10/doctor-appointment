@@ -97,16 +97,27 @@ class AppointmentManagementController extends Controller
      */
     public function edit($id)
     {
-        /*$appointments = Appointment::where([
-            ['date','2021-05-02'],
+        /*$times = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00',
+            '16:30','17:00','17:30','18:00'];
+        $appointments = Appointment::where([
+            ['date','2021-04-29'],
             ['doc_id','5']
         ])->first();
 
         if(!$appointments){
             return false;
         }
-        //dd($appointments->times);
-        //$appointments[0]->times[0]->delete();
+
+        $arr = [];
+        foreach ($appointments->times as $time){
+            $arrayNumbers = explode(':',$time->time);
+            array_pop($arrayNumbers);
+            $ImplodeTime = implode(':',$arrayNumbers);
+            array_push($arr,$ImplodeTime);
+        }
+
+        $result = array_diff($times,$arr);
+
         foreach ($appointments->times as $time){
             if ($time->status == 0){
                 $time->delete();
