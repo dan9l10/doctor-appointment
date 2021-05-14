@@ -49,9 +49,9 @@ class AppointmentManagementController extends Controller
         $docId = $request->get('doctor');
         $date = $request->get('date');
 
-        $chekAppointmenfForDoctor = (new Checker())->checkAppointmentForDoctor($docId,$date);
+        $chekAppointmentForDoctor = (new Checker())->checkAppointmentForDoctor($docId,$date);
 
-        if($chekAppointmenfForDoctor){
+        if($chekAppointmentForDoctor){
             return back()->withErrors(['msg'=>'Цей доктор має розклад на цю дату'])->withInput();
         }
 
@@ -97,11 +97,21 @@ class AppointmentManagementController extends Controller
      */
     public function edit($id)
     {
-        /*$appointments = Appointment::with('times')->where([
-            ['date','2021-04-22'],
-            ['doc_id','2']
+        /*$appointments = Appointment::where([
+            ['date','2021-05-02'],
+            ['doc_id','5']
         ])->first();
-        dd($appointments);*/
+
+        if(!$appointments){
+            return false;
+        }
+        //dd($appointments->times);
+        //$appointments[0]->times[0]->delete();
+        foreach ($appointments->times as $time){
+            if ($time->status == 0){
+                $time->delete();
+            }
+        }*/
     }
 
     /**
