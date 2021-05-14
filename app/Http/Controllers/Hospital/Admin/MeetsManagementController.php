@@ -18,7 +18,7 @@ class MeetsManagementController extends Controller
      */
     public function index()
     {
-        $meets = Meet::with('doctor')->with('times')->with('patient')->paginate(5);
+        $meets = Meet::with('doctor')->with('times')->with('patient')->orderBy('date','desc')->paginate(50);
         return view('hospital.admin.meet.index',compact('meets'));
     }
 
@@ -75,7 +75,6 @@ class MeetsManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'date'=>'required|date',
             'time'=>'required',
@@ -90,6 +89,9 @@ class MeetsManagementController extends Controller
         $meet->times->save();
         $meet->date = $request->get('date');
         $meet->time = $request->get('time');
+        if($request->get('date')>date('Y-m-d')) {
+            $meet->status = 0;
+        }
 
         $result = $meet->save();
 
