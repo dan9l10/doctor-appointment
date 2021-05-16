@@ -35,6 +35,9 @@ class CreateNewUser implements CreatesNewUsers
             'patronymic' => ['required', 'string', 'max:60'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone'=>'regex:/^\+380\d{3}\d{2}\d{2}\d{2}$/',
+            'weight'=>['max:300','min:5'],
+            'rise'=>['max:300','min:5'],
+            'DOB'=>['required'],
             'password' => $this->passwordRules(),
         ])->validate();
 
