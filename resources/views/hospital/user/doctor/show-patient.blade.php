@@ -31,7 +31,6 @@
         </div>
     @endif
     <div class="row">
-        <div class="">
             <div class="panel-body">
                 <table class="table table-striped ">
                     <thead class="thead-light" >
@@ -50,7 +49,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
     </div>
     <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
 </div>

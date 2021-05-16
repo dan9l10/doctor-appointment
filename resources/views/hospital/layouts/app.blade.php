@@ -71,7 +71,6 @@
                 <li><a href="{{route('root')}}" class="smoothScroll">Домашня сторінка</a></li>
                 <li><a href="#about" class="smoothScroll">Про нас</a></li>
                 <li><a href="{{route('doctors.show')}}" class="smoothScroll">Лікарі</a></li>
-                <li><a href="#news" class="smoothScroll">Новини</a></li>
                 <li><a href="#google-map" class="smoothScroll">Контакти</a></li>
                 <li class="appointment-btn"><a href="{{route('doctors.show')}}">Записатися на прийом</a></li>
                 @guest
