@@ -93,19 +93,27 @@ class AppointmentManagementController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        /*$times = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00',
+        $doctors = User::role('doctor')->get();
+        return view('hospital.admin.appointment.edit',compact('doctors'));
+    }
+
+    public function getAppointmentTimeToAdd(Request $request){
+
+
+        $times = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00',
             '16:30','17:00','17:30','18:00'];
+
         $appointments = Appointment::where([
-            ['date','2021-04-29'],
-            ['doc_id','5']
+            ['date',$request->get('date')],
+            ['doc_id',$request->get('idDoc')]
         ])->first();
 
         if(!$appointments){
-            return false;
+            return response()->noContent();
         }
 
         $arr = [];
@@ -118,11 +126,12 @@ class AppointmentManagementController extends Controller
 
         $result = array_diff($times,$arr);
 
-        foreach ($appointments->times as $time){
+        /*foreach ($appointments->times as $time){
             if ($time->status == 0){
                 $time->delete();
             }
         }*/
+        return response()->json($result);
     }
 
     /**
@@ -132,9 +141,22 @@ class AppointmentManagementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $appointment = Appointment::where([
+            ['date',$request->get('date')],
+            ['doc_id',$request->get('doctor')]
+        ])->first();
+        foreach ($request->get('time') as $time){
+            $newTime = new Time([
+                'status'=>0,
+                'time'=>$time,
+            ]);
+            $appointment->times()->save($newTime);
+        }
+
+        return redirect()->route('admin.appointment.edit')
+            ->with(['success'=>'Data added']);
     }
 
     /**

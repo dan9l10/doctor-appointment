@@ -15,7 +15,7 @@ class HomePageController extends Controller
      */
     public function index()
     {
-        $doctors = User::role('doctor')->with('specials')->with('members')->get();
+        $doctors = User::role('doctor')->with('specials')->with('members')->limit(3)->get();
         return view('hospital.index',compact('doctors'));
     }
 }

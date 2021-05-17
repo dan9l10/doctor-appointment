@@ -23,7 +23,7 @@ class Appointment extends Model
      * @return mixed
      */
     public function times(){
-        return $this->hasMany(Time::class);
+        return $this->hasMany(Time::class)->orderBy('time');
     }
 
 

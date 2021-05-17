@@ -38,9 +38,12 @@ Route::group(['middleware'=>['role:doctor']],function (){
         Route::prefix('/admin')->group(function () {
             Route::resource('/users',UserController::class)->except('show')->names('users.admin');
             Route::resource('/meets',MeetsManagementController::class)->except('show')->names('meets.admin');
-            Route::resource('/appointment',AppointmentManagementController::class)->except('show')->names('appointments.admin');
+            Route::resource('/appointment',AppointmentManagementController::class)->except(['show','edit','update'])->names('appointments.admin');
+            Route::get('/appointment/edit', [AppointmentManagementController::class,'edit'])->name('admin.appointment.edit');
+            Route::put('/appointment/update', [AppointmentManagementController::class,'update'])->name('admin.appointment.update');
             Route::get('/panel', [HomeController::class,'index'])->name('admin.panel');
         });
+        Route::get('/scope/time', [AppointmentManagementController::class,'getAppointmentTimeToAdd'])->name('admin.update.time');
     });
 
 
