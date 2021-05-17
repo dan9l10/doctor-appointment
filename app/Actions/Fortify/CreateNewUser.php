@@ -34,12 +34,13 @@ class CreateNewUser implements CreatesNewUsers
             'last_name' => ['required', 'string', 'max:60'],
             'patronymic' => ['required', 'string', 'max:60'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone'=>'regex:/^\+380\d{3}\d{2}\d{2}\d{2}$/',
-            'weight'=>['max:300','min:5'],
-            'rise'=>['max:300','min:5'],
+            'phone'=>['regex:/^\+380\d{3}\d{2}\d{2}\d{2}$/','unique:users'],
             'DOB'=>['required'],
             'password' => $this->passwordRules(),
         ])->validate();
+        $userData = [
+            'name'=>$input['name']
+        ];
 
         $user = User::create([
             'name' => $input['name'],
@@ -73,8 +74,9 @@ class CreateNewUser implements CreatesNewUsers
             'avatar'=>$public_path,
         ]);
         $user->members()->save($member);
-        dispatch(new SendWelcomeMail($input,$input['email']));
-        //(new Mailer())->sendWelcome($input['email'],$input);
+
+        dispatch(new SendWelcomeMail($userData,$input['email']));
+        //(new Mailer())->sendWelcome($input['email'],$input['name']);
         //Mail::to($input['email'])->send(new WelcomeMessage($input));
 
         return $user;

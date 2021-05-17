@@ -10,7 +10,7 @@
                         <p>{{$doctor->user->email}}</p>
                     </div>
                     <div class="additional-info-doc">
-                        <p><b>Стаж роботи: </b>{{($doctor->experience)}}</p>
+                        <p><b>Стаж роботи: </b>{{($doctor->experience)}} років</p>
                         <p><b>Ціна прийому від: </b>{{($doctor->price)? $doctor->price.'грн':'Уточнюйте з лікарем'}}</p>
                     </div>
                     <div class="btn-appointment">

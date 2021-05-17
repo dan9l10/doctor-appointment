@@ -111,7 +111,7 @@ class ProfileController extends Controller
     {
         if($request->file('avatar')){
             $request->validate([
-                'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,jfif|max:2048',
             ]);
             $currentUser = auth()->user();
             $avatar = $request->file('avatar');
@@ -119,7 +119,7 @@ class ProfileController extends Controller
             $save_path = storage_path('app/public/avatar/users/id/'.$currentUser->id.'/');
             $path = $save_path.$filename;
             File::makeDirectory($save_path, $mode = 0755, true, true);
-            Image::make($avatar)->resize(300, 300)->save($path);
+            Image::make($avatar)->resize(350, 300)->save($path);
             $public_path = '/storage/avatar/users/id/'.$currentUser->id.'/'.$filename;
             $currentUser->members->avatar = $public_path;
             $currentUser->members->save();

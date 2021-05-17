@@ -3,6 +3,9 @@
 @section('content')
     <link href="/user/profile/css/profile.css" rel="stylesheet">
     <div class="container">
+        @if($infoMeetForUser->count()===0)
+            <h1>Попередніх записів немає</h1>
+        @else
 
         @foreach($infoMeetForUser as $data)
 
@@ -20,6 +23,7 @@
 
         </div>
         @endforeach
+        @endif
     </div>
 
 
