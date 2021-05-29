@@ -7,7 +7,7 @@
 </style>
 <table border="1">
     <tr>
-        <td>Врач</td><td>{{$data['doctor_name']}} {{$data['doctor_lastname']}} {{$data['doctor_patronymic']}}</td>
+        <td>Врач</td><td>{{$data['doctor_lastname']}} {{$data['doctor_name']}} {{$data['doctor_patronymic']}}</td>
     </tr>
     <tr>
         <td>Дата</td><td>{{$data['date']}}</td>

@@ -32,10 +32,10 @@
                             <div class="col-md-9">
                                 <h4>
                                     <b>
-                                        {{$appointments->user->name}} {{$appointments->user->last_name}} {{$appointments->user->patronymic}}
+                                        {{$appointments->user->last_name}} {{$appointments->user->name}} {{$appointments->user->patronymic}}
                                     </b>
                                 </h4>
-                                <p><b><i class="fa fa-money" aria-hidden="true"></i> Ціна прийому від:</b> {{($appointments->price)? $appointments->price.'грн':'Уточнюйте з лікарем'}}</p>
+                                <p><b><i class="fa fa-money" aria-hidden="true"></i> Вартість прийому від:</b> {{($appointments->price)? $appointments->price.'грн':'Уточнюйте з лікарем'}}</p>
                                 <p><b><i class="fa fa-id-card" aria-hidden="true"></i> Стаж лікаря:</b> {{$appointments->experience}}</p>
                             </div>
 

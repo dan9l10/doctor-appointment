@@ -7,7 +7,7 @@
             <div class="panel meet-info">
                 <div class="panel-body">
                     <div class="col-md-6">
-                        <a href="{{route('appointment.index',$meet->doctor->id)}}" class="doctor-meet-name"><b>{{$meet->doctor->name}} {{$meet->doctor->patronymic}} {{$meet->doctor->last_name}}</b></a>
+                        <a href="{{route('appointment.index',$meet->doctor->id)}}" class="doctor-meet-name"><b>{{$meet->doctor->last_name}} {{$meet->doctor->name}} {{$meet->doctor->patronymic}} </b><span>({{$meet->doctor->specials[0]->name}})</span></a>
                         <div class="col-md-12 meet-info-body">
                             <p>ВАШ ЗАПИС</p>
                             <p>Тип запису: <b>{{($meet->type==='online')? 'Відео зв\'язок' : 'Зустріч з лікарем'}}</b></p>
