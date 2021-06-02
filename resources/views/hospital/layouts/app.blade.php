@@ -72,7 +72,11 @@
                 <li><a href="#about" class="smoothScroll">Про нас</a></li>
                 <li><a href="{{route('doctors.show')}}" class="smoothScroll">Лікарі</a></li>
                 <li><a href="#google-map" class="smoothScroll">Контакти</a></li>
-                <li class="appointment-btn"><a href="{{route('doctors.show')}}">Записатися на прийом</a></li>
+                @guest
+                    <li class="appointment-btn"><a href="{{route('doctors.show')}}">Записатися на прийом</a></li>
+                @elseif(auth()->user()->hasRole('patient'))
+
+                @endguest
                 @guest
                 @else
                     <li><a class="smoothScroll" href="{{ route('user.profile',Auth::user()->id) }}"><b>МІЙ КАБІНЕТ</b></a></li>
