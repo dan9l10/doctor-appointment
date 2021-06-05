@@ -18,16 +18,16 @@
                         </ul>
                     </div>
                 @endif
-                <a class="btn btn-primary m-2" href="{{ route('users.admin.create') }}">Добавить</a>
+                <a class="btn btn-primary m-2" href="{{ route('users.admin.create') }}">Створити</a>
             </div>
             <div class="card-body">
                 <table class="table table-striped ">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Ім'я</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">Роль</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,11 +39,11 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->role}}</td>
-                            <td><a class="btn btn-primary mr-2" href=" {{ route('users.admin.edit', $user->id) }}" role="button">Изменить</a>
+                            <td><a class="btn btn-primary mr-2" href=" {{ route('users.admin.edit', $user->id) }}" role="button">Змінити</a>
                                 <form method="post" style="display: contents;" action="{{ route('users.admin.destroy',$user->id) }}" class="form-contents">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                    <button type="submit" class="btn btn-danger">Видалити</button>
                                 </form>
                             </td>
                         </tr>

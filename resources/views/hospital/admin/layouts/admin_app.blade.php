@@ -198,7 +198,7 @@
                         <a href="{{route('meets.admin.index')}}" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
-                                Изменить запись
+                                Змінити запис
                                 <span class="badge badge-info right">@yield('countMeets')</span>
                             </p>
                         </a>

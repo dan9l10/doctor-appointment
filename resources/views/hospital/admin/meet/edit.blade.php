@@ -19,13 +19,14 @@
         <form class="ml-2" method="post" action="{{route('meets.admin.update',$meets->id)}}">
             @method('PATCH')
             @csrf
+            <p><b>Поточні дані</b></p>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="doctor">Доктор</label>
+                    <label for="doctor">Лікар</label>
                     <p class="form-control" id="doctor" >{{$meets->doctor->name}} {{$meets->doctor->last_name}} {{$meets->doctor->patronymic}}</p>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="patient">Пациент</label>
+                    <label for="patient">Пацієнт</label>
                     <p class="form-control" id="patient" >{{$meets->patient->name}} {{$meets->patient->last_name}} {{$meets->patient->patronymic}} </p>
                 </div>
                 <div class="form-group col-md-6">
@@ -33,30 +34,30 @@
                     <p class="form-control" id="date" >{{$meets->date}} </p>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="time_old">Время </label>
+                    <label for="time_old">Час </label>
                     <p type="time_old" class="form-control" id="time_old">{{$meets->times->time}}</p>
                 </div>
             </div>
-            <p><b>Данные для изменения записи</b></p>
+            <p><b>Нові дані для запису</b></p>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="date">Новая дата</label>
+                    <label for="date">Дата</label>
                     <input name="date" type="date" class="form-control ui-datepicker" id="date" onchange="refresh({{$meets->doctor->id}})" value="{{date('Y-m-d')}}" min="">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="time">Выберите новое время</label>
+                    <label for="time">Оберіть новий час</label>
                     <div id="times">
 
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="form-group col-md-6">
-                    <label for="status">Статус (0 - в ожидании, 1 - закончилась)</label>
-                    <input name="status" type="text" class="form-control" id="status" placeholder="{{($meets->status)? "Закончилась" : "В ожидании"}}">
+                <div class="form-group">
+                    <div class="form-group col-md-12">
+                        <label for="status">Статус заявки</label>
+                        <input name="status" type="text" class="form-control" id="status" placeholder="{{($meets->status)? "Завершено" : "Очікується"}}">
+                    </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Зберегти</button>
             <a href="{{url()->previous()}}" class="btn ">Back</a>
         </form>
     </div>
