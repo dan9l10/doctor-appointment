@@ -4,11 +4,11 @@
     <link href="/user/profile/css/profile.css" rel="stylesheet">
 <div class="container bootstrap snippets">
     @if ($message = Session::get('success'))
-        <div class="alert alert-success col-md-12 row">
+        <div class="alert alert-success col-md-12">
             <p>{{$message}}</p>
         </div>
     @elseif($errors->any())
-        <div class="alert alert-danger col-md-12 row">
+        <div class="alert alert-danger col-md-12">
             <strong>Error!</strong>
             <ul>
                 @foreach ($errors->all() as $error)

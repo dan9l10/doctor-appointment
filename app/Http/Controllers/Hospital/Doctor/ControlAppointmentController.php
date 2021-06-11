@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\GeneratePdf;
 use App\Services\Mailer;
 use App\Services\PathCreator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -86,8 +87,12 @@ class ControlAppointmentController extends Controller
      */
     public function show($id)
     {
-        $meets = Meet::where('id',$id)->with('patient')->with('userAsMember')->with('times')->with('analyzes')->first();
-        $diagnosis = Meet::with('patient')->with('userAsMember')->with('times')->with('analyzes')->where('id_user',$meets->patient->id)->get();
+        try {
+            $meets = Meet::where('id',$id)->where('id_doc',auth()->user()->id)->with('patient')->with('userAsMember')->with('times')->with('analyzes')->first();
+            $diagnosis = Meet::with('patient')->with('userAsMember')->with('times')->with('analyzes')->where('id_user',$meets->patient->id)->get();
+        }catch (\Exception $exception){
+            return back()->withErrors('Appointments not found')->withInput();
+        }
 
         $paths = $meets->analyzes->pluck('path');
         $pinnedFiles = '';
